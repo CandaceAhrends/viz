@@ -1,0 +1,53 @@
+.side-nav {
+  .active {
+    color: var(--brand-blue);
+  }
+  li {
+    cursor: pointer;
+    .selected {
+      background: rgb(0, 189, 221);
+      background: radial-gradient(
+        circle,
+        rgba(0, 189, 221, 1) 0%,
+        rgba(8, 9, 9, 1) 88%,
+        rgba(10, 10, 10, 1) 100%
+      );
+
+      position: absolute;
+      left: 9.5%;
+      top: 1rem;
+      width: 7.1rem;
+      transform: rotate(90deg);
+    }
+    .hidden {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .main-nav {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    ul {
+      display: flex;
+      align-content: center;
+      padding: 0 7rem;
+
+      svg {
+        width: 3rem;
+        height: 3rem;
+      }
+      :hover {
+        cursor: pointer;
+      }
+
+      li {
+        .selected {
+          display: none;
+        }
+      }
+    }
+  }
+}

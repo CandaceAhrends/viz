@@ -5,10 +5,14 @@ import GlobeSvg from '../images/GlobeSvg';
 import PeopleSvg from '../images/PeopleSvg';
 import ArrowSvg from '../images/ArrowSvg';
 import ConfigSvg from '../images/ConfigSvg';
+import { Link } from 'react-router-dom';
 
 import './Navigation.scss';
 
-const images = [ViewSvg, GlobeSvg, ArrowSvg, PeopleSvg, ConfigSvg];
+const routes = [
+  { IconSvg: ViewSvg, path: '/' },
+  { IconSvg: ArrowSvg, path: 'charts' },
+];
 
 const Navigation = () => {
   return (
@@ -20,16 +24,18 @@ const Navigation = () => {
       </ul>
       <div className="min-h-[536px] main-nav">
         <ul className="flex flex-row fixed bottom-0 md:flex-col md:relative md:mt-[25px] side-nav">
-          {images.map((SvgComponent, index) => (
+          {routes.map((route, index) => (
             <li
               key={index}
               className={`p-2 flex justify-center  text-neutral-400 ${
-                index === 2 ? 'active' : ''
+                index === 1 ? 'active' : ''
               } hover:text-brand-blue relative  `}
             >
-              <SvgComponent />
+              <Link to={route.path}>
+                <route.IconSvg />
+              </Link>
               <div
-                className={`h-[.1rem] ${index === 2 ? 'selected' : 'hidden'}`}
+                className={`h-[.1rem] ${index === 1 ? 'selected' : 'hidden'}`}
               ></div>
             </li>
           ))}

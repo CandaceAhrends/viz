@@ -1,0 +1,16 @@
+.bullish-gradient-btn {
+  background: rgb(15, 237, 190);
+  background: linear-gradient(
+    0deg,
+    rgba(15, 237, 190, 0.2) 5%,
+    rgba(248, 251, 251, 0) 100%
+  );
+}
+.bearish-gradient-btn {
+  background: rgb(237, 37, 15);
+  background: linear-gradient(
+    0deg,
+    rgba(254, 40, 16, 0.2) 5%,
+    rgba(248, 251, 251, 0) 100%
+  );
+}

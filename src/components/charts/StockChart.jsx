@@ -1,11 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Chart from 'react-apexcharts';
 import { CHART_OPTIONS } from '../../consts';
+import dayjs from 'dayjs';
 
-const StockChart = ({ data }) => {
+const StockChart = ({ data, symbol }) => {
   const [options, setOptions] = useState({
     options: {
       ...CHART_OPTIONS,
+      title: {
+        text: symbol,
+      },
     },
     series: [
       {
@@ -18,7 +22,7 @@ const StockChart = ({ data }) => {
     try {
       // fetch data
       const chartData = data.map((item) => ({
-        x: new Date(item.t),
+        x: item.t,
         y: [item.o, item.h, item.l, item.c],
       }));
       setOptions({

@@ -63,9 +63,9 @@ const Scan = () => {
         />
       </section>
 
-      <section className="mt-[10rem]">
+      <section className="flex justify-center mt-[1rem] mb-10">
         <button
-          className="w-full h-[3rem] bg-green text-black"
+          className="w-1/2  rounded-full h-[3rem] bg-green text-black"
           onClick={handleSend}
         >
           Send

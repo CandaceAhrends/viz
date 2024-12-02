@@ -22,7 +22,7 @@ const Feed = () => {
   }, [selectedStock]);
 
   return (
-    <ul className="max-w-[80%] divide-y divide-gray-200 p-0 overflow-y-auto h-[30rem]">
+    <ul className="max-w-full divide-y divide-gray-200 p-0 overflow-y-auto h-[30rem]">
       {news.map((item) => (
         <li key={item.id} className="flex pb-5">
           <div className="w-[15rem] mr-10 text-green">

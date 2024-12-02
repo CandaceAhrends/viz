@@ -24,6 +24,40 @@
     }
   }
 }
+.sidebar-container {
+  position: relative;
+}
+
+.sidebar {
+  position: fixed;
+  top: 2rem;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  background-color: #0a0a0a;
+  border-left: 0.5px solid #343536;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar.closed {
+  transform: translateX(100%);
+}
+
+.sidebar h2 {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.sidebar p {
+  padding: 1rem;
+  text-align: center;
+}
 
 @media (max-width: 768px) {
   .main-nav {

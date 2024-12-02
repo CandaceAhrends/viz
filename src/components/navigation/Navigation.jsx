@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../../assets/logo.svg';
+import Logo from '../../assets/Logo.svg';
 import ViewSvg from '../images/ViewSvg';
 import GlobeSvg from '../images/GlobeSvg';
 import PeopleSvg from '../images/PeopleSvg';
@@ -7,7 +7,7 @@ import ArrowSvg from '../images/ArrowSvg';
 import ConfigSvg from '../images/ConfigSvg';
 import { Link } from 'react-router-dom';
 
-import './Navigation.scss';
+import './navigation.scss';
 
 const routes = [
   { IconSvg: ViewSvg, path: '/' },

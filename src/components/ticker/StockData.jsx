@@ -31,23 +31,13 @@ const StockData = () => {
       <div className="column grow">
         <div className="flex flex-col h-full">
           <div className="flex justify-between mr-20">
-            <span className="text-brand-grey">Open</span>
+            {/* <span className="text-brand-grey">Open</span> */}
             <span>{data?.type}</span>
           </div>
           <div className="flex justify-between  mr-20">
-            <span className="text-brand-grey">Exchange</span>
+            {/* <span className="text-brand-grey">Exchange</span> */}
             <span>{data?.primary_exchange}</span>
           </div>
-        </div>
-      </div>
-      <div className="flex flex-col grow">
-        <div className="flex justify-between  mr-5">
-          <span>Open</span>
-          <span>3</span>
-        </div>
-        <div className="flex justify-between  mr-5">
-          <span>Open</span>
-          <span>3</span>
         </div>
       </div>
     </div>

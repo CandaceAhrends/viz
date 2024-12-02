@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RELATED_CO_URI } from '../consts';
+import { POLY_SERVICES_URI } from '../consts';
 
 interface Related {
   ticker: string;
@@ -7,11 +7,11 @@ interface Related {
 
 export const relatedApiSlice = createApi({
   reducerPath: 'relatedApi',
-  baseQuery: fetchBaseQuery({ baseUrl: RELATED_CO_URI }),
+  baseQuery: fetchBaseQuery({ baseUrl: POLY_SERVICES_URI }),
   endpoints: (builder) => ({
     getRelated: builder.query<Related[], void>({
       query: (symbol) => {
-        return `/${symbol}`;
+        return `/related/${symbol}`;
       },
     }),
   }),

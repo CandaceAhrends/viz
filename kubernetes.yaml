@@ -18,7 +18,7 @@ spec:
       - name: marketviz-app
         image: 968950512948.dkr.ecr.us-east-1.amazonaws.com/marketviz:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 80
       imagePullSecrets:
       - name: ecr-secret
 ---

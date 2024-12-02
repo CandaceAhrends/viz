@@ -1,26 +1,13 @@
 import axios from 'axios';
 import {
-  STOCK_SCANNER_URI,
-  STOCK_API_URI,
-  NEWS_API_URI,
+  POLY_SERVICES_URI,
   CONFIG_SCANNER_URI,
-  POLY_DETAIL_URI,
   POLY_TICKER_URI,
 } from './consts';
 
-export const fetchScanResults = async () => {
-  try {
-    const response = await axios.get(`${STOCK_SCANNER_URI}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
-  }
-};
-
 export const fetchStockData = async (symbol) => {
   try {
-    const response = await axios.get(`${STOCK_API_URI}/${symbol}`);
+    const response = await axios.get(`${POLY_SERVICES_URI}/agg/${symbol}`);
     return response.data?.results;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -30,7 +17,7 @@ export const fetchStockData = async (symbol) => {
 
 export const fetchNews = async (symbol) => {
   try {
-    const response = await axios.get(`${NEWS_API_URI}/${symbol}`);
+    const response = await axios.get(`${POLY_SERVICES_URI}/news/${symbol}`);
     return response.data?.results;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -50,7 +37,7 @@ export const postConfig = async (config) => {
 
 export const fetchPolyDetail = async (symbol) => {
   try {
-    const response = await axios.get(`${POLY_DETAIL_URI}/${symbol}`);
+    const response = await axios.get(`${POLY_SERVICES_URI}/detail/${symbol}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -60,7 +47,7 @@ export const fetchPolyDetail = async (symbol) => {
 
 export const fetchPolyTicker = async (symbol) => {
   try {
-    const response = await axios.get(`${POLY_TICKER_URI}/${symbol}`);
+    const response = await axios.get(`${POLY_SERVICES_URI}/ticker/${symbol}`);
     return response?.data?.results;
   } catch (error) {
     console.error('Error fetching data:', error);

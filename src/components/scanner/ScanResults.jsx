@@ -15,7 +15,7 @@ const ScanResults = () => {
 
   useEffect(() => {
     if (!socket) {
-      const ws = new WebSocket('ws://localhost:7775');
+      const ws = new WebSocket('ws://www.stockmarketviz.com:7775');
       socket = ws;
       socket.onmessage = (event) => {
         const data = JSON.parse(event.data);

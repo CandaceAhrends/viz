@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { PYTHON_CHART_URI } from '../consts';
 
 export type Channel = 'redux' | 'general';
 
@@ -33,7 +32,7 @@ export const chartApiSlice = createApi({
       ) {
         // create a websocket connection when the cache subscription starts
         // const ws = new WebSocket('ws://stockmarketviz.com/stocksocket');
-        const ws = new WebSocket('ws://localhost:8082');
+        const ws = new WebSocket('ws://www.stockmarketviz.com:8082');
 
         try {
           // wait for the initial query to resolve before proceeding

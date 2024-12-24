@@ -1,6 +1,5 @@
-export const STOCK_SCANNER_URI = 'http://localhost:7771';
-export const POLY_SERVICES_URI = 'http://localhost:7007';
-export const PYTHON_CHART_URI = 'http://localhost:8778/chart';
+export const STOCK_SCANNER_URI = 'http://www.stockmarketviz.com:7771';
+export const POLY_SERVICES_URI = 'http://www.stockmarketviz.com:7007';
 
 export const CHART_OPTIONS = {
   chart: {

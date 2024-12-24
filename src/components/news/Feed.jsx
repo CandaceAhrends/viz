@@ -1,11 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { StockContext } from '../../StockContext';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchNews } from '../../services';
 import { formatDate } from '../../utils';
 
 const Feed = () => {
   const [news, setNews] = useState([]);
   const { selectedStock } = useContext(StockContext);
+  const isScannerOpen = useAppSelector((state) => state.scanner.isScannerOpen);
 
   useEffect(() => {
     const fetch = async () => {
@@ -22,13 +24,17 @@ const Feed = () => {
   }, [selectedStock]);
 
   return (
-    <ul className="max-w-full divide-y divide-gray-200 p-0 overflow-y-auto h-[30rem]">
+    <ul
+      className={`${
+        isScannerOpen ? 'md:w-[30%] lg:w-[47%]' : 'max-w-full'
+      }  p-0 overflow-y-auto h-[30rem] mt-10 z-1 h-[calc(100vh-25rem)] md:h-[calc(100vh-38rem)]`}
+    >
       {news.map((item) => (
         <li key={item.id} className="flex pb-5">
-          <div className="w-[15rem] mr-10 text-green">
+          <div className="md:hidden text-sm md:mr-10 lg:mr-0 text-green min-w-[7rem] lg:block pl-5">
             {formatDate(item.published_utc)}
           </div>
-          <div className="text-slate-300 text-sm w-[50rem]">
+          <div className="text-slate-300 text-sm pl-1 lg:ml-0">
             {item.description}
           </div>
         </li>

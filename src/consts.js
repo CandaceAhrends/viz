@@ -1,13 +1,10 @@
-export const STOCK_SCANNER_URI = 'http://stockmarketviz.com';
-export const POLY_SERVICES_URI = 'http://stockmarketviz.com/poly-services';
-export const CONFIG_SCANNER_URI = 'http://localhost:8909/pubconfig';
-export const EARNINGS_URI = 'http://localhost:8585';
+export const STOCK_SCANNER_URI = 'http://localhost:7771';
+export const POLY_SERVICES_URI = 'http://localhost:7007';
 export const PYTHON_CHART_URI = 'http://localhost:8778/chart';
 
 export const CHART_OPTIONS = {
   chart: {
     type: 'candlestick',
-    height: 350,
   },
   series: [
     {

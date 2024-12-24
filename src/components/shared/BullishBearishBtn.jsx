@@ -8,11 +8,11 @@ const BullishBearishBtn = ({ text, bullish, active, onClick }) => {
         bullish
           ? `${
               active ? 'bullish-gradient-btn' : 'bg-slate-900 border-none'
-            } text-green border-green hover:bg-black`
+            } text-green border-green hover:bg-black hover:cursor-pointer`
           : `${
               active ? 'bearish-gradient-btn' : 'bg-slate-900 border-none'
-            } text-red border-red hover:bg-black`
-      }  h-[4rem] w-1/2 border-b shadow-md`}
+            } text-red border-red hover:bg-black hover:cursor-pointer`
+      }  h-[4rem] w-[100%] border-b shadow-md   `}
       onClick={onClick}
     >
       {text}

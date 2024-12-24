@@ -1,0 +1,91 @@
+.header {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.header h1 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+}
+
+.header h1 span {
+  background-color: #07f8b5;
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 120px;
+  text-align: center;
+}
+
+.card img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.card .stock-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.card .stock-change {
+  font-size: 14px;
+}
+
+.card .positive {
+  color: #28a745;
+}
+
+.card .negative {
+  color: #dc3545;
+}
+
+.description {
+  text-align: center;
+  margin: 40px 20px;
+}
+
+.description h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.description p {
+  font-size: 16px;
+  color: #666;
+  margin: 10px 0;
+}
+
+.cta {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.cta button {
+  background-color: #07f8b5;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+.cta button:hover {
+  background-color: #07f8b5;
+}

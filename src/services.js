@@ -1,9 +1,5 @@
 import axios from 'axios';
-import {
-  POLY_SERVICES_URI,
-  CONFIG_SCANNER_URI,
-  POLY_TICKER_URI,
-} from './consts';
+import { POLY_SERVICES_URI } from './consts';
 
 export const fetchStockData = async (symbol) => {
   try {
@@ -27,7 +23,7 @@ export const fetchNews = async (symbol) => {
 
 export const postConfig = async (config) => {
   try {
-    const response = axios.post(`${CONFIG_SCANNER_URI}`, config);
+    const response = axios.post(`${POLY_SERVICES_URI}/pubconfig`, config);
     return response.data;
   } catch (error) {
     console.error('Error posting scanner config:', error);

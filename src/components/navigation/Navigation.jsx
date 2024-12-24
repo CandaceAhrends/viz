@@ -15,10 +15,11 @@ const routes = [
 ];
 
 const Navigation = () => {
+  const [selected, setSelected] = React.useState(0);
   return (
     <nav className="fixed flex-row bottom-0 h-[4rem] md:static md:h-full md:w-[4rem] md:flex-shrink-0  md:border-r md:border-black-900  bg-[#050505] ">
       <ul className="p-4">
-        <li className="fixed top-0 right-0 p-2 md:relative md:p-0 md:mx-auto">
+        <li className="fixed hidden top-0 right-0 p-2 md:relative md:p-0 md:mx-auto md:block">
           <img src={Logo}></img>
         </li>
       </ul>
@@ -27,15 +28,18 @@ const Navigation = () => {
           {routes.map((route, index) => (
             <li
               key={index}
+              onClick={() => setSelected(index)}
               className={`p-2 flex justify-center  text-neutral-400 ${
-                index === 1 ? 'active' : ''
+                index === selected ? 'active' : ''
               } hover:text-brand-blue relative  `}
             >
               <Link to={route.path}>
                 <route.IconSvg />
               </Link>
               <div
-                className={`h-[.1rem] ${index === 1 ? 'selected' : 'hidden'}`}
+                className={`h-[.1rem] ${
+                  index === selected ? 'selected' : 'hidden'
+                }`}
               ></div>
             </li>
           ))}

@@ -3,10 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
+    "nginx": "nginx -c /Users/username/Projects/marketviz/nginx.conf",
     "build": "vite build",
+    "deploy": "npm run build && sudo cp -r dist/* /usr/share/nginx/html/ && sudo systemctl restart nginx",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "dev-local": "vite --host 0.0.0.0 ",
     "server": "npx babel server.js --out-dir app",
     "start-server": "npm run server && node app/server.js",
@@ -30,7 +31,9 @@
     "react-apexcharts": "^1.6.0",
     "react-dom": "^19.0.0-beta-26f2496093-20240514",
     "react-redux": "^9.1.2",
-    "react-router-dom": "^6.28.0"
+    "react-router-dom": "^6.28.0",
+    "react-slider": "^2.0.6",
+    "react-use-websocket": "^4.11.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.7",

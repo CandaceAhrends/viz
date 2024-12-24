@@ -21,7 +21,7 @@ export const stocksApiSlice = createApi({
   endpoints: (builder) => ({
     getStocks: builder.query<Stock[], void>({
       query: () => {
-        return `/read`;
+        return `/topvolume`;
       },
     }),
   }),

@@ -1,23 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ScannerState {
-  bullish: boolean;
+  isScannerOpen: boolean;
 }
 
 const initialState: ScannerState = {
-  bullish: false,
+  isScannerOpen: false,
 };
 
 const scannerSlice = createSlice({
   name: 'scanner',
   initialState,
   reducers: {
-    setBullish(state, action: PayloadAction<boolean>) {
-      state.bullish = action.payload; // This is the action.payload that is passed to the reducer
+    setOpen(state, action: PayloadAction<boolean>) {
+      state.isScannerOpen = action.payload;
     },
   },
 });
 
-export const { setBullish } = scannerSlice.actions;
+export const { setOpen } = scannerSlice.actions;
 
 export default scannerSlice.reducer;

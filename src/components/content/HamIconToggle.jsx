@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
-
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setOpen } from '../../features/scannerSlice';
 const HAM_CLASSES = 'w-5 h-[.2rem] rounded-full bg-white';
 
 const HamIconToggle = ({ Menu }) => {
-  const [sideMenuOpen, setSideMenuOpen] = React.useState(false);
-
+  const isScannerOpen = useAppSelector((state) => state.scanner.isScannerOpen);
+  const dispatch = useAppDispatch();
+  const setSideMenuOpen = () => dispatch(setOpen(!isScannerOpen));
   return (
-    <div className="mr-[2rem]">
+    <div className="mr-[1.2rem]">
       <ul
         className={`group ${
-          sideMenuOpen ? 'is-open' : ''
+          isScannerOpen ? 'is-open' : ''
         } flex flex-col items-center gap-1 cursor-pointer `}
-        onClick={() => setSideMenuOpen(!sideMenuOpen)}
+        onClick={() => setSideMenuOpen(!isScannerOpen)}
       >
         <li
           className={`${HAM_CLASSES} transition group-[.is-open]:rotate-45 group-[.is-open]:translate-y-2`}
@@ -23,7 +25,7 @@ const HamIconToggle = ({ Menu }) => {
           className={`${HAM_CLASSES} group-[.is-open]:-rotate-45 group-[.is-open]:-translate-y-[.4rem]`}
         ></li>
       </ul>
-      <Menu isOpen={sideMenuOpen} />
+      <Menu />
     </div>
   );
 };

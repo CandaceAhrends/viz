@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
 import Scan from '../scanner/Scan.jsx';
-import SectionTabs from '../shared/SectionTabs.jsx';
-import Earnings from '../news/Earnings.jsx';
 import ScanResults from '../scanner/ScanResults.jsx';
+import { useAppSelector } from '../../hooks';
 import './navigation.scss';
 
-const tabs = [
-  {
-    tabTitle: 'Stocks',
-    component: <ScanResults />,
-  },
-  { tabTitle: 'Earnings', component: <Earnings /> },
-];
-
-const SideMenu = ({ isOpen }) => {
+const SideMenu = () => {
+  const isScannerOpen = useAppSelector((state) => state.scanner.isScannerOpen);
   return (
-    <div className="sidebar-container">
-      <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
+    <div className="sidebar-container z-[999]">
+      <div
+        className={`sidebar bg-gray-800 text-white h-full overflow-hidden ${
+          isScannerOpen ? 'open' : 'closed'
+        } transition-all duration-500`}
+      >
         <Scan />
-        <SectionTabs tabs={tabs} />
+        <ScanResults />,
       </div>
     </div>
   );

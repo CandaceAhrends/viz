@@ -4,7 +4,7 @@ import { createContext } from 'react';
 export const StockContext = createContext();
 
 const StockProvider = ({ children }) => {
-  const [selectedStock, setSelectedStock] = useState('');
+  const [selectedStock, setSelectedStock] = useState('UPST');
 
   return (
     <StockContext.Provider value={{ selectedStock, setSelectedStock }}>

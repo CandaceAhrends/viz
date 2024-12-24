@@ -1,21 +1,40 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { PYTHON_CHART_URI } from '../consts';
+
 export type Channel = 'redux' | 'general';
+
+class StockList {
+  stocks: string[];
+  constructor() {
+    this.stocks = [];
+  }
+  setStocks(stocks: []) {
+    this.stocks = stocks;
+  }
+  getStocks() {
+    return this.stocks;
+  }
+}
+const stockList = new StockList();
 
 export const chartApiSlice = createApi({
   reducerPath: 'chartApi',
+
   baseQuery: fetchBaseQuery({ baseUrl: PYTHON_CHART_URI }),
   endpoints: (build) => ({
     getChart: build.query<Message[], Channel>({
-      queryFn() {
+      queryFn(stocks) {
+        stockList.setStocks(stocks);
         return { data: [] };
       },
       async onCacheEntryAdded(
-        arg,
+        stocks,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
         // create a websocket connection when the cache subscription starts
-        const ws = new WebSocket('ws://localhost:8091');
+        // const ws = new WebSocket('ws://stockmarketviz.com/stocksocket');
+        const ws = new WebSocket('ws://localhost:8082');
+
         try {
           // wait for the initial query to resolve before proceeding
           await cacheDataLoaded;
@@ -23,14 +42,19 @@ export const chartApiSlice = createApi({
             console.log('opened socket');
           };
           ws.onmessage = function (event) {
-            const json = JSON.parse(event.data);
-            console.log(`[message] Data received from server: ${json}`);
+            const data = JSON.parse(event.data);
+
             try {
-              if ((json.event = 'data')) {
+              if (stockList.getStocks().includes(data?.symbol)) {
                 updateCachedData((draft) => {
-                  draft.push(json);
+                  const symbol = data.symbol;
+                  const txns = draft.find((txn) => txn.symbol === symbol) || {
+                    symbol,
+                    data: [],
+                  };
+                  const updatedTxns = { ...txns, data: [...txns.data, data] };
+                  draft.push(updatedTxns);
                 });
-                console.log(json.data);
               }
             } catch (err) {}
           };

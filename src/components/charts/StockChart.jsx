@@ -1,52 +1,28 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Chart from 'react-apexcharts';
 import { CHART_OPTIONS } from '../../consts';
-import dayjs from 'dayjs';
 
-const StockChart = ({ data, symbol }) => {
+const StockChart = ({ txns, symbol }) => {
+  const [series, setSeries] = useState([]);
   const [options, setOptions] = useState({
-    options: {
-      ...CHART_OPTIONS,
-      title: {
-        text: symbol,
-      },
+    ...CHART_OPTIONS,
+    title: {
+      text: symbol,
     },
-    series: [
-      {
-        data: [],
-      },
-    ],
   });
 
   useEffect(() => {
-    try {
-      // fetch data
-      const chartData = data.map((item) => ({
-        x: item.t,
-        y: [item.o, item.h, item.l, item.c],
-      }));
-      setOptions({
-        options: {
-          ...CHART_OPTIONS,
-        },
-        series: [
-          {
-            data: chartData,
-          },
-        ],
-      });
-    } catch (error) {
-      console.error('Error fetching chart data:', error);
+    if (txns && txns.length > 0) {
+      setSeries([{ data: txns }]);
     }
-  }, [data]);
+  }, [txns]);
 
   return (
     <Chart
       className="text-black mr-3"
-      options={options.options}
-      series={options.series}
+      options={options}
+      series={series}
       type="candlestick"
-      height={350}
     />
   );
 };

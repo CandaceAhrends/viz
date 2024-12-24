@@ -14,3 +14,41 @@
     rgba(248, 251, 251, 0) 100%
   );
 }
+
+.slider-container {
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  text-align: center;
+  color: white;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.horizontal-slider {
+  height: 10px;
+  background: #1a1a1a;
+  border-radius: 5px;
+  position: relative;
+}
+
+.track {
+  background: #007bff;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.thumb {
+  height: 20px;
+  width: 20px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: grab;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  position: relative;
+  top: -0.3rem;
+}

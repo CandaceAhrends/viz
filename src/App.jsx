@@ -3,6 +3,7 @@ import Navigation from './components/navigation/Navigation.jsx';
 import Container from './components/content/Container.jsx';
 import StockProvider from './StockContext.jsx';
 import { BrowserRouter } from 'react-router-dom';
+import './app.scss';
 
 function App() {
   return (

@@ -1,0 +1,31 @@
+// FEFEFE
+// red 490517
+// green 2A4037
+// red font FF5361
+// green font  07F8B5
+// white font FBFBFB
+// grey backgroudn 767676
+// light grey font BDBDBD
+
+.button {
+  background-color: #767676;
+  width: 8rem;
+  height: 2.9rem;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 1rem;
+  border-radius: 5%;
+  cursor: pointer;
+  &.selected {
+    background-color: #2a4037;
+    color: #fbfbfb;
+  }
+}
+
+.scrollable-list {
+  height: calc(100vh - 23rem);
+}

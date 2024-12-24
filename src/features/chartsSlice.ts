@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
 export type Channel = 'redux' | 'general';
+
+const PYTHON_CHART_URI = 'http://localhost:8000';
 
 class StockList {
   stocks: string[];

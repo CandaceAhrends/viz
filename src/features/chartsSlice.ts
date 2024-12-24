@@ -33,7 +33,8 @@ export const chartApiSlice = createApi({
       ) {
         // create a websocket connection when the cache subscription starts
         // const ws = new WebSocket('ws://stockmarketviz.com/stocksocket');
-        const ws = new WebSocket('ws://www.stockmarketviz.com:8082');
+        //8082
+        const ws = new WebSocket('ws://www.stockmarketviz.com/api:8082');
 
         try {
           // wait for the initial query to resolve before proceeding

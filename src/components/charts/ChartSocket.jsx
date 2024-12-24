@@ -53,7 +53,8 @@ const ChartSocket = () => {
   }, []);
 
   useEffect(() => {
-    ws.current = new WebSocket('ws://www.stockmarketviz.com:8082');
+    //8082
+    ws.current = new WebSocket('ws://www.stockmarketviz.com/socket');
     ws.current.onopen = () => {
       console.log('WebSocket opened');
     };

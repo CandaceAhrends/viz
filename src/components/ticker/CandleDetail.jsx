@@ -7,14 +7,14 @@ const CandleDetail = () => {
   const { data = [], error, isLoading } = useGetRelatedQuery(selectedStock);
 
   return (
-    <ul className="flex grid-cols-7 bg-green-500 ml-6 m-4">
+    <ul className="flex grid-cols-5 bg-green-500 ml-5 m-1">
       {!error &&
         data &&
         Array.isArray(data) &&
         data.slice(0, 5).map((stock) => (
           <li
             key={stock}
-            className="flex justify-between p-2 hover:bg-[#333] cursor-pointer"
+            className="flex justify-between p-1 hover:bg-[#333] cursor-pointer"
           >
             <span className="text-yellow-100 w-50 text-sm">
               {stock?.ticker}

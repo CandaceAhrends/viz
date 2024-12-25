@@ -26,6 +26,13 @@
   }
 }
 
-.scrollable-list {
-  height: calc(100vh - 23rem);
+.scrollable-scan-list-container {
+  position: absolute;
+  bottom: 3rem;
+  left: 1.5rem;
+  right: 1rem;
+  height: calc(100vh - 25rem);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }

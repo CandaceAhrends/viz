@@ -24,13 +24,9 @@ const Feed = () => {
   }, [selectedStock]);
 
   return (
-    <ul
-      className={`${
-        isScannerOpen ? 'md:w-[30%] lg:w-[47%]' : 'max-w-full'
-      }  p-0 overflow-y-auto mt-5 h-[calc(100dvh-20rem)] md:h-[calc(100vh-38rem)]`}
-    >
+    <div className="scrollable-list-container">
       <NewsList news={news} />
-    </ul>
+    </div>
   );
 };
 

@@ -17,13 +17,13 @@ const FeedList = ({ stocks }) => {
           <button className="text-lg button">Gainers</button>
         </div>
       </header>
-      <div className="overflow-y-auto scrollable-list">
+      <div className="scrollable-scan-list-container">
         {stocks.map((stock) => (
           <ul
-            className="flex items-center justify-between h-10 px-10 pt-10 "
+            className="flex items-center justify-between h-10 pt-10 "
             onClick={() => setSelectedStock(stock.ticker)}
           >
-            <li class="flex ext-white w-[5rem] md:w-[10rem] hover:border-l cursor-pointer">
+            <li class="flex ext-white w-[5rem] md:w-[10rem] hover:border-l cursor-pointer ">
               <div
                 class={`text-xl font-bold ${
                   selectedStock === stock.ticker ? 'text-green' : ''

@@ -14,7 +14,14 @@
     rgba(248, 251, 251, 0) 100%
   );
 }
-
+.gradient {
+  background: rgb(15, 237, 190);
+  background: linear-gradient(
+    0deg,
+    rgba(15, 237, 190, 0.2) 5%,
+    rgba(248, 251, 251, 0) 100%
+  );
+}
 .slider-container {
   width: 90%;
   max-width: 600px;

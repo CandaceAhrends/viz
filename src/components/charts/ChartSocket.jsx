@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import StockChart from './StockChart';
+import { LineWave } from 'react-loader-spinner';
 import { aggregateCandleData, addNewCandle } from './utils';
 
 const ChartSocket = () => {
@@ -83,17 +84,42 @@ const ChartSocket = () => {
   }, []);
 
   return (
-    <div className="overflow-y-auto h-[calc(100vh-10rem)]">
-      <div
-        className={`${
-          isScannerOpen ? 'md:flex md:w-[50%] flex-col' : 'lg:flex lg:flex-wrap'
-        }  `}
-      >
-        {Array.from(chartMap.current.keys()).map((symbol) => (
-          <StockChart txns={liveChart.get(symbol)} symbol={symbol}></StockChart>
-        ))}
-      </div>
-    </div>
+    <>
+      {chartMap.current.size ? (
+        <div className="overflow-y-auto h-[calc(100vh-10rem)]">
+          <div
+            className={`${
+              isScannerOpen
+                ? 'md:flex md:w-[50%] flex-col'
+                : 'lg:flex lg:flex-wrap'
+            }  `}
+          >
+            {Array.from(chartMap.current.keys()).map((symbol) => (
+              <StockChart
+                txns={liveChart.get(symbol)}
+                symbol={symbol}
+              ></StockChart>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center h-[calc(100vh-10rem)]">
+          <p className="text-lg">Loading Charts...</p>
+          <LineWave
+            visible={true}
+            height="100"
+            width="100"
+            color="#4fa94d"
+            ariaLabel="line-wave-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            firstLineColor=""
+            middleLineColor=""
+            lastLineColor=""
+          />
+        </div>
+      )}
+    </>
   );
 };
 

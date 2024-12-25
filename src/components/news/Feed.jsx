@@ -3,6 +3,7 @@ import { StockContext } from '../../StockContext';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchNews } from '../../services';
 import { formatDate } from '../../utils';
+import NewsList from './NewsList';
 
 const Feed = () => {
   const [news, setNews] = useState([]);
@@ -27,18 +28,9 @@ const Feed = () => {
     <ul
       className={`${
         isScannerOpen ? 'md:w-[30%] lg:w-[47%]' : 'max-w-full'
-      }  p-0 overflow-y-auto h-[30rem] mt-10 z-1 h-[calc(100vh-25rem)] md:h-[calc(100vh-38rem)]`}
+      }  p-0 overflow-y-auto mt-5 h-[calc(100dvh-20rem)] md:h-[calc(100vh-38rem)]`}
     >
-      {news.map((item) => (
-        <li key={item.id} className="flex pb-5">
-          <div className="md:hidden text-sm md:mr-10 lg:mr-0 text-green min-w-[7rem] lg:block pl-5">
-            {formatDate(item.published_utc)}
-          </div>
-          <div className="text-slate-300 text-sm pl-1 lg:ml-0">
-            {item.description}
-          </div>
-        </li>
-      ))}
+      <NewsList news={news} />
     </ul>
   );
 };

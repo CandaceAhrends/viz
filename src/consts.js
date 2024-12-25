@@ -2,7 +2,8 @@
 export const STOCK_SCANNER_URI = 'http://www.stockmarketviz.com/scapi';
 // 7007
 export const POLY_SERVICES_URI = 'http://www.stockmarketviz.com/poly';
-
+export const SCANNER_WS_URI = 'ws://www.stockmarketviz.com/scanner';
+export const YAHOO_FINANCE_NEWS_URL = 'https://finance.yahoo.com/quote/';
 export const CHART_OPTIONS = {
   chart: {
     type: 'candlestick',
@@ -25,6 +26,11 @@ export const CHART_OPTIONS = {
   },
   yaxis: {
     opposite: true,
+    labels: {
+      formatter: function (value) {
+        return value.toFixed(2);
+      },
+    },
     lines: {
       show: false,
     },

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Section from '../shared/Section.jsx';
 import { postConfig } from '../../services';
-import BullishBearishBtn from '../shared/BullishBearishBtn.jsx';
 import RangeSlider from '../shared/RangeSlider.jsx';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
@@ -26,24 +25,22 @@ const Scan = () => {
   };
 
   return (
-    <Section title="Scanner">
-      <RangeSlider />
-
-      <section className="flex justify-center mt-[1rem] mb-1">
-        {/* <button
-          className="w-1/2  rounded-full h-[3rem] bg-green text-black"
+    <>
+      <ul className="flex justify-between">
+        <li className="grow">
+          <RangeSlider />
+        </li>
+        <li className="ml-auto flex"></li>
+      </ul>
+      <div className="flex justify-end h-[5rem]">
+        <button
+          className=" w-[7rem] mr-3  rounded-full h-[3rem] bg-green text-black"
           onClick={handleSend}
         >
-          Send
-        </button> */}
-        <BullishBearishBtn
-          text="Scan"
-          bullish={true}
-          active={'bullish'}
-          onClick={handleSend}
-        />
-      </section>
-    </Section>
+          Update
+        </button>
+      </div>
+    </>
   );
 };
 

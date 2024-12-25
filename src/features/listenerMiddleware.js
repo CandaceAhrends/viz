@@ -1,5 +1,5 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit';
-import { setTopVolume } from './stocksSlice';
+import { setChartStocks } from './stocksSlice';
 import { fetchChartCandles } from './chartSyncSlice';
 import dayjs from 'dayjs';
 const listenerMiddleware = createListenerMiddleware();
@@ -40,7 +40,7 @@ const interval = setInterval(() => {
 }, 30000);
 
 listenerMiddleware.startListening({
-  actionCreator: setTopVolume,
+  actionCreator: setChartStocks,
 
   effect: async (action, { dispatch }) => {
     synchronizer.setStocks(action.payload);

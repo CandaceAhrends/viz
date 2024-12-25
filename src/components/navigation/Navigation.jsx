@@ -10,8 +10,9 @@ import { Link } from 'react-router-dom';
 import './navigation.scss';
 
 const routes = [
-  { IconSvg: ViewSvg, path: '/' },
+  { IconSvg: ViewSvg, path: '/scanner' },
   { IconSvg: ArrowSvg, path: 'charts' },
+  { IconSvg: GlobeSvg, path: 'news' },
 ];
 
 const Navigation = () => {

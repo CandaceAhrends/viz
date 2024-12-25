@@ -29,16 +29,7 @@ const StockData = () => {
       </div>
 
       <div className="column grow">
-        <div className="flex flex-col h-full">
-          <div className="flex justify-between mr-20">
-            {/* <span className="text-brand-grey">Open</span> */}
-            <span>{data?.type}</span>
-          </div>
-          <div className="flex justify-between  mr-20">
-            {/* <span className="text-brand-grey">Exchange</span> */}
-            <span>{data?.primary_exchange}</span>
-          </div>
-        </div>
+        <div className="flex flex-col h-full"></div>
       </div>
     </div>
   );

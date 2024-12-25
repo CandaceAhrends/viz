@@ -31,12 +31,12 @@ const stocksSlice = createSlice({
   name: 'stocks',
   initialState,
   reducers: {
-    setTopVolume(state, action: PayloadAction<Stock[]>) {
+    setChartStocks(state, action: PayloadAction<Stock[]>) {
       state.stocks = [...action.payload];
     },
   },
 });
 
 export const { useGetStocksQuery } = stocksApiSlice;
-export const { setTopVolume } = stocksSlice.actions;
+export const { setChartStocks } = stocksSlice.actions;
 export default stocksSlice.reducer;

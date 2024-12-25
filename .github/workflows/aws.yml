@@ -21,7 +21,7 @@ jobs:
 
     - name: Copy files to EC2 instance
       run: |
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ec2-user@${{ secrets.EC2_HOST }}:/home/ec2-user/viz/test
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ec2-user@${{ secrets.EC2_HOST }}:/home/ec2-user/viz/deployment
 
     - name: Restart application (optional)
       run: |

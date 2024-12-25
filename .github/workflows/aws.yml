@@ -1,24 +1,30 @@
- 
+name: Deploy to EC2
 
-name: Deploy to Amazon ECS
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout Code
+    - name: Checkout code
       uses: actions/checkout@v3
- 
-    - name: Deploy to Server 1
-      uses: easingthemes/ssh-deploy@main
-      env:
-        SSH_PRIVATE_KEY: ${ { secrets.EC2_SSH_KEY }}
-        REMOTE_HOST: ${ { secrets.HOST_DNS }}
-        REMOTE_USER: ${ { secrets.USERNAME }}  
-        ARGS: "-rlgoDzvc -i --delete"
-        SOURCE: "dist/"        
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
-        TARGET: ${{ secrets.REMOTE_TARGET }}
+
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+
+    - name: Copy files to EC2 instance
+      run: |
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ec2-user@${{ secrets.EC2_HOST }}:/home/ec2-user/viz
+
+    - name: Restart application (optional)
+      run: |
+        ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_HOST }} << EOF
+          sudo systemctl restart your-service-name
+        EOF

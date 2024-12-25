@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { StockContext } from '../../StockContext';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchNews } from '../../services';
-import { formatDate } from '../../utils';
 import NewsList from './NewsList';
 
 const Feed = () => {

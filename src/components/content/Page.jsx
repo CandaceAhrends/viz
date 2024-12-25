@@ -24,7 +24,12 @@ const Page = () => {
 
       <div class="cta">
         <Link to="/news">
-          <button>Let's Get Started</button>
+          <button>News</button>
+        </Link>
+      </div>
+      <div class="cta">
+        <Link to="/scanner">
+          <button>Scanner</button>
         </Link>
       </div>
     </div>

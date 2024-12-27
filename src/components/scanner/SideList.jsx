@@ -11,11 +11,12 @@ const SideList = ({ stocks }) => {
     <ul className="flex flex-col pt-5  ">
       {stocks.map((stock) => (
         <li
+          key={stock?.ticker}
           className="flex pl-3 content-center hover:border-l cursor-pointer text-center"
           onClick={() => setSelectedStock(stock.ticker)}
         >
           <div
-            class={`text-xl font-bold ${
+            className={`text-xl font-bold ${
               selectedStock === stock.ticker ? 'text-green' : ''
             }`}
           >

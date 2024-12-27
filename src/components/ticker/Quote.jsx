@@ -19,7 +19,7 @@ const Quote = ({ size }) => {
   return (
     <div className="flex text-green">
       <div
-        className={`${
+        className={`transition-all ${
           size === 'lg' ? 'text-xxl' : 'text-lg'
         } font-semibold pl-3.5`}
       >

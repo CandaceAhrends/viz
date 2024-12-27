@@ -13,18 +13,21 @@ const ViewGrid = () => {
     const container = scrollableRef.current;
 
     const handleScroll = (e) => {
+      console.log('handle scroll');
       if (prevTouchRef.current) return;
       const up = e.deltaY > 0;
       setSize(up ? 'sm' : 'lg');
     };
 
     const handleTouchMove = (e) => {
+      console.log('handle touch move');
       const currentTouchY = e.touches[0].clientY;
       const up = currentTouchY < prevTouchRef.current;
       setSize(up ? 'sm' : `lg`);
     };
 
     const handleTouchStart = (e) => {
+      console.log('handle touch start');
       prevTouchRef.current = e.touches[0].clientY;
     };
 
@@ -36,7 +39,6 @@ const ViewGrid = () => {
       container.addEventListener('touchmove', handleTouchMove, {
         passive: true,
       });
-      container.addEventListener('scroll', handleScroll, { passive: true });
     }
 
     return () => {
@@ -44,7 +46,6 @@ const ViewGrid = () => {
         container.removeEventListener('wheel', handleScroll);
         container.removeEventListener('touchmove', handleScroll);
         container.removeEventListener('touchstart', handleTouchStart);
-        container.removeEventListener('scroll', handleScroll);
       }
     };
   }, []);

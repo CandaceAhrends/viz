@@ -8,10 +8,9 @@ const bearishClass = 'bg-[#490517] text-[#FF5361]';
 const FeedList = ({ stocks }) => {
   const { selectedStock, setSelectedStock } = useContext(StockContext);
   return (
-    <div>
-      <header className="flex items-center justify-between h-20 px-5">
-        <div className="text-xl font-bold w-[30rem]">Markets</div>
-
+    <div className="ml-5 md:m-5 mr-3">
+      <header className="flex items-center justify-between h-[7rem]">
+        <div className="text-xl font-bold w-[30rem] md:w-[20rem]">Markets</div>
         <div className="flex  ml-auto">
           <button className="text-lg button selected">Active</button>
           <button className="text-lg button">Gainers</button>
@@ -20,12 +19,13 @@ const FeedList = ({ stocks }) => {
       <div className="scrollable-scan-list-container">
         {stocks.map((stock) => (
           <ul
-            className="flex items-center justify-between h-10 pt-10 "
+            key={stock?.ticker}
+            className="flex items-center justify-between h-10 min-h-10"
             onClick={() => setSelectedStock(stock.ticker)}
           >
-            <li class="flex ext-white w-[5rem] md:w-[10rem] hover:border-l cursor-pointer ">
+            <li className="flex ext-white w-[5rem] md:w-[10rem] hover:border-l cursor-pointer ">
               <div
-                class={`text-xl font-bold ${
+                className={`text-xl font-bold ${
                   selectedStock === stock.ticker ? 'text-green' : ''
                 }`}
               >
@@ -39,7 +39,7 @@ const FeedList = ({ stocks }) => {
             <div className="flex space-x-4">
               <li className="ml-auto flex-end text-left  pl-[1rem] w-[100%]">
                 <span
-                  class={`${
+                  className={`${
                     stock.ticker === 'BA' ? bearishClass : bulishClass
                   } rounded-full p-[.3rem] pl-8 pr-8 text-center`}
                 >

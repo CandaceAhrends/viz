@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useGetRelatedQuery } from '../../features/relatedCompaniesSlice';
 import { StockContext } from '../../StockContext';
 
 const CandleDetail = () => {
-  const { selectedStock } = React.useContext(StockContext);
+  const { selectedStock, setSelectedStock } = useContext(StockContext);
   const { data = [], error, isLoading } = useGetRelatedQuery(selectedStock);
 
   return (
@@ -13,7 +13,8 @@ const CandleDetail = () => {
         Array.isArray(data) &&
         data.slice(0, 5).map((stock) => (
           <li
-            key={stock}
+            key={stock?.ticker}
+            onClick={() => setSelectedStock(stock?.ticker)}
             className="flex justify-between p-1 hover:bg-[#333] cursor-pointer"
           >
             <span className="text-yellow-100 w-50 text-sm">

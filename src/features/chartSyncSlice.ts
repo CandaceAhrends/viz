@@ -17,19 +17,10 @@ export const fetchChartCandles = createAsyncThunk(
           };
         })
         .slice(-5);
-      const [lastCandle] = chartCandles.slice(-1);
-      const dt = lastCandle.x;
-      let currentCandleTime = dayjs(dt);
-      const currentCandleTimeMinAdd = currentCandleTime.add(1, 'minute');
-      const appendCandle = {
-        x: currentCandleTimeMinAdd,
-        y: lastCandle.y,
-      };
-      acc[stocks[index]] = [...chartCandles, appendCandle];
-
+      acc[stocks[index]] = [...chartCandles];
       return acc;
     }, {});
-    return response;
+    return JSON.stringify(response);
   }
 );
 
@@ -49,7 +40,7 @@ const chartSyncSlice = createSlice({
     builder.addCase(fetchChartCandles.fulfilled, (state, action) => {
       if (state.stockDataMap !== action.payload) {
         console.log('update stockDataMap');
-        state.stockDataMap = JSON.stringify(action.payload);
+        state.stockDataMap = action.payload;
       }
     });
   },

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { selectMenu } from '../../features/navigationSlice';
 import Logo from '../../assets/Logo.svg';
 import ViewSvg from '../images/ViewSvg';
 import GlobeSvg from '../images/GlobeSvg';
@@ -10,13 +12,19 @@ import { Link } from 'react-router-dom';
 import './navigation.scss';
 
 const routes = [
-  { IconSvg: ViewSvg, path: '/scanner' },
+  { IconSvg: ViewSvg, path: 'scan' },
   { IconSvg: ArrowSvg, path: 'charts' },
   { IconSvg: GlobeSvg, path: 'news' },
+  { IconSvg: PeopleSvg, path: '/' },
 ];
 
 const Navigation = () => {
   const [selected, setSelected] = React.useState(0);
+  const dispatch = useAppDispatch();
+
+  const setMenuSelected = ({ path }) => {
+    dispatch(selectMenu(path));
+  };
   return (
     <nav className="fixed flex-row bottom-0 h-[4rem] md:static md:h-full md:w-[4rem] md:flex-shrink-0  md:border-r md:border-black-900  bg-[#050505] ">
       <ul className="p-4">
@@ -34,7 +42,7 @@ const Navigation = () => {
                 index === selected ? 'active' : ''
               } hover:text-brand-blue relative  `}
             >
-              <Link to={route.path}>
+              <Link to={route.path} onClick={() => setMenuSelected(route)}>
                 <route.IconSvg />
               </Link>
               <div

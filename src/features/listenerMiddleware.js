@@ -35,9 +35,9 @@ class Synchronizer {
 }
 
 const synchronizer = new Synchronizer();
-const interval = setInterval(() => {
-  synchronizer.checkSynchronized();
-}, 30000);
+// const interval = setInterval(() => {
+//   synchronizer.checkSynchronized();
+// }, 30000);
 
 listenerMiddleware.startListening({
   actionCreator: setChartStocks,

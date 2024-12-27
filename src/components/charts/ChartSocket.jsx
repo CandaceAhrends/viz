@@ -90,12 +90,13 @@ const ChartSocket = () => {
           <div
             className={`${
               isScannerOpen
-                ? 'md:flex md:w-[50%] flex-col'
+                ? 'md:flex md:w-[90%] flex-col'
                 : 'lg:flex lg:flex-wrap'
             }  `}
           >
             {Array.from(chartMap.current.keys()).map((symbol) => (
               <StockChart
+                key={symbol}
                 txns={liveChart.get(symbol)}
                 symbol={symbol}
               ></StockChart>

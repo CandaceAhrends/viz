@@ -11,7 +11,7 @@ const ContentContainer = () => {
     <div className="flex flex-col text-white flex-grow w-full">
       <Header />
       <Routes>
-        <Route path="/scanner" element={<ScannerPage />} />
+        <Route path="/scan" element={<ScannerPage />} />
         <Route path="/news" element={<ViewGrid />} />
         <Route path="/charts" element={<ChartGrid />} />
         <Route path="/" element={<Page />} />

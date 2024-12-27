@@ -3,12 +3,10 @@ import ReactSlider from 'react-slider';
 import './shared.scss';
 
 const RangeSlider = ({ label = 'price' }) => {
-  const [range, setRange] = useState([500, 2500]); // Initial values
+  const [range, setRange] = useState([10, 250]); // Initial values
 
   return (
     <div className="slider-container">
-      <label>{label}</label>
-
       {/* Range labels */}
       <div className="range-labels">
         <span>{range[0]}</span>
@@ -22,7 +20,7 @@ const RangeSlider = ({ label = 'price' }) => {
         trackClassName="track"
         value={range}
         min={0}
-        max={3000}
+        max={1000}
         step={10} // Slider increments
         onChange={(values) => setRange(values)}
         ariaLabel={['Lower thumb', 'Upper thumb']}

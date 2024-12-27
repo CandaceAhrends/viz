@@ -25,22 +25,18 @@ const Scan = () => {
   };
 
   return (
-    <>
-      <ul className="flex justify-between">
-        <li className="grow">
-          <RangeSlider />
-        </li>
-        <li className="ml-auto flex"></li>
-      </ul>
-      <div className="flex justify-end h-[5rem]">
-        <button
-          className=" w-[7rem] mr-3  rounded-full h-[3rem] bg-green text-black"
-          onClick={handleSend}
-        >
-          Update
-        </button>
+    <div className="flex justify-left">
+      <div className="w-[70%] pb-3">
+        <RangeSlider />
       </div>
-    </>
+
+      <button
+        className="m-auto w-[7rem] mr-5 mb-5 rounded-full h-[3rem] bg-green text-black"
+        onClick={handleSend}
+      >
+        Update
+      </button>
+    </div>
   );
 };
 

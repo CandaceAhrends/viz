@@ -1,20 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import StockData from '../ticker/StockData.jsx';
 import CandleDetail from '../ticker/CandleDetail.jsx';
 import Section from '../shared/Section.jsx';
 import Feed from '../news/Feed.jsx';
 
 const ViewGrid = () => {
+  const [size, setSize] = useState('lg');
+  const scrollableRef = useRef(null);
+  const prevTouchRef = useRef(null);
+
+  useEffect(() => {
+    const container = scrollableRef.current;
+
+    const handleScroll = (e) => {
+      if (prevTouchRef.current) return;
+      const up = e.deltaY > 0;
+      setSize(up ? 'sm' : 'lg');
+    };
+
+    const handleTouchMove = (e) => {
+      const currentTouchY = e.touches[0].clientY;
+      const up = currentTouchY < prevTouchRef.current;
+      setSize(up ? 'sm' : `lg`);
+    };
+
+    const handleTouchStart = (e) => {
+      prevTouchRef.current = e.touches[0].clientY;
+    };
+
+    if (container) {
+      container.addEventListener('wheel', handleScroll, { passive: true });
+      container.addEventListener('touchstart', handleTouchStart, {
+        passive: true,
+      });
+      container.addEventListener('touchmove', handleTouchMove, {
+        passive: true,
+      });
+      container.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('wheel', handleScroll);
+        container.removeEventListener('touchmove', handleScroll);
+        container.removeEventListener('touchstart', handleTouchStart);
+        container.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
   return (
     <div className="grid md:h-auto md:grid-cols-2 md:grid-rows-3 md:gap-1 md:pt-1 z-10">
       <div className="md:col-span-2 ">
-        <StockData />
-        <CandleDetail />
+        <StockData size={size} />
+        {size === 'lg' && <CandleDetail />}
       </div>
 
       <div className="md:col-span-2 row-span-2 pr-1">
         <Section title="News">
-          <Feed />
+          <Feed containerRef={scrollableRef} size={size} />
         </Section>
       </div>
     </div>

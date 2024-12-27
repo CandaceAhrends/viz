@@ -1,18 +1,16 @@
 import React from 'react';
 import Scan from './Scan.jsx';
-import Feed from './Feed.jsx';
-
+import SideList from './SideList.jsx';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 // const openLinkInNewTab = (symbol) => {
 //     const url = `${YAHOO_FINANCE_NEWS_URL}${symbol}/news`;
 //     window.open(url, '_blank');
 //   };
 
 const PopoutPage = () => {
-  return (
-    <div>
-      <Feed />
-    </div>
-  );
+  const stocks = useAppSelector((state) => state.scanner.topVolume);
+
+  return <SideList stocks={stocks} />;
 };
 
 export default PopoutPage;

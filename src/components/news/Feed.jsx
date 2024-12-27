@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchNews } from '../../services';
 import NewsList from './NewsList';
 
-const Feed = () => {
+const Feed = ({ containerRef, size }) => {
   const [news, setNews] = useState([]);
   const { selectedStock } = useContext(StockContext);
   const isScannerOpen = useAppSelector((state) => state.scanner.isScannerOpen);
@@ -24,7 +24,12 @@ const Feed = () => {
   }, [selectedStock]);
 
   return (
-    <div className="scrollable-list-container">
+    <div
+      className={`scrollable-list-container ${
+        size === 'sm' ? 'scrolled-up' : ''
+      }`}
+      ref={containerRef}
+    >
       <NewsList news={news} />
     </div>
   );

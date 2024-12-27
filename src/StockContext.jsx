@@ -4,11 +4,13 @@ import { SCANNER_WS_URI } from './consts';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { setChartStocks } from './features/stocksSlice';
 import { setTopVolume, setTopGainers } from './features/scannerSlice';
+import { fetchPolyDetail } from './services';
 
 export const StockContext = createContext();
 
 const StockProvider = ({ children }) => {
   const [selectedStock, setSelectedStock] = useState('UPST');
+  const [selectedQuote, setSelectedQuote] = useState('UPST');
   const ws = useRef(null);
   const dispatch = useAppDispatch();
 
@@ -32,8 +34,22 @@ const StockProvider = ({ children }) => {
     };
   }, []);
 
+  React.useEffect(() => {
+    const fetch = async () => {
+      try {
+        const data = await fetchPolyDetail(selectedStock);
+        setSelectedQuote(data?.ticker);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetch();
+  }, [selectedStock]);
+
   return (
-    <StockContext.Provider value={{ selectedStock, setSelectedStock }}>
+    <StockContext.Provider
+      value={{ selectedStock, setSelectedStock, selectedQuote }}
+    >
       {children}
     </StockContext.Provider>
   );

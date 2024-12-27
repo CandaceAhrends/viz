@@ -5,7 +5,7 @@ interface NavigationState {
 }
 
 const initialState: NavigationState = {
-  selectedMenu: '',
+  selectedMenu: '/',
 };
 
 const navigationSlice = createSlice({

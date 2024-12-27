@@ -70,22 +70,24 @@
   margin: 10px 0;
 }
 
-.cta {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.cta button {
-  background-color: #07f8b5;
-  border: none;
-  border-radius: 5px;
-  padding: 15px 30px;
-  font-size: 16px;
+.stock-display {
+  color: #00cccc;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
-  cursor: pointer;
+  display: flex;
+  align-items: baseline;
 }
 
-.cta button:hover {
-  background-color: #07f8b5;
+.stock-symbol {
+  color: #fff;
+  margin-right: 0.5rem;
+}
+
+.stock-price {
+  color: #00cccc;
+  margin-right: 0.3rem;
+}
+
+.stock-change {
+  color: #666;
 }

@@ -26,14 +26,17 @@ const Page = () => {
         <p>Scan the market for the most active stocks.</p>
       </div>
 
-      <div className="cta">
+      <div className="flex justify-center">
         <Link to="/news" onClick={() => dispatch(selectMenu('news'))}>
-          <button>News</button>
+          <button className="m-auto w-[7rem] mr-5 mb-5 rounded h-[3rem] bg-[#07f8b5] text-black hover:bg-[#43907a]">
+            News
+          </button>
         </Link>
-      </div>
-      <div className="cta">
+
         <Link to="/scan" onClick={() => dispatch(selectMenu('scan'))}>
-          <button>Scanner</button>
+          <button className="m-auto w-[7rem] mr-5 mb-5 rounded h-[3rem] bg-[#07f8b5] text-black hover:bg-[#43907a]">
+            Scanner
+          </button>
         </Link>
       </div>
     </div>

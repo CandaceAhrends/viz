@@ -19,7 +19,7 @@ const routes = [
 ];
 
 const Navigation = () => {
-  const [selected, setSelected] = React.useState(0);
+  const selectedMenu = useAppSelector((state) => state.navigation.selectedMenu);
   const dispatch = useAppDispatch();
 
   const setMenuSelected = ({ path }) => {
@@ -37,9 +37,8 @@ const Navigation = () => {
           {routes.map((route, index) => (
             <li
               key={index}
-              onClick={() => setSelected(index)}
               className={`p-2 flex justify-center  text-neutral-400 ${
-                index === selected ? 'active' : ''
+                route.path === selectedMenu ? 'active' : ''
               } hover:text-brand-blue relative  `}
             >
               <Link to={route.path} onClick={() => setMenuSelected(route)}>
@@ -47,7 +46,7 @@ const Navigation = () => {
               </Link>
               <div
                 className={`h-[.1rem] ${
-                  index === selected ? 'selected' : 'hidden'
+                  route.path === selectedMenu ? 'selected' : 'hidden'
                 }`}
               ></div>
             </li>

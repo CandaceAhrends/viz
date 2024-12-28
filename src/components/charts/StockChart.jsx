@@ -13,6 +13,8 @@ const StockChart = ({ txns, symbol }) => {
 
   useEffect(() => {
     if (txns && txns.length > 0) {
+      const lastTxn = txns[txns.length - 1];
+      console.log(lastTxn.x, lastTxn.y, symbol);
       setSeries([{ data: txns }]);
     }
   }, [txns]);

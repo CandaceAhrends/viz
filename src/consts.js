@@ -8,6 +8,9 @@ export const CHART_OPTIONS = {
   chart: {
     type: 'candlestick',
   },
+  tooltip: {
+    enabled: false,
+  },
   series: [
     {
       data: [],
@@ -37,6 +40,9 @@ export const CHART_OPTIONS = {
   },
   xaxis: {
     type: 'datetime',
+    labels: {
+      datetimeUTC: false, // Set to false if your data is in local time
+    },
     lines: {
       show: false, // This hides the horizontal lines
     },

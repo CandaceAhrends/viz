@@ -5,7 +5,7 @@ const LocalTesting = 'http://localhost:7007';
 export const fetchStockData = async (symbol) => {
   try {
     const tdate = '2024-12-27';
-    const url = `${LocalTesting}/agg/${symbol}/${tdate}`;
+    const url = `${POLY_SERVICES_URI}/agg/${symbol}/${tdate}`;
     console.log(url);
     const response = await axios.get(url);
     return response.data?.results;

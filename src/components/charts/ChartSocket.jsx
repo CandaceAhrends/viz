@@ -2,6 +2,7 @@ import React, { act, useEffect, useRef, useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import chartTransactions from './ChartTransactions';
 import ChartWrapper from './ChartWrapper';
+import { CHARTS_WS_URI } from '../../consts';
 import {
   updateChartByMinute,
   getCandle,
@@ -53,7 +54,7 @@ const ChartSocket = () => {
 
   useEffect(() => {
     //8082
-    ws.current = new WebSocket(SOCKET_URL);
+    ws.current = new WebSocket(CHARTS_WS_URI);
     ws.current.onopen = () => {
       setSocketReady((prev) => prev + 1);
     };

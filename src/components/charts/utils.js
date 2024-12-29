@@ -75,13 +75,15 @@ export const updateLiveChart = ({
   collectedCandles.current.forEach((candles, key) => {
     if (!chartMap.current.has(key)) return;
     const stockMapCandles = [...chartMap.current.get(key)];
-    const lastCandle = stockMapCandles.pop();
-    lastCandle.x = chartDate.current.get(key);
-    let candle = aggregateCandleData({ candles, lastCandle });
+    if (stockMapCandles.length) {
+      const lastCandle = stockMapCandles.pop();
+      lastCandle.x = chartDate.current.get(key);
+      let candle = aggregateCandleData({ candles, lastCandle });
 
-    stockMapCandles.push(candle);
-    activeCandles.current.set(key, candle);
-    updatedMap.set(key, stockMapCandles);
+      stockMapCandles.push(candle);
+      activeCandles.current.set(key, candle);
+      updatedMap.set(key, stockMapCandles);
+    }
   });
   return updatedMap;
 };

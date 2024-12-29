@@ -7,6 +7,15 @@ export const YAHOO_FINANCE_NEWS_URL = 'https://finance.yahoo.com/quote/';
 export const CHART_OPTIONS = {
   chart: {
     type: 'candlestick',
+    toolbar: {
+      show: false,
+    },
+  },
+  title: {
+    align: 'left',
+    style: {
+      color: '#ffffff',
+    },
   },
   tooltip: {
     enabled: false,
@@ -33,6 +42,13 @@ export const CHART_OPTIONS = {
       formatter: function (value) {
         return value.toFixed(2);
       },
+      style: {
+        colors: ['#ffffff'],
+        fontSize: '12px',
+        fontFamily: 'Helvetica, Arial, sans-serif',
+        fontWeight: 400,
+        cssClass: 'apexcharts-xaxis-label',
+      },
     },
     lines: {
       show: false,
@@ -41,10 +57,17 @@ export const CHART_OPTIONS = {
   xaxis: {
     type: 'datetime',
     labels: {
-      datetimeUTC: false, // Set to false if your data is in local time
+      datetimeUTC: false,
+      style: {
+        colors: ['#ffffff'],
+        fontSize: '12px',
+        fontFamily: 'Helvetica, Arial, sans-serif',
+        fontWeight: 400,
+        cssClass: 'apexcharts-xaxis-label',
+      },
     },
     lines: {
-      show: false, // This hides the horizontal lines
+      show: false,
     },
   },
 };

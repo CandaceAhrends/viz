@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchStockData } from '../services';
+import { getDateForChart } from '../utils';
 import dayjs from 'dayjs';
 
 export const fetchChartCandles = createAsyncThunk(
@@ -8,15 +9,15 @@ export const fetchChartCandles = createAsyncThunk(
     const candlePromises = stocks.map((stock) => fetchStockData(stock));
     const responses = await Promise.all(candlePromises);
     const response = responses.reduce((acc, res, index) => {
-      const chartCandles = res
-        .map((d) => {
-          const { t, o, h, l, c } = d;
-          return {
-            x: dayjs(t),
-            y: [o, h, l, c],
-          };
-        })
-        .slice(-5);
+      const chartCandles = res.slice(250, 300).map((d) => {
+        const time = dayjs(d.t).format('HH:mm');
+        const currentChartDate = getDateForChart(time);
+        const { o, h, l, c } = d;
+        return {
+          x: currentChartDate,
+          y: [o, h, l, c],
+        };
+      });
       acc[stocks[index]] = [...chartCandles];
       return acc;
     }, {});

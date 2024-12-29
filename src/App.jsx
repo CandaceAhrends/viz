@@ -5,12 +5,14 @@ import StockProvider from './StockContext.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import './app.scss';
 
+const loadPath = window.location.href?.split('/').pop();
+console.log('loadPath', loadPath);
 function App() {
   return (
     <StockProvider>
       <BrowserRouter>
         <div className="flex w-screen h-screen">
-          <Navigation></Navigation>
+          <Navigation loadPath={loadPath}></Navigation>
           <Container></Container>
         </div>
       </BrowserRouter>

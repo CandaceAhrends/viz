@@ -1,3 +1,6 @@
+import dayjs from 'dayjs';
+import { getDateForChart } from '../../utils';
+
 export const aggregateCandleData = ({ candles, lastCandle }) => {
   const [candle] = [
     candles.reduce((minuteCandle, { x, y }, index) => {
@@ -40,15 +43,6 @@ export const appendCandle = ({ collectedCandles, candle, symbol }) => {
   collectedCandles.current.set(symbol, mchartData);
 };
 
-export const getChartTime = (chartDate, chartTime) => {
-  const [hour, minute] = chartTime.split(':');
-  const currentChartDate = chartDate
-    .set('hour', parseInt(hour))
-    .set('minute', parseInt(minute));
-
-  return currentChartDate;
-};
-
 export const updateChartByMinute = ({
   data,
   collectedCandles,
@@ -57,17 +51,18 @@ export const updateChartByMinute = ({
   chartDate,
   activeCandles,
 }) => {
-  chartTime.current = data.time;
-  const candleChartTime = getChartTime(chartDate.current, data.time);
-  chartDate.current = candleChartTime;
-  chartMap.current.forEach((chartCandles, key) => {
-    const activeCandle = activeCandles.current.get(key);
-    if (!activeCandle) return;
-    activeCandles.current.delete(key);
-    chartCandles.push(activeCandle);
-  });
-  collectedCandles.current = new Map();
-  return candleChartTime;
+  const candleDate = getDateForChart(data.time);
+  chartTime.current.set(data.symbol, data.time);
+  chartDate.current.set(data.symbol, candleDate);
+  const activeCandle = activeCandles.current.get(data.symbol);
+  if (activeCandle) {
+    activeCandles.current.delete(data.symbol);
+    const stockMapCandles = [...chartMap.current.get(data.symbol)];
+    stockMapCandles.push(activeCandle);
+    chartMap.current.set(data.symbol, stockMapCandles.slice(-50));
+  }
+  collectedCandles.current.set(data.symbol, []);
+  return candleDate;
 };
 
 export const updateLiveChart = ({
@@ -81,7 +76,7 @@ export const updateLiveChart = ({
     if (!chartMap.current.has(key)) return;
     const stockMapCandles = [...chartMap.current.get(key)];
     const lastCandle = stockMapCandles.pop();
-    lastCandle.x = chartDate.current;
+    lastCandle.x = chartDate.current.get(key);
     let candle = aggregateCandleData({ candles, lastCandle });
 
     stockMapCandles.push(candle);

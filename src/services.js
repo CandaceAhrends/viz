@@ -1,9 +1,13 @@
 import axios from 'axios';
 import { POLY_SERVICES_URI } from './consts';
 
+const LocalTesting = 'http://localhost:7007';
 export const fetchStockData = async (symbol) => {
   try {
-    const response = await axios.get(`${POLY_SERVICES_URI}/agg/${symbol}`);
+    const tdate = '2024-12-27';
+    const url = `${LocalTesting}/agg/${symbol}/${tdate}`;
+    console.log(url);
+    const response = await axios.get(url);
     return response.data?.results;
   } catch (error) {
     console.error('Error fetching data:', error);

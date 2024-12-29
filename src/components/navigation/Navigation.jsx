@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectMenu } from '../../features/navigationSlice';
 import Logo from '../../assets/Logo.svg';
@@ -10,6 +10,7 @@ import ConfigSvg from '../images/ConfigSvg';
 import { Link } from 'react-router-dom';
 
 import './navigation.scss';
+import { use } from 'react';
 
 const routes = [
   { IconSvg: ViewSvg, path: 'scan' },
@@ -18,13 +19,20 @@ const routes = [
   { IconSvg: PeopleSvg, path: '/' },
 ];
 
-const Navigation = () => {
+const Navigation = ({ loadPath }) => {
   const selectedMenu = useAppSelector((state) => state.navigation.selectedMenu);
   const dispatch = useAppDispatch();
 
   const setMenuSelected = ({ path }) => {
     dispatch(selectMenu(path));
   };
+
+  useEffect(() => {
+    if (loadPath) {
+      setMenuSelected({ path: loadPath });
+    }
+  }, [loadPath]);
+
   return (
     <nav className="fixed flex-row bottom-0 h-[4rem] md:static md:h-full md:w-[4rem] md:flex-shrink-0  md:border-r md:border-black-900  bg-[#050505] ">
       <ul className="p-4">

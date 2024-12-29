@@ -4,10 +4,10 @@ import FeedList from './FeedList';
 
 const Feed = () => {
   const stocks = useAppSelector((state) => state.scanner.topVolume);
-  const test = [...stocks, ...stocks, ...stocks];
+  //const test = [...stocks, ...stocks, ...stocks];
   return (
     <div>
-      <FeedList stocks={test}></FeedList>
+      <FeedList stocks={stocks}></FeedList>
     </div>
   );
 };

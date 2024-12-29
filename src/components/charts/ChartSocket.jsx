@@ -13,6 +13,7 @@ import {
 } from './utils';
 
 const SOCKET_URL = 'ws://localhost:8082'; //'ws://localhost:8082'
+const LIVE = false;
 
 const ChartSocket = () => {
   const stockDataMap = useAppSelector((state) => state.chartSync.stockDataMap);
@@ -29,27 +30,32 @@ const ChartSocket = () => {
     if (!stockDataMap) return;
     chartMap.current = new Map(getInitialChartCandles(stockDataMap));
     setStocksOfInterest(deriveSymbols(chartMap));
+    chartTransactions.setLiveChart(chartMap.current);
   }, [stockDataMap]);
 
   useEffect(() => {
     if (ws.current && ws.current.readyState === 1 && stocksOfInterest) {
       const date = '2024-12-27';
-      ws.current.send(JSON.stringify({ date, symbols: stocksOfInterest }));
+      if (LIVE) {
+        ws.current.send(JSON.stringify({ date, symbols: stocksOfInterest }));
+      }
     }
   }, [socketReady, stocksOfInterest]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const updatedMap = updateLiveChart({
-        collectedCandles,
-        chartMap,
-        activeCandles,
-        chartDate,
-      });
-      if (updatedMap.size === 0) return;
-      chartTransactions.setLiveChart(updatedMap);
-    }, 1000);
-    return () => clearInterval(interval);
+    if (LIVE) {
+      const interval = setInterval(() => {
+        const updatedMap = updateLiveChart({
+          collectedCandles,
+          chartMap,
+          activeCandles,
+          chartDate,
+        });
+        if (updatedMap.size === 0) return;
+        chartTransactions.setLiveChart(updatedMap);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
   }, []);
 
   useEffect(() => {

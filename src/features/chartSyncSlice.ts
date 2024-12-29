@@ -9,7 +9,7 @@ export const fetchChartCandles = createAsyncThunk(
     const candlePromises = stocks.map((stock) => fetchStockData(stock));
     const responses = await Promise.all(candlePromises);
     const response = responses.reduce((acc, res, index) => {
-      const chartCandles = res.slice(250, 300).map((d) => {
+      const chartCandles = res.map((d) => {
         const time = dayjs(d.t).format('HH:mm');
         const currentChartDate = getDateForChart(time);
         const { o, h, l, c } = d;

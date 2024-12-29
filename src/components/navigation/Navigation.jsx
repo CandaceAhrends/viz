@@ -10,7 +10,6 @@ import ConfigSvg from '../images/ConfigSvg';
 import { Link } from 'react-router-dom';
 
 import './navigation.scss';
-import { use } from 'react';
 
 const routes = [
   { IconSvg: ViewSvg, path: 'scan' },

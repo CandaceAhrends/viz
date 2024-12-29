@@ -1,32 +1,63 @@
-import Reac, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import chartTransactions from './ChartTransactions';
 import { useAppSelector } from '../../hooks';
+import StockChart from './StockChart';
+import { LineWave } from 'react-loader-spinner';
 
-const ChartWrapper = ({ children }) => {
-  const stockDataMap = useAppSelector((state) => state.chartSync.stockDataMap);
-  const isScannerOpen = useAppSelector((state) => state.scanner.isScannerOpen);
+const ChartWrapper = ({ stocks }) => {
+  const isScannerOpen = useAppSelector((state) => state.isScannerOpen);
   const [liveChart, setLiveChart] = useState(new Map());
-  const [socketReady, setSocketReady] = useState(0);
-  const [stockListReady, setStockListReady] = useState(false);
-  const ws = useRef(null);
-  const chartMap = useRef(new Map());
-  const collectedCandles = useRef(new Map());
-  const activeCandles = useRef(new Map());
-  const chartTime = useRef(new Map());
-  const chartDate = useRef(new Map());
-  console.log('chart wrapper redraw');
-  useEffect(() => {
-    if (!stockDataMap) return;
 
-    const mapData = Object.entries(JSON.parse(stockDataMap)).map(
-      ([key, value]) => {
-        return [key, value];
-      }
-    );
-    console.log('got map data');
-    chartMap.current = new Map(mapData);
-    setStockListReady(true);
-  }, [stockDataMap]);
-  return <div>{children}</div>;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const chart = chartTransactions.getLiveChart();
+
+      setLiveChart((prev) => new Map([...chart]));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <>
+      {liveChart && liveChart.size ? (
+        <div className="overflow-y-auto h-[calc(100vh-10rem)]">
+          <div
+            className={`${
+              isScannerOpen
+                ? 'md:flex md:w-[90%] flex-col'
+                : 'lg:flex lg:flex-wrap'
+            }  `}
+          >
+            {stocks
+              .map((s) => s.symbol)
+              .map((symbol) => (
+                <StockChart
+                  key={symbol}
+                  txns={liveChart.get(symbol)}
+                  symbol={symbol}
+                ></StockChart>
+              ))}
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center h-[calc(100vh-10rem)]">
+          <p className="text-lg">Loading Charts...</p>
+          <LineWave
+            visible={true}
+            height="100"
+            width="100"
+            color="#4fa94d"
+            ariaLabel="line-wave-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            firstLineColor=""
+            middleLineColor=""
+            lastLineColor=""
+          />
+        </div>
+      )}
+    </>
+  );
 };
 
 export default ChartWrapper;

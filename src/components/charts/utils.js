@@ -85,3 +85,29 @@ export const updateLiveChart = ({
   });
   return updatedMap;
 };
+
+export const getInitialChartCandles = (stockDataMap) => {
+  const mapData = Object.entries(JSON.parse(stockDataMap)).map(
+    ([key, value]) => {
+      return [key, value];
+    }
+  );
+  return mapData;
+};
+
+export const deriveSymbols = (chartMap) => {
+  const symbols = Array.from(chartMap.current.keys()).map((key) => {
+    try {
+      const lastCandle = chartMap.current.get(key);
+      const lastCandleTime = dayjs(lastCandle[lastCandle.length - 1].x).format(
+        'HH:mm'
+      );
+
+      return { symbol: key, time: lastCandleTime };
+    } catch (e) {
+      console.log('missing data', key);
+      return null;
+    }
+  });
+  return symbols.filter((symbol) => symbol);
+};

@@ -4,7 +4,7 @@ import CandleDetail from '../ticker/CandleDetail.jsx';
 import Section from '../shared/Section.jsx';
 import Feed from '../news/Feed.jsx';
 
-const ViewGrid = () => {
+const NewsGrid = () => {
   const [size, setSize] = useState('lg');
   const scrollableRef = useRef(null);
   const prevTouchRef = useRef(null);
@@ -66,4 +66,4 @@ const ViewGrid = () => {
   );
 };
 
-export default ViewGrid;
+export default NewsGrid;

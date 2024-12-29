@@ -1,55 +1,41 @@
 import React, { act, useEffect, useRef, useState } from 'react';
 import { useAppSelector } from '../../hooks';
-import StockChart from './StockChart';
-import { LineWave } from 'react-loader-spinner';
+import chartTransactions from './ChartTransactions';
+import ChartWrapper from './ChartWrapper';
 import {
   updateChartByMinute,
   getCandle,
   appendCandle,
   updateLiveChart,
+  getInitialChartCandles,
+  deriveSymbols,
 } from './utils';
-import dayjs from 'dayjs';
+
+const SOCKET_URL = 'ws://localhost:8082'; //'ws://localhost:8082'
 
 const ChartSocket = () => {
   const stockDataMap = useAppSelector((state) => state.chartSync.stockDataMap);
-  const isScannerOpen = useAppSelector((state) => state.scanner.isScannerOpen);
-  const [liveChart, setLiveChart] = useState(new Map());
   const [socketReady, setSocketReady] = useState(0);
-  const [stockListReady, setStockListReady] = useState(false);
+  const [stocksOfInterest, setStocksOfInterest] = useState([]);
   const ws = useRef(null);
   const chartMap = useRef(new Map());
   const collectedCandles = useRef(new Map());
   const activeCandles = useRef(new Map());
   const chartTime = useRef(new Map());
   const chartDate = useRef(new Map());
-  console.log('reload chart socket again for ');
+
   useEffect(() => {
     if (!stockDataMap) return;
-
-    const mapData = Object.entries(JSON.parse(stockDataMap)).map(
-      ([key, value]) => {
-        return [key, value];
-      }
-    );
-    chartMap.current = new Map(mapData);
-    setStockListReady(true);
+    chartMap.current = new Map(getInitialChartCandles(stockDataMap));
+    setStocksOfInterest(deriveSymbols(chartMap));
   }, [stockDataMap]);
 
   useEffect(() => {
-    if (ws.current && ws.current.readyState === 1 && stockListReady) {
+    if (ws.current && ws.current.readyState === 1 && stocksOfInterest) {
       const date = '2024-12-27';
-      const symbols = Array.from(chartMap.current.keys()).map((key) => {
-        const lastCandle = chartMap.current.get(key);
-        const lastCandleTime = dayjs(
-          lastCandle[lastCandle.length - 1].x
-        ).format('HH:mm');
-
-        return { symbol: key, time: lastCandleTime };
-      });
-
-      ws.current.send(JSON.stringify({ date, symbols: symbols }));
+      ws.current.send(JSON.stringify({ date, symbols: stocksOfInterest }));
     }
-  }, [socketReady, stockListReady]);
+  }, [socketReady, stocksOfInterest]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,14 +46,14 @@ const ChartSocket = () => {
         chartDate,
       });
       if (updatedMap.size === 0) return;
-      setLiveChart((prev) => new Map([...updatedMap]));
+      chartTransactions.setLiveChart(updatedMap);
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     //8082
-    ws.current = new WebSocket('ws://localhost:8082');
+    ws.current = new WebSocket(SOCKET_URL);
     ws.current.onopen = () => {
       setSocketReady((prev) => prev + 1);
     };
@@ -101,45 +87,7 @@ const ChartSocket = () => {
     };
   }, []);
 
-  return (
-    <>
-      {liveChart && liveChart.size ? (
-        <div className="overflow-y-auto h-[calc(100vh-10rem)]">
-          <div
-            className={`${
-              isScannerOpen
-                ? 'md:flex md:w-[90%] flex-col'
-                : 'lg:flex lg:flex-wrap'
-            }  `}
-          >
-            {Array.from(chartMap.current.keys()).map((symbol) => (
-              <StockChart
-                key={symbol}
-                txns={liveChart.get(symbol)}
-                symbol={symbol}
-              ></StockChart>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col justify-center items-center h-[calc(100vh-10rem)]">
-          <p className="text-lg">Loading Charts...</p>
-          <LineWave
-            visible={true}
-            height="100"
-            width="100"
-            color="#4fa94d"
-            ariaLabel="line-wave-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            firstLineColor=""
-            middleLineColor=""
-            lastLineColor=""
-          />
-        </div>
-      )}
-    </>
-  );
+  return <ChartWrapper stocks={stocksOfInterest}></ChartWrapper>;
 };
 
 export default ChartSocket;

@@ -4,7 +4,7 @@ import { fetchChartCandles } from './chartSyncSlice';
 import dayjs from 'dayjs';
 const listenerMiddleware = createListenerMiddleware();
 
-const MAX_STOCKS = 4;
+const MAX_STOCKS = 8;
 
 class Synchronizer {
   constructor() {

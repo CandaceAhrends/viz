@@ -34,7 +34,7 @@ const Navigation = ({ loadPath }) => {
   }, [loadPath]);
 
   return (
-    <nav className="fixed flex-row bottom-0 h-[4rem] md:static md:h-full md:w-[4rem] md:flex-shrink-0  md:border-r md:border-black-900  bg-[#050505] ">
+    <nav className="fixed flex-row z-[999999] bottom-0 h-[4rem] md:static md:h-full md:w-[4rem] md:flex-shrink-0  md:border-r md:border-black-900  bg-[#050505] ">
       <ul className="p-4">
         <li className="fixed hidden top-0 right-0 p-2 md:relative md:p-0 md:mx-auto md:block">
           <img src={Logo}></img>

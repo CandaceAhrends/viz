@@ -60,6 +60,8 @@ const ChartSocket = () => {
     };
     ws.current.onmessage = (e) => {
       const data = JSON.parse(e.data);
+      const type = data.type;
+      if (type !== 'CANDLE') return;
       const symbol = data.symbol;
 
       let candleChartTime = chartDate.current.get(symbol);

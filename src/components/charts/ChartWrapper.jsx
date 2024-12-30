@@ -16,7 +16,7 @@ const ChartWrapper = ({ stocks }) => {
         const chart = chartTransactions.getLiveChart();
 
         setLiveChart((prev) => new Map([...chart]));
-      }, 1000);
+      }, 100);
       return () => clearInterval(interval);
     } else {
       setLiveChart(chartTransactions.getLiveChart());

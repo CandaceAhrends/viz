@@ -6,22 +6,22 @@ import dayjs from 'dayjs';
 export const fetchChartCandles = createAsyncThunk(
   'chartSync/fetchChartCandles',
   async (stocks: string[]) => {
-    const candlePromises = stocks.map((stock) => fetchStockData(stock));
-    const responses = await Promise.all(candlePromises);
-    const response = responses.reduce((acc, res, index) => {
-      const chartCandles = res.map((d) => {
-        const time = dayjs(d.t).format('HH:mm');
-        const currentChartDate = getDateForChart(time);
-        const { o, h, l, c } = d;
-        return {
-          x: currentChartDate,
-          y: [o, h, l, c],
-        };
-      });
-      acc[stocks[index]] = [...chartCandles];
-      return acc;
-    }, {});
-    return JSON.stringify(response);
+    // const candlePromises = stocks.map((stock) => fetchStockData(stock));
+    // const responses = await Promise.all(candlePromises);
+    // const response = responses.reduce((acc, res, index) => {
+    //   const chartCandles = res.slice(0, 1).map((d) => {
+    //     const time = dayjs(d.t).format('HH:mm');
+    //     const currentChartDate = getDateForChart(time);
+    //     const { o, h, l, c } = d;
+    //     return {
+    //       x: currentChartDate,
+    //       y: [o, h, l, c],
+    //     };
+    //   });
+    //   acc[stocks[index]] = [...chartCandles];
+    //   return acc;
+    // }, {});
+    return JSON.stringify(stocks);
   }
 );
 

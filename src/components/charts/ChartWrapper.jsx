@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks';
 import StockChart from './StockChart';
 import { LineWave } from 'react-loader-spinner';
 
-const LIVE = false;
+const LIVE = true;
 
 const ChartWrapper = ({ stocks }) => {
   const isScannerOpen = useAppSelector((state) => state.isScannerOpen);
@@ -34,15 +34,13 @@ const ChartWrapper = ({ stocks }) => {
                 : 'lg:flex lg:flex-wrap'
             }  `}
           >
-            {stocks
-              .map((s) => s.symbol)
-              .map((symbol) => (
-                <StockChart
-                  key={symbol}
-                  txns={liveChart.get(symbol)}
-                  symbol={symbol}
-                ></StockChart>
-              ))}
+            {stocks.map((symbol) => (
+              <StockChart
+                key={symbol}
+                txns={liveChart.get(symbol)}
+                symbol={symbol}
+              ></StockChart>
+            ))}
           </div>
         </div>
       ) : (

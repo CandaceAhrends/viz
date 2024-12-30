@@ -8,18 +8,18 @@ import {
   getCandle,
   appendCandle,
   updateLiveChart,
-  getInitialChartCandles,
+  getInitialChartStocks,
   deriveSymbols,
 } from './utils';
 
 const SOCKET_URL = 'ws://localhost:8082'; //'ws://localhost:8082'
-const LIVE = false;
+const LIVE = true;
 
 const ChartSocket = () => {
   const stockDataMap = useAppSelector((state) => state.chartSync.stockDataMap);
-  const [socketReady, setSocketReady] = useState(0);
   const [stocksOfInterest, setStocksOfInterest] = useState([]);
   const ws = useRef(null);
+  const socketPending = useRef(false);
   const chartMap = useRef(new Map());
   const collectedCandles = useRef(new Map());
   const activeCandles = useRef(new Map());
@@ -28,19 +28,10 @@ const ChartSocket = () => {
 
   useEffect(() => {
     if (!stockDataMap) return;
-    chartMap.current = new Map(getInitialChartCandles(stockDataMap));
-    setStocksOfInterest(deriveSymbols(chartMap));
+    chartMap.current = new Map(getInitialChartStocks(stockDataMap));
+    setStocksOfInterest(deriveSymbols(stockDataMap));
     chartTransactions.setLiveChart(chartMap.current);
   }, [stockDataMap]);
-
-  useEffect(() => {
-    if (ws.current && ws.current.readyState === 1 && stocksOfInterest) {
-      const date = '2024-12-27';
-      if (LIVE) {
-        ws.current.send(JSON.stringify({ date, symbols: stocksOfInterest }));
-      }
-    }
-  }, [socketReady, stocksOfInterest]);
 
   useEffect(() => {
     if (LIVE) {
@@ -60,30 +51,32 @@ const ChartSocket = () => {
 
   useEffect(() => {
     //8082
-    ws.current = new WebSocket(CHARTS_WS_URI);
+    if (!socketPending.current) {
+      ws.current = new WebSocket(CHARTS_WS_URI);
+      socketPending.current = true;
+    }
     ws.current.onopen = () => {
-      setSocketReady((prev) => prev + 1);
+      socketPending.current = false;
     };
     ws.current.onmessage = (e) => {
       const data = JSON.parse(e.data);
-      const type = data.type;
-      if (type !== 'CANDLE') return;
       const symbol = data.symbol;
-
-      let candleChartTime = chartDate.current.get(symbol);
-      const lastSymbolTime = chartTime.current.get(symbol);
-      if (data.time !== lastSymbolTime) {
-        candleChartTime = updateChartByMinute({
-          data,
-          collectedCandles,
-          chartTime,
-          chartMap,
-          chartDate,
-          activeCandles,
-        });
+      if (chartMap.current.get(symbol)) {
+        let candleChartTime = chartDate.current.get(symbol);
+        const lastSymbolTime = chartTime.current.get(symbol);
+        if (data.time !== lastSymbolTime) {
+          candleChartTime = updateChartByMinute({
+            data,
+            collectedCandles,
+            chartTime,
+            chartMap,
+            chartDate,
+            activeCandles,
+          });
+        }
+        const candle = getCandle(data, candleChartTime);
+        appendCandle({ collectedCandles, candle, symbol });
       }
-      const candle = getCandle(data, candleChartTime);
-      appendCandle({ collectedCandles, candle, symbol });
     };
     ws.current.onclose = () => {
       console.log('WebSocket closed');

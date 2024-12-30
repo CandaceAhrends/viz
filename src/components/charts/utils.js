@@ -59,7 +59,10 @@ export const updateChartByMinute = ({
     activeCandles.current.delete(data.symbol);
     const stockMapCandles = [...chartMap.current.get(data.symbol)];
     stockMapCandles.push(activeCandle);
-    chartMap.current.set(data.symbol, stockMapCandles.slice(-50));
+    chartMap.current.set(data.symbol, stockMapCandles);
+  } else {
+    const firstCandle = getCandle(data, candleDate);
+    chartMap.current.set(data.symbol, [firstCandle]);
   }
   collectedCandles.current.set(data.symbol, []);
   return candleDate;
@@ -96,20 +99,20 @@ export const getInitialChartCandles = (stockDataMap) => {
   );
   return mapData;
 };
-
-export const deriveSymbols = (chartMap) => {
-  const symbols = Array.from(chartMap.current.keys()).map((key) => {
-    try {
-      const lastCandle = chartMap.current.get(key);
-      const lastCandleTime = dayjs(lastCandle[lastCandle.length - 1].x).format(
-        'HH:mm'
-      );
-
-      return { symbol: key, time: lastCandleTime };
-    } catch (e) {
-      console.log('missing data', key);
-      return null;
+export const getInitialChartStocksx = (stockDataMap) => {
+  const mapData = Object.entries(JSON.parse(stockDataMap)).map(
+    ([key, value]) => {
+      return [key, []];
     }
+  );
+  return mapData;
+};
+export const getInitialChartStocks = (stockDataMap) => {
+  const mapData = JSON.parse(stockDataMap);
+  return mapData.map((stock) => {
+    return [stock, []];
   });
-  return symbols.filter((symbol) => symbol);
+};
+export const deriveSymbols = (stockDataMap) => {
+  return JSON.parse(stockDataMap);
 };

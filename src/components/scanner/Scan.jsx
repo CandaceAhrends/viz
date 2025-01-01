@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { postConfig } from '../../services';
 import RangeSlider from '../shared/RangeSlider.jsx';
 
+const MIN = 0;
+const MAX = 3000;
+
 const Scan = ({ setScanConfig }) => {
   const onRangeChange = (range) => {
     setScanConfig({ min: range[0], max: range[1] });
   };
 
   useEffect(() => {
-    setScanConfig({ min: 10, max: 250 });
+    setScanConfig({ min: MIN, max: MAX });
   }, []);
 
   const handleSend = () => {
@@ -20,7 +23,7 @@ const Scan = ({ setScanConfig }) => {
   return (
     <div className="flex justify-left">
       <div className="w-[100%] pb-3">
-        <RangeSlider onRangeChange={onRangeChange} />
+        <RangeSlider onRangeChange={onRangeChange} min={MIN} max={MAX} />
       </div>
     </div>
   );

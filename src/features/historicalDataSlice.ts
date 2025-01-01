@@ -9,7 +9,7 @@ export const fetchChartCandles = createAsyncThunk(
     const { topUnder20, topOver20, market } = await fetchHistoricalData(date);
     const topVolume = [...topOver20, ...topUnder20, ...market];
     let charts = new Map();
-    for (const stock of topOver20) {
+    for (const stock of topOver20.slice(0, 8)) {
       await new Promise((resolve) => setTimeout(resolve, 0));
       const { symbol } = stock;
       const response = await fetchStockCandles({ symbol, date });

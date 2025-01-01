@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ReactSlider from 'react-slider';
 import './shared.scss';
 
-const RangeSlider = ({ onRangeChange }) => {
-  const [range, setRange] = useState([10, 250]); // Initial values
+const RangeSlider = ({ onRangeChange, min, max }) => {
+  const [range, setRange] = useState([min, max]); // Initial values
 
   useEffect(() => {
     onRangeChange(range);
@@ -22,9 +22,9 @@ const RangeSlider = ({ onRangeChange }) => {
         thumbClassName="thumb"
         trackClassName="track"
         value={range}
-        min={0}
-        max={3000}
-        step={10} // Slider increments
+        min={min}
+        max={max}
+        step={5} // Slider increments
         onChange={(values) => setRange(values)}
         ariaLabel={['Lower thumb', 'Upper thumb']}
       />

@@ -19,7 +19,7 @@ const Scan = ({ setScanConfig }) => {
 
   return (
     <div className="flex justify-left">
-      <div className="w-[70%] pb-3">
+      <div className="w-[100%] pb-3">
         <RangeSlider onRangeChange={onRangeChange} />
       </div>
     </div>

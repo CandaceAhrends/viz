@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import './scanner.scss';
 
-const bulishClass = 'bg-[#2A4037] text-[#07F8B5]';
-const bearishClass = 'bg-[#490517] text-[#FF5361]';
+const bulishClass = 'bg-[#2A4037] text-[#07F8B5] rounded p-1 w-50';
+const bearishClass = 'bg-[#490517] text-[#FF5361] rounded p-1 w-50';
 
 const FeedList = ({ stocks }) => {
   const { selectedStock, setSelectedStock } = useState('QQQ');
@@ -11,56 +11,46 @@ const FeedList = ({ stocks }) => {
     const percentChange = ((stock.close - stock.open) / stock.open) * 100;
     if (stock.open > stock.close) {
       return (
-        <li className={` text-lg ${bearishClass}`}>
+        <span className={` text-lg ${bearishClass}`}>
           {percentChange.toFixed(2)}%
-        </li>
+        </span>
       );
     } else {
       return (
-        <li className={`text-lg ${bulishClass}`}>
+        <span className={`text-lg ${bulishClass}`}>
           {percentChange.toFixed(2)}%
-        </li>
+        </span>
       );
     }
   };
 
   return (
-    <div className="ml-5 md:m-5 mr-3">
-      <header className="flex items-center justify-between h-[7rem]">
-        <div className="text-xl font-bold w-[30rem] md:w-[20rem]">Markets</div>
-        <div className="flex  ml-auto">
-          <button className="text-lg button selected">Active</button>
-          {/* <button className="text-lg button">Gainers</button> */}
+    <div className="ml-1 md:m-3 mr-1">
+      <div className="stock-list">
+        <div className="stock-list__header">
+          <div className="column">Symbol</div>
+          <div className="column">Volume</div>
+          <div className="column">Price</div>
+          <div className="column">% Change</div>
         </div>
-      </header>
-      <div className="scrollable-scan-list-container">
-        {stocks.map((stock) => (
-          <ul
-            key={stock?.symbol}
-            className="flex items-center justify-between h-10 min-h-10"
-            onClick={() => setSelectedStock(stock.symbol)}
-          >
-            <li className="flex ext-white w-[5rem] md:w-[10rem] hover:border-l cursor-pointer ">
+        <div className="stock-list__body">
+          {stocks.map((stock, index) => (
+            <div className="stock-list__item" key={index}>
+              <div className="column">{stock.symbol}</div>
+              <div className="column text-slate-400">
+                {stock.volume.toLocaleString()}
+              </div>
+              <div className="column">{stock.vw}</div>
               <div
-                className={`text-xl font-bold ${
-                  selectedStock === stock.symbol ? 'text-green' : ''
+                className={`column ${
+                  stock.isPositive ? 'positive' : 'negative'
                 }`}
               >
-                {stock.symbol}
-              </div>
-            </li>
-
-            <li className="w-12  text-gray-400 text-lg">
-              {stock.volume?.toLocaleString()}
-            </li>
-            <li className="flex  ">
-              <div className="ml-auto flex-end text-left  ">
                 {computeStockGainPercentageFromOpen(stock)}
               </div>
-            </li>
-            <li className="text-gray-400 text-lg">{stock.vw?.toFixed(2)}</li>
-          </ul>
-        ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import ScannerPage from '../scanner/ScannerPage.jsx';
 const ContentContainer = () => {
   console.log('content container redraw');
   return (
-    <div className="flex flex-col text-white flex-grow w-full">
+    <div className="flex flex-col text-white flex-grow w-full bg-black">
       <Header />
       <Routes>
         <Route path="/scan" element={<ScannerPage />} />

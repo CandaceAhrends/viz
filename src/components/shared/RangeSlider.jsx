@@ -23,7 +23,7 @@ const RangeSlider = ({ onRangeChange }) => {
         trackClassName="track"
         value={range}
         min={0}
-        max={1000}
+        max={3000}
         step={10} // Slider increments
         onChange={(values) => setRange(values)}
         ariaLabel={['Lower thumb', 'Upper thumb']}

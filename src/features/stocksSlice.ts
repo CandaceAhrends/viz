@@ -10,11 +10,13 @@ interface Stock {
 interface StockState {
   stocks: Stock[];
   date: string;
+  reloadCharts: boolean;
 }
 
 const initialState: StockState = {
   stocks: [],
   date: '',
+  reloadCharts: true,
 };
 
 export const stocksApiSlice = createApi({
@@ -38,10 +40,14 @@ const stocksSlice = createSlice({
     },
     setDate(state, action: PayloadAction<string>) {
       state.date = action.payload;
+      state.reloadCharts = true;
+    },
+    setChartsLoaded(state) {
+      state.reloadCharts = false;
     },
   },
 });
 
 export const { useGetStocksQuery } = stocksApiSlice;
-export const { setChartStocks, setDate } = stocksSlice.actions;
+export const { setChartStocks, setDate, setChartsLoaded } = stocksSlice.actions;
 export default stocksSlice.reducer;

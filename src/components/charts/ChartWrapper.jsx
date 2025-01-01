@@ -1,24 +1,29 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useAppSelector } from '../../hooks';
+import React, { useState, useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import StockChart from './StockChart';
+import { setChartsLoaded } from '../../features/stocksSlice';
 import { LineWave } from 'react-loader-spinner';
 
 const ChartWrapper = () => {
   const isScannerOpen = useAppSelector((state) => state.isScannerOpen);
+  const date = useAppSelector((state) => state.stocks.date);
+  const reloadCharts = useAppSelector((state) => state.stocks.reloadCharts);
   const historicalCharts = useAppSelector(
     (state) => state.historicalData.historicalCharts
   );
   const [liveChart, setLiveChart] = useState(new Map());
   const [stocks, setStocks] = useState([]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (historicalCharts.length) {
       const charts = JSON.parse(historicalCharts);
       const chartsMap = new Map(charts);
+      dispatch(setChartsLoaded());
       setLiveChart(chartsMap);
       setStocks([...chartsMap.keys()]);
     }
-  }, [historicalCharts]);
+  }, [historicalCharts, date]);
 
   return (
     <>

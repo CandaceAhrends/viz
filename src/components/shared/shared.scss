@@ -140,3 +140,12 @@
   color: black;
   border: none;
 }
+.react-datepicker__day-name:first-child,
+.react-datepicker__day-name:last-child {
+  display: none;
+}
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  width: 2.5rem;
+}

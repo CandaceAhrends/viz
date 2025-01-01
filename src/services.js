@@ -2,10 +2,9 @@ import axios from 'axios';
 import { POLY_SERVICES_URI } from './consts';
 
 const LocalTesting = 'http://localhost:7007';
-export const fetchStockData = async (symbol) => {
+export const fetchStockCandles = async ({ symbol, date }) => {
   try {
-    const tdate = '2024-12-30';
-    const url = `${POLY_SERVICES_URI}/agg/${symbol}/${tdate}`;
+    const url = `${POLY_SERVICES_URI}/agg/${symbol}/${date}`;
     console.log(url);
     const response = await axios.get(url);
     return response.data?.results;
@@ -15,9 +14,21 @@ export const fetchStockData = async (symbol) => {
   }
 };
 
-export const fetchNews = async (symbol) => {
+export const fetchHistoricalData = async (date) => {
   try {
-    const response = await axios.get(`${POLY_SERVICES_URI}/news/${symbol}`);
+    const response = await axios.get(`${POLY_SERVICES_URI}/topVolume/${date}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+
+export const fetchNews = async ({ symbol, date }) => {
+  try {
+    const response = await axios.get(
+      `${POLY_SERVICES_URI}/news/${symbol}/${date}`
+    );
     return response.data?.results;
   } catch (error) {
     console.error('Error fetching data:', error);

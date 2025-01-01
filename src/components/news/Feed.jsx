@@ -1,18 +1,22 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { StockContext } from '../../StockContext';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchNews } from '../../services';
 import NewsList from './NewsList';
 
 const Feed = ({ containerRef, size }) => {
   const [news, setNews] = useState([]);
-  const { selectedStock } = useContext(StockContext);
-  const isScannerOpen = useAppSelector((state) => state.scanner.isScannerOpen);
+  const selectedDate = useAppSelector((state) => state.stocks.date);
+  const selectedStock = useAppSelector(
+    (state) => state.historicalData.selectedStock
+  );
 
   useEffect(() => {
     const fetch = async () => {
       try {
-        const data = await fetchNews(selectedStock);
+        const data = await fetchNews({
+          symbol: selectedStock.symbol,
+          date: selectedDate,
+        });
         setNews(data);
       } catch (error) {
         console.error('Error fetching news:', error);

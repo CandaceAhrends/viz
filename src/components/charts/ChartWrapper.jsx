@@ -1,27 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
-import chartTransactions from './ChartTransactions';
 import { useAppSelector } from '../../hooks';
 import StockChart from './StockChart';
 import { LineWave } from 'react-loader-spinner';
 
-const LIVE = true;
-
-const ChartWrapper = ({ stocks }) => {
+const ChartWrapper = () => {
   const isScannerOpen = useAppSelector((state) => state.isScannerOpen);
+  const historicalCharts = useAppSelector(
+    (state) => state.historicalData.historicalCharts
+  );
   const [liveChart, setLiveChart] = useState(new Map());
+  const [stocks, setStocks] = useState([]);
 
   useEffect(() => {
-    if (LIVE) {
-      const interval = setInterval(() => {
-        const chart = chartTransactions.getLiveChart();
-
-        setLiveChart((prev) => new Map([...chart]));
-      }, 100);
-      return () => clearInterval(interval);
-    } else {
-      setLiveChart(chartTransactions.getLiveChart());
+    if (historicalCharts.length) {
+      const charts = JSON.parse(historicalCharts);
+      const chartsMap = new Map(charts);
+      setLiveChart(chartsMap);
+      setStocks([...chartsMap.keys()]);
     }
-  }, [stocks]);
+  }, [historicalCharts]);
 
   return (
     <>

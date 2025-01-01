@@ -1,9 +1,9 @@
 import React from 'react';
-import ChartSocket from '../charts/ChartSocket';
+import ChartWrapper from '../charts/ChartWrapper';
 
 const ChartGrid = () => {
   console.log('chart grid redraw');
-  return <ChartSocket></ChartSocket>;
+  return <ChartWrapper></ChartWrapper>;
 };
 
 export default ChartGrid;

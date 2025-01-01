@@ -4,13 +4,14 @@ import Feed from './Feed.jsx';
 import GradientSection from '../shared/GradientSection.jsx';
 
 const ScannerPage = () => {
+  const [scanConfig, setScanConfig] = React.useState({});
   return (
     <div>
       <GradientSection>
-        <Scan />
+        <Scan setScanConfig={setScanConfig} />
       </GradientSection>
 
-      <Feed />
+      <Feed scanConfig={scanConfig} />
     </div>
   );
 };

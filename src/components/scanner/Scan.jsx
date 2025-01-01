@@ -1,22 +1,15 @@
-import React, { useState } from 'react';
-import Section from '../shared/Section.jsx';
+import React, { useEffect, useState } from 'react';
 import { postConfig } from '../../services';
 import RangeSlider from '../shared/RangeSlider.jsx';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 
-const Scan = () => {
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-
-  const dispatch = useAppDispatch();
-
-  const handleMinPriceChange = (event) => {
-    setMinPrice(event.target.value);
+const Scan = ({ setScanConfig }) => {
+  const onRangeChange = (range) => {
+    setScanConfig({ min: range[0], max: range[1] });
   };
 
-  const handleMaxPriceChange = (event) => {
-    setMaxPrice(event.target.value);
-  };
+  useEffect(() => {
+    setScanConfig({ min: 10, max: 250 });
+  }, []);
 
   const handleSend = () => {
     console.log('minPrice:', minPrice);
@@ -27,15 +20,8 @@ const Scan = () => {
   return (
     <div className="flex justify-left">
       <div className="w-[70%] pb-3">
-        <RangeSlider />
+        <RangeSlider onRangeChange={onRangeChange} />
       </div>
-
-      <button
-        className="m-auto w-[7rem] mr-5 mb-5 rounded-full h-[3rem] bg-green text-black"
-        onClick={handleSend}
-      >
-        Update
-      </button>
     </div>
   );
 };

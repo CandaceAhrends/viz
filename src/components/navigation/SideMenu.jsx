@@ -5,6 +5,7 @@ import './navigation.scss';
 
 const SideMenu = () => {
   const isScannerOpen = useAppSelector((state) => state.scanner.isScannerOpen);
+
   return (
     <div className="sidebar-container z-[999999]">
       <div

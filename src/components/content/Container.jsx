@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './Header.jsx';
+import Header from '../header/Header.jsx';
 import NewsGrid from './NewsGrid.jsx';
 import { Route, Routes } from 'react-router-dom';
 import ChartGrid from './ChartGrid.jsx';

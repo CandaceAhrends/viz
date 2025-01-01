@@ -6,9 +6,9 @@ import { store } from './store';
 import './index.scss';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <React.Fragment>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>
+  </React.Fragment>
 );

@@ -15,45 +15,6 @@
   padding: 0 4px;
 }
 
-.cards-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 120px;
-  text-align: center;
-}
-
-.card img {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 10px;
-}
-
-.card .stock-name {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.card .stock-change {
-  font-size: 14px;
-}
-
-.card .positive {
-  color: #28a745;
-}
-
-.card .negative {
-  color: #dc3545;
-}
-
 .description {
   text-align: center;
   margin: 40px 20px;
@@ -86,8 +47,4 @@
 .stock-price {
   color: #00cccc;
   margin-right: 0.3rem;
-}
-
-.stock-change {
-  color: #666;
 }

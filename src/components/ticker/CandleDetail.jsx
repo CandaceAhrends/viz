@@ -1,10 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
+import { useAppSelector } from '../../hooks';
 import { useGetRelatedQuery } from '../../features/relatedCompaniesSlice';
-import { StockContext } from '../../StockContext';
 
 const CandleDetail = () => {
-  const { selectedStock, setSelectedStock } = useContext(StockContext);
-  const { data = [], error, isLoading } = useGetRelatedQuery(selectedStock);
+  const selectedStock = useAppSelector(
+    (state) => state.historicalData.selectedStock
+  );
+  const {
+    data = [],
+    error,
+    isLoading,
+  } = useGetRelatedQuery(selectedStock.symbol);
 
   return (
     <ul className="flex grid-cols-5 bg-green-500 ml-5 m-1">

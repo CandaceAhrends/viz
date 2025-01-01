@@ -9,10 +9,12 @@ interface Stock {
 
 interface StockState {
   stocks: Stock[];
+  date: string;
 }
 
 const initialState: StockState = {
   stocks: [],
+  date: '',
 };
 
 export const stocksApiSlice = createApi({
@@ -34,9 +36,12 @@ const stocksSlice = createSlice({
     setChartStocks(state, action: PayloadAction<Stock[]>) {
       state.stocks = [...action.payload];
     },
+    setDate(state, action: PayloadAction<string>) {
+      state.date = action.payload;
+    },
   },
 });
 
 export const { useGetStocksQuery } = stocksApiSlice;
-export const { setChartStocks } = stocksSlice.actions;
+export const { setChartStocks, setDate } = stocksSlice.actions;
 export default stocksSlice.reducer;

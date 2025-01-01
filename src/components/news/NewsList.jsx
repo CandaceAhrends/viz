@@ -11,7 +11,7 @@ const NewsList = ({ news }) => {
       <ul className="news-list scrollable-list">
         {news.map((news, index) => (
           <li
-            key={news.title}
+            key={news.published_utc}
             className="news-item cursor-pointer scrollable-item"
             onClick={loadNewsInTab(news.article_url)}
           >

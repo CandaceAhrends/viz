@@ -1,5 +1,4 @@
 import React from 'react';
-import Scan from './Scan.jsx';
 import SideList from './SideList.jsx';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 // const openLinkInNewTab = (symbol) => {
@@ -8,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 //   };
 
 const PopoutPage = () => {
-  const stocks = useAppSelector((state) => state.scanner.topVolume);
+  const stocks = useAppSelector((state) => state.historicalData.topVolume);
 
   return <SideList stocks={stocks} />;
 };

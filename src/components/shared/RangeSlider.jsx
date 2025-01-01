@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactSlider from 'react-slider';
 import './shared.scss';
 
-const RangeSlider = ({ label = 'price' }) => {
+const RangeSlider = ({ onRangeChange }) => {
   const [range, setRange] = useState([10, 250]); // Initial values
 
+  useEffect(() => {
+    onRangeChange(range);
+  }, [range]);
   return (
     <div className="slider-container">
       {/* Range labels */}

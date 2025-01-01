@@ -4,14 +4,14 @@ import { stocksApiSlice } from './features/stocksSlice';
 import scannerSlice from './features/scannerSlice';
 import navigationSlice from './features/navigationSlice';
 import { relatedApiSlice } from './features/relatedCompaniesSlice';
-import chartSyncSlice from './features/chartSyncSlice';
+import historicalDataSlice from './features/historicalDataSlice';
 import listenerMiddleware from './features/listenerMiddleware';
 
 export const store = configureStore({
   reducer: {
     stocks: stocksSlice,
     scanner: scannerSlice,
-    chartSync: chartSyncSlice,
+    historicalData: historicalDataSlice,
     navigation: navigationSlice,
     [stocksApiSlice.reducerPath]: stocksApiSlice.reducer,
     [relatedApiSlice.reducerPath]: relatedApiSlice.reducer,

@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navigation from './components/navigation/Navigation.jsx';
 import Container from './components/content/Container.jsx';
 import StockProvider from './StockContext.jsx';
+import { setDate } from './features/stocksSlice';
+import { getPreviousMarketDate } from './utils';
+import { useAppDispatch } from './hooks';
 import { BrowserRouter } from 'react-router-dom';
 import './app.scss';
 
 const loadPath = window.location.href?.split('/').pop();
-console.log('loadPath', loadPath);
+
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setDate(getPreviousMarketDate()));
+  }, []);
+
   return (
     <StockProvider>
       <BrowserRouter>

@@ -14,7 +14,7 @@ const StockSummary = ({ summaryStocks }) => {
         const isPositive = change > 0;
         return {
           name: stock.symbol,
-          price: stock.vw,
+          price: stock.vw.toFixed(2),
           change: `${change.toFixed(2)}`,
           percent: percentChange.toFixed(2) + '%',
           color: summaryColors[index],

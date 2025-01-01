@@ -77,8 +77,8 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  height: 30px;
-  width: 30px;
+  height: 2.7rem;
+  width: 2.7rem;
   margin: 5px;
 }
 
@@ -112,7 +112,9 @@
   background-color: #00aaff;
   color: black;
 }
-
+.react-datepicker__month {
+  border: solid #1e1c1c;
+}
 .react-datepicker-wrapper {
   color: #1b1919;
   .react-datepicker__view-calendar-icon input {
@@ -127,4 +129,14 @@
 .react-datepicker__navigation--previous {
   left: 12px;
   height: 4rem;
+}
+.react-datepicker__day--disabled,
+.react-datepicker__month-text--disabled,
+.react-datepicker__quarter-text--disabled,
+.react-datepicker__year-text--disabled {
+  color: black;
+}
+.current-day {
+  color: black;
+  border: none;
 }

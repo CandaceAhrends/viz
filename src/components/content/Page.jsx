@@ -57,9 +57,9 @@ const Page = () => {
 
       <div className="description">
         <h2>Historical Market Scanner</h2>
-        <p>Get active stocks based on the selected date. </p>
+        <p>Research the most active stocks based on the selected date. </p>
       </div>
-      <div className="flex justify-center h-20">
+      <div className="flex justify-center h-[30rem]">
         <StockDatePicker
           selectedDate={selectedDate}
           setSelectedDate={handleDate}

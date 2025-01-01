@@ -9,6 +9,8 @@ const StockDatePicker = ({ selectedDate, setSelectedDate }) => {
       <DatePicker
         selected={selectedDate}
         showIcon
+        popperPlacement="top-end"
+        inline
         onChange={(date) => setSelectedDate(date)}
         filterDate={(date) =>
           date.getDay() !== 0 && date.getDay() !== 6 && date <= new Date()
@@ -17,7 +19,6 @@ const StockDatePicker = ({ selectedDate, setSelectedDate }) => {
         dayClassName={(date) =>
           date.getDate() === new Date().getDate() ? 'current-day' : undefined
         }
-        todayButton="Today"
       />
     </div>
   );

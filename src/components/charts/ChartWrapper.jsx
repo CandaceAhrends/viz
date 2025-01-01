@@ -13,6 +13,7 @@ const ChartWrapper = () => {
   );
   const [liveChart, setLiveChart] = useState(new Map());
   const [stocks, setStocks] = useState([]);
+  const [delayedStocks, setDelayedStocks] = useState([]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -25,6 +26,23 @@ const ChartWrapper = () => {
     }
   }, [historicalCharts, date]);
 
+  useEffect(() => {
+    let timeoutId;
+    let index = 0;
+
+    const renderNextStock = () => {
+      if (index < stocks.length) {
+        setDelayedStocks((prev) => [...prev, stocks[index]]);
+        index++;
+        timeoutId = setTimeout(renderNextStock, 1000); // Wait one second
+      }
+    };
+
+    renderNextStock();
+
+    return () => clearTimeout(timeoutId);
+  }, [stocks]);
+
   return (
     <>
       {liveChart && liveChart.size ? (
@@ -36,7 +54,7 @@ const ChartWrapper = () => {
                 : 'lg:flex lg:flex-wrap'
             }  `}
           >
-            {stocks.map((symbol) => (
+            {delayedStocks.map((symbol) => (
               <StockChart
                 key={symbol}
                 txns={liveChart.get(symbol)}

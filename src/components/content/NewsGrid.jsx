@@ -2,7 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import StockData from '../ticker/StockData.jsx';
 import CandleDetail from '../ticker/CandleDetail.jsx';
 import Section from '../shared/Section.jsx';
+import { Link } from 'react-router-dom';
+import ArrowSvg from '../images/ArrowSvg';
 import Feed from '../news/Feed.jsx';
+import './content.scss';
 
 const NewsGrid = () => {
   const [size, setSize] = useState('lg');
@@ -53,8 +56,28 @@ const NewsGrid = () => {
   return (
     <div className="grid md:h-auto md:grid-cols-2 md:grid-rows-3 md:gap-1 md:pt-1 z-10">
       <div className="md:col-span-2 ">
-        <StockData size={size} />
-        {size === 'lg' && <CandleDetail />}
+        <div className="flex">
+          <div className={`${size === 'sm' ? 'flex' : ''}`}>
+            <StockData size={size} />
+            {size === 'sm' && (
+              <div className="p-1  z-[999999]">
+                <Link to={'/charts'}>
+                  <ArrowSvg />
+                </Link>
+              </div>
+            )}
+            <div className="flex mt-1">
+              {size === 'lg' && <CandleDetail />}
+              {size === 'lg' && (
+                <span className="lg-icon">
+                  <Link to={'/charts'}>
+                    <ArrowSvg />
+                  </Link>
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="md:col-span-2 row-span-2 pr-1">

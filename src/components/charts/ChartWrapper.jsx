@@ -8,6 +8,9 @@ const ChartWrapper = () => {
   const isScannerOpen = useAppSelector((state) => state.isScannerOpen);
   const date = useAppSelector((state) => state.stocks.date);
   const reloadCharts = useAppSelector((state) => state.stocks.reloadCharts);
+  const selectedStock = useAppSelector(
+    (state) => state.historicalData.selectedStock
+  );
   const historicalCharts = useAppSelector(
     (state) => state.historicalData.historicalCharts
   );
@@ -22,9 +25,18 @@ const ChartWrapper = () => {
       const chartsMap = new Map(charts);
       dispatch(setChartsLoaded());
       setLiveChart(chartsMap);
-      setStocks([...chartsMap.keys()]);
     }
   }, [historicalCharts, date]);
+
+  useEffect(() => {
+    if (selectedStock && liveChart.size) {
+      const stocks = [
+        selectedStock.symbol,
+        ...liveChart.keys().filter((stock) => stock !== selectedStock.symbol),
+      ];
+      setStocks(stocks);
+    }
+  }, [selectedStock, liveChart]);
 
   useEffect(() => {
     let timeoutId;
@@ -32,9 +44,9 @@ const ChartWrapper = () => {
 
     const renderNextStock = () => {
       if (index < stocks.length) {
-        setDelayedStocks((prev) => [...prev, stocks[index]]);
+        setDelayedStocks(stocks.slice(0, index + 1));
+        timeoutId = setTimeout(renderNextStock, 1000);
         index++;
-        timeoutId = setTimeout(renderNextStock, 1000); // Wait one second
       }
     };
 

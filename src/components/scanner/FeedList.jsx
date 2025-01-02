@@ -1,11 +1,16 @@
 import React, { useContext, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useNavigate } from 'react-router-dom';
+
+import { setSelectedStock } from '../../features/historicalDataSlice';
 import './scanner.scss';
 
 const bulishClass = 'bg-[#2A4037] text-[#07F8B5] rounded p-1 w-50';
 const bearishClass = 'bg-[#490517] text-[#FF5361] rounded p-1 w-50';
 
 const FeedList = ({ stocks }) => {
-  const { selectedStock, setSelectedStock } = useState('QQQ');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const computeStockGainPercentageFromOpen = (stock) => {
     const percentChange = ((stock.close - stock.open) / stock.open) * 100;
@@ -24,6 +29,11 @@ const FeedList = ({ stocks }) => {
     }
   };
 
+  const handleStockClick = (stock) => {
+    dispatch(setSelectedStock(stock));
+    navigate('/news');
+  };
+
   return (
     <div className="ml-1 md:m-3 mr-1">
       <div className="stock-list">
@@ -33,9 +43,13 @@ const FeedList = ({ stocks }) => {
           <div className="column">Price</div>
           <div className="column">% Change</div>
         </div>
-        <div className="stock-list__body">
+        <ul className="stock-list__body">
           {stocks.map((stock, index) => (
-            <div className="stock-list__item" key={index}>
+            <li
+              className="stock-list__item"
+              key={stock.symbol}
+              onClick={() => handleStockClick(stock)}
+            >
               <div className="column">{stock.symbol}</div>
               <div className="column text-slate-400">
                 {stock.volume.toLocaleString()}
@@ -48,9 +62,9 @@ const FeedList = ({ stocks }) => {
               >
                 {computeStockGainPercentageFromOpen(stock)}
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );

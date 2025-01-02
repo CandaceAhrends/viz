@@ -17,7 +17,11 @@ export const getDateForChart = (time) => {
   }
 };
 
+const testing = true;
 export const getPreviousMarketDate = (date) => {
+  if (testing) {
+    return dayjs(date).format('YYYY-MM-DD');
+  }
   let previousDate = dayjs(date).subtract(1, 'day');
   if (previousDate.day() === 0) {
     // If the previous date is a Sunday, subtract 2 more days to skip the weekend

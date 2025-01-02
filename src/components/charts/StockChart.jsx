@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import Chart from 'react-apexcharts';
 import { CHART_OPTIONS } from '../../consts';
 import './charts.scss';
@@ -41,4 +41,6 @@ const StockChart = ({ txns, symbol }) => {
   );
 };
 
-export default StockChart;
+export default memo(StockChart, (prevProps, nextProps) => {
+  return prevProps.symbol === nextProps.symbol;
+});

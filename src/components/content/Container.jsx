@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import ChartGrid from './ChartGrid.jsx';
 import Page from './Page.jsx';
 import ScannerPage from '../scanner/ScannerPage.jsx';
+import ChartWrapper from '../charts/ChartWrapper';
 
 const ContentContainer = () => {
   console.log('content container redraw');
@@ -17,6 +18,9 @@ const ContentContainer = () => {
         <Route path="/charts" element={<ChartGrid />} />
         <Route path="/" element={<Page />} />
       </Routes>
+      {/* <div id="chart-wrapper" className="hidden">
+        <ChartWrapper />
+      </div> */}
     </div>
   );
 };

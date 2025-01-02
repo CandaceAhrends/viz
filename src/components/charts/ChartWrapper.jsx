@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import StockChart from './StockChart';
+import { fetchStockCandles } from '../../services';
 import { setChartsLoaded } from '../../features/stocksSlice';
 import { LineWave } from 'react-loader-spinner';
+import dayjs from 'dayjs';
+import { getDateForChart } from '../../utils';
 
 const ChartWrapper = () => {
   const isScannerOpen = useAppSelector((state) => state.isScannerOpen);
@@ -25,18 +28,9 @@ const ChartWrapper = () => {
       const chartsMap = new Map(charts);
       dispatch(setChartsLoaded());
       setLiveChart(chartsMap);
+      setStocks([...chartsMap.keys()]);
     }
   }, [historicalCharts, date]);
-
-  useEffect(() => {
-    if (selectedStock && liveChart.size) {
-      const stocks = [
-        selectedStock.symbol,
-        ...liveChart.keys().filter((stock) => stock !== selectedStock.symbol),
-      ];
-      setStocks(stocks);
-    }
-  }, [selectedStock, liveChart]);
 
   useEffect(() => {
     let timeoutId;

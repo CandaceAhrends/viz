@@ -5,6 +5,7 @@ import { setDate } from '../../features/stocksSlice';
 import dayjs from 'dayjs';
 import StockSummary from '../ticker/StockSummary';
 import ErrorMessage from '../shared/ErrorMessage';
+import SuccessMessage from '../shared/SuccessMessage';
 import StockDatePicker from '../shared/StockDatePicker';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import './content.scss';
@@ -59,6 +60,7 @@ const Page = () => {
       {hasError && (
         <ErrorMessage message="Error fetching data.  Try a different date." />
       )}
+      {!hasError && <SuccessMessage message="Data fetched successfully." />}
 
       <div className="description">
         <h2>Historical Market Scanner</h2>

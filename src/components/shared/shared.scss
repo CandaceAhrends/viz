@@ -62,7 +62,6 @@
 
 .error-message {
   display: flex;
-  width: 50%;
   justify-items: center;
   justify-content: center;
   background-color: #d32f2f; // Red background
@@ -84,6 +83,36 @@
     height: 1.5rem;
     border-radius: 50%; // Make it circular
     margin-right: 0.5rem; // Space between the icon and text
+  }
+
+  .text {
+    white-space: nowrap; // Prevent text wrapping
+  }
+}
+.success-message {
+  display: flex;
+  align-items: center;
+  background-color: #1f1d1d; // Green background
+  color: #00ff99; // White text color
+  padding: 0.5rem 1rem; // Spacing inside the box
+  border-radius: 0.5rem; // Rounded corners
+  font-family: Arial, sans-serif; // Font
+  font-size: 1rem; // Text size
+  font-weight: bold; // Bold text
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Optional shadow for depth
+
+  .icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(63, 60, 60); // White background for the icon
+    color: #00ff99; // Green color for the checkmark
+    width: 1.5rem; // Circular size
+    height: 1.5rem;
+    border-radius: 50%; // Make it circular
+    margin-right: 0.5rem; // Space between the icon and text
+    font-size: 1rem; // Adjust size of the checkmark
+    font-weight: bold; // Make checkmark bold
   }
 
   .text {

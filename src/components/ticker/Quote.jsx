@@ -25,7 +25,7 @@ const Quote = ({ size }) => {
       <div
         className={`transition-all ${
           size === 'lg' ? 'text-xxl' : 'text-lg'
-        } font-semibold pl-3.5`}
+        } font-semibold pl-2`}
       >
         {price.toFixed(2)}
       </div>

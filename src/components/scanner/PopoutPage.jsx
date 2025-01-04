@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 //   };
 
 const PopoutPage = () => {
-  const stocks = useAppSelector((state) => state.historicalData.topVolume);
+  const stocks = useAppSelector((state) => state.historicalData.filteredStocks);
 
   return <SideList stocks={stocks} />;
 };

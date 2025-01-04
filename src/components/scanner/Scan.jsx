@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { postConfig } from '../../services';
 import RangeSlider from '../shared/RangeSlider.jsx';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setConfig } from '../../features/scannerSlice';
 
-const MIN = 0;
-const MAX = 3000;
+// const MIN = 0;
+// const MAX = 3000;
 
-const Scan = ({ setScanConfig }) => {
+const Scan = () => {
+  const dispatch = useAppDispatch();
+  const config = useAppSelector((state) => state.scanner.config);
+  const { min, max } = useRef(config);
   const onRangeChange = (range) => {
-    setScanConfig({ min: range[0], max: range[1] });
+    dispatch(setConfig({ min: range[0], max: range[1] }));
   };
-
-  useEffect(() => {
-    setScanConfig({ min: MIN, max: MAX });
-  }, []);
 
   const handleSend = () => {
     console.log('minPrice:', minPrice);
@@ -23,7 +24,13 @@ const Scan = ({ setScanConfig }) => {
   return (
     <div className="flex justify-left">
       <div className="w-[100%] pb-3">
-        <RangeSlider onRangeChange={onRangeChange} min={MIN} max={MAX} />
+        <RangeSlider
+          onRangeChange={onRangeChange}
+          min={min}
+          max={max}
+          initialMin={config.min}
+          initialMax={config.max}
+        />
       </div>
     </div>
   );

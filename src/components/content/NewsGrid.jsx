@@ -2,12 +2,22 @@ import React, { useEffect, useState, useRef } from 'react';
 import StockData from '../ticker/StockData.jsx';
 import CandleDetail from '../ticker/CandleDetail.jsx';
 import Section from '../shared/Section.jsx';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getNextSymbol, getPrevSymbol } from '../../utils';
+import { setSelectedStock } from '../../features/historicalDataSlice';
 import { Link } from 'react-router-dom';
 import ArrowSvg from '../images/ArrowSvg';
 import Feed from '../news/Feed.jsx';
 import './content.scss';
 
 const NewsGrid = () => {
+  const dispatch = useAppDispatch();
+  const filteredStocks = useAppSelector(
+    (state) => state.historicalData.filteredStocks
+  );
+  const selectedStock = useAppSelector(
+    (state) => state.historicalData.selectedStock
+  );
   const [size, setSize] = useState('lg');
   const scrollableRef = useRef(null);
   const prevTouchRef = useRef(null);
@@ -53,6 +63,15 @@ const NewsGrid = () => {
     };
   }, []);
 
+  const selectNextStock = () => {
+    const nextStock = getNextSymbol({ selectedStock, filteredStocks });
+    dispatch(setSelectedStock(nextStock));
+  };
+  const selectPrevStock = () => {
+    const prevStock = getPrevSymbol({ selectedStock, filteredStocks });
+    dispatch(setSelectedStock(prevStock));
+  };
+
   return (
     <div className="grid md:h-auto md:grid-cols-2 md:grid-rows-3 md:gap-1 md:pt-1 z-10">
       <div className="md:col-span-2 ">
@@ -67,15 +86,25 @@ const NewsGrid = () => {
               </div>
             )}
             <div className="flex mt-1">
-              {size === 'lg' && <CandleDetail />}
+              {/* {size === 'lg' && <CandleDetail />} */}
               {size === 'lg' && (
-                <span className="lg-icon">
+                <span className="lg-icon pl-3">
                   <Link to={'/charts'}>
                     <ArrowSvg />
                   </Link>
                 </span>
               )}
             </div>
+          </div>
+          <div class="flex button-group hover:pointer">
+            <button class="button prev" onClick={selectPrevStock}>
+              <span class="icon">◀</span>
+              <span class="text">PREV</span>
+            </button>
+            <button class="button next" onClick={selectNextStock}>
+              <span class="text">NEXT</span>
+              <span class="icon">▶</span>
+            </button>
           </div>
         </div>
       </div>

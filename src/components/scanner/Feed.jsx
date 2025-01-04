@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setFilteredStocks } from '../../features/historicalDataSlice';
 import FeedList from './FeedList';
 
-const Feed = ({ scanConfig }) => {
+const Feed = () => {
+  const dispatch = useAppDispatch();
   const stocks = useAppSelector((state) => state.historicalData.topVolume);
+  const scanConfig = useAppSelector((state) => state.scanner.config);
   const [scanResults, setScanResults] = React.useState([]);
 
   useEffect(() => {
@@ -11,6 +14,7 @@ const Feed = ({ scanConfig }) => {
       const filteredStocks = stocks.filter((stock) => {
         return stock.vw >= scanConfig.min && stock.vw <= scanConfig.max;
       });
+      dispatch(setFilteredStocks(filteredStocks));
       setScanResults([...filteredStocks]);
     }
   }, [scanConfig, stocks]);

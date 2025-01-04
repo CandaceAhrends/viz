@@ -58,9 +58,17 @@ const Page = () => {
         )}
       </div>
       {hasError && (
-        <ErrorMessage message="Error fetching data.  Try a different date." />
+        <ErrorMessage message="Historical data is not available for this date." />
       )}
-      {!hasError && <SuccessMessage message="Data fetched successfully." />}
+      {!hasError && (
+        <SuccessMessage>
+          <Link to="/news" onClick={() => dispatch(selectMenu('news'))}>
+            <span className="text-brand-blue">
+              Click to view news for {dayjs(date).format('MMMM DD, YYYY')}
+            </span>
+          </Link>
+        </SuccessMessage>
+      )}
 
       <div className="description">
         <h2>Historical Market Scanner</h2>

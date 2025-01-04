@@ -1,13 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+const MIN = 0;
+const MAX = 3000;
 
 interface ScannerState {
   isScannerOpen: boolean;
+  config: object;
   topVolume: string[];
   topGainers: string[];
 }
 
 const initialState: ScannerState = {
   isScannerOpen: false,
+  config: { min: MIN, max: MAX },
   topVolume: [],
   topGainers: [],
 };
@@ -25,9 +29,13 @@ const scannerSlice = createSlice({
     setTopGainers(state, action: PayloadAction<string[]>) {
       state.topGainers = [...action.payload];
     },
+    setConfig(state, action: PayloadAction<object>) {
+      state.config = action.payload;
+    },
   },
 });
 
-export const { setOpen, setTopVolume, setTopGainers } = scannerSlice.actions;
+export const { setOpen, setConfig, setTopVolume, setTopGainers } =
+  scannerSlice.actions;
 
 export default scannerSlice.reducer;

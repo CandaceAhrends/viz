@@ -9,7 +9,7 @@ export const fetchChartCandles = createAsyncThunk(
     const { stocks, market, error } = await fetchHistoricalData(date);
 
     let charts = new Map();
-    for (const stock of stocks.slice(0, 2)) {
+    for (const stock of stocks.slice(0, 20)) {
       await new Promise((resolve) => setTimeout(resolve, 0));
       const { symbol } = stock;
       const response = await fetchStockCandles({ symbol, date });
@@ -30,6 +30,7 @@ export const fetchChartCandles = createAsyncThunk(
 
 type HistoricalDataState = {
   topVolume: any;
+  filteredStocks: any;
   historicalCharts: object[];
   selectedStock: string;
   marketSummary: object[];
@@ -38,6 +39,7 @@ type HistoricalDataState = {
 
 const initialState: HistoricalDataState = {
   topVolume: [],
+  filteredStocks: [],
   historicalCharts: [],
   selectedStock: '',
   marketSummary: [],
@@ -51,12 +53,16 @@ const historicalDataSlice = createSlice({
     setSelectedStock(state, action: PayloadAction<string>) {
       state.selectedStock = action.payload;
     },
+    setFilteredStocks(state, action: PayloadAction<any>) {
+      state.filteredStocks = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchChartCandles.fulfilled, (state, action) => {
       console.log('update historicalData');
 
       state.topVolume = action.payload?.stocks;
+      state.filteredStocks = action.payload?.stocks;
       state.marketSummary = action.payload?.market;
       state.historicalCharts = action.payload?.charts;
       state.hasError = action.payload?.error;
@@ -64,5 +70,6 @@ const historicalDataSlice = createSlice({
   },
 });
 
-export const { setSelectedStock } = historicalDataSlice.actions;
+export const { setSelectedStock, setFilteredStocks } =
+  historicalDataSlice.actions;
 export default historicalDataSlice.reducer;

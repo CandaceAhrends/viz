@@ -61,13 +61,13 @@
   bottom: 2rem;
   left: 0.5rem;
   right: 0.5rem;
-  height: calc(100vh - 14rem);
+  height: calc(100vh - 15rem);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
 }
 .scrolled-up {
-  height: calc(100vh - 5rem);
+  height: calc(100vh - 12rem);
 }
 .scrollable-list {
   list-style: none;
@@ -86,6 +86,6 @@
     height: calc(100vh - 14rem);
   }
   .scrolled-up {
-    height: calc(100vh - 5rem);
+    height: calc(100vh - 10rem);
   }
 }

@@ -17,7 +17,7 @@ export const getDateForChart = (time) => {
   }
 };
 
-const testing = true;
+const testing = false;
 export const getPreviousMarketDate = (date) => {
   if (testing) {
     return dayjs(date).format('YYYY-MM-DD');
@@ -31,4 +31,25 @@ export const getPreviousMarketDate = (date) => {
     previousDate = previousDate.subtract(1, 'day');
   }
   return previousDate.format('YYYY-MM-DD');
+};
+
+export const getNextSymbol = ({ selectedStock, filteredStocks }) => {
+  const currentIndex = filteredStocks.findIndex(
+    (stock) => stock.symbol === selectedStock.symbol
+  );
+  const nextIndex = currentIndex + 1;
+  if (nextIndex >= filteredStocks.length) {
+    return filteredStocks[0];
+  }
+  return filteredStocks[nextIndex];
+};
+export const getPrevSymbol = ({ selectedStock, filteredStocks }) => {
+  const currentIndex = filteredStocks.findIndex(
+    (stock) => stock.symbol === selectedStock.symbol
+  );
+  const prevIndex = currentIndex - 1;
+  if (prevIndex < 0) {
+    return filteredStocks[filteredStocks.length - 1];
+  }
+  return filteredStocks[prevIndex];
 };

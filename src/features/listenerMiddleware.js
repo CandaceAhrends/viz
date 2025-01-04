@@ -10,8 +10,12 @@ listenerMiddleware.startListening({
   effect: async (action, { dispatch }) => {
     const { payload: date } = action;
     const { payload } = await dispatch(fetchChartCandles(date));
-    const selectedStock = payload?.topVolume[0];
-    dispatch(setSelectedStock(selectedStock));
+    if (payload?.error) {
+      console.error('Error fetching chart candles:', payload.error);
+    } else {
+      const selectedStock = payload?.stocks[0];
+      dispatch(setSelectedStock(selectedStock));
+    }
   },
 });
 

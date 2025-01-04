@@ -19,8 +19,7 @@ export const fetchHistoricalData = async (date) => {
     const response = await axios.get(`${POLY_SERVICES_URI}/topVolume/${date}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
+    return { error: true, stocks: [], market: [] };
   }
 };
 

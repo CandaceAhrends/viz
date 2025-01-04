@@ -18,9 +18,9 @@ const ContentContainer = () => {
         <Route path="/charts" element={<ChartGrid />} />
         <Route path="/" element={<Page />} />
       </Routes>
-      {/* <div id="chart-wrapper" className="hidden">
+      <div id="chart-wrapper" className="hidden">
         <ChartWrapper />
-      </div> */}
+      </div>
     </div>
   );
 };

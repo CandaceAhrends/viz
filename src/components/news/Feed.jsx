@@ -34,7 +34,13 @@ const Feed = ({ containerRef, size }) => {
       }`}
       ref={containerRef}
     >
-      <NewsList news={news} />
+      {selectedStock ? (
+        <NewsList news={news} />
+      ) : (
+        <div className="text-center text-2xl text-white">
+          Select a valid market date to view news.
+        </div>
+      )}
     </div>
   );
 };

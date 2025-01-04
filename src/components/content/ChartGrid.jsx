@@ -1,26 +1,49 @@
 import React, { useEffect } from 'react';
 import ChartWrapper from '../charts/ChartWrapper';
+import { LineWave } from 'react-loader-spinner';
 
 const ChartGrid = () => {
   console.log('chart grid redraw');
-  // useEffect(() => {
-  //   console.log('chart grid mounted');
+  const [showChart, setShowChart] = React.useState(false);
 
-  //   const chartWrapper = document.getElementById('chart-wrapper');
-  //   if (chartWrapper) {
-  //     chartWrapper.style.display = 'block';
-  //   }
+  useEffect(() => {
+    console.log('chart grid mounted');
 
-  //   return () => {
-  //     if (chartWrapper) {
-  //       chartWrapper.style.display = 'none';
-  //     }
-  //   };
-  // }, []);
+    const chartWrapper = document.getElementById('chart-wrapper');
+    if (chartWrapper) {
+      chartWrapper.style.display = 'block';
+    }
+
+    setTimeout(() => {
+      setShowChart(true);
+    }, 1);
+
+    return () => {
+      if (chartWrapper) {
+        chartWrapper.style.display = 'none';
+      }
+    };
+  }, []);
   return (
-    <div className="flex flex-col w-full h-full">
-      <ChartWrapper />
-    </div>
+    <>
+      {!showChart && (
+        <div className="flex flex-col justify-center items-center h-[calc(100vh-10rem)]">
+          <p className="text-lg">Loading Charts...</p>
+          <LineWave
+            visible={true}
+            height="100"
+            width="100"
+            color="#4fa94d"
+            ariaLabel="line-wave-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            firstLineColor=""
+            middleLineColor=""
+            lastLineColor=""
+          />
+        </div>
+      )}
+    </>
   );
 };
 

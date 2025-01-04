@@ -6,10 +6,10 @@ import dayjs from 'dayjs';
 export const fetchChartCandles = createAsyncThunk(
   'chartSync/fetchChartCandles',
   async (date: string) => {
-    const { topUnder20, topOver20, market } = await fetchHistoricalData(date);
-    const topVolume = [...topOver20, ...topUnder20, ...market];
+    const { stocks, market, error } = await fetchHistoricalData(date);
+
     let charts = new Map();
-    for (const stock of topOver20.slice(0, 8)) {
+    for (const stock of stocks.slice(0, 2)) {
       await new Promise((resolve) => setTimeout(resolve, 0));
       const { symbol } = stock;
       const response = await fetchStockCandles({ symbol, date });
@@ -24,7 +24,7 @@ export const fetchChartCandles = createAsyncThunk(
       });
       charts.set(symbol, chartCandles);
     }
-    return { market, topVolume, charts: JSON.stringify([...charts]) };
+    return { market, stocks, charts: JSON.stringify([...charts]), error };
   }
 );
 
@@ -33,6 +33,7 @@ type HistoricalDataState = {
   historicalCharts: object[];
   selectedStock: string;
   marketSummary: object[];
+  hasError: boolean;
 };
 
 const initialState: HistoricalDataState = {
@@ -40,6 +41,7 @@ const initialState: HistoricalDataState = {
   historicalCharts: [],
   selectedStock: '',
   marketSummary: [],
+  hasError: false,
 };
 
 const historicalDataSlice = createSlice({
@@ -53,9 +55,11 @@ const historicalDataSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchChartCandles.fulfilled, (state, action) => {
       console.log('update historicalData');
-      state.topVolume = action.payload?.topVolume;
+
+      state.topVolume = action.payload?.stocks;
       state.marketSummary = action.payload?.market;
       state.historicalCharts = action.payload?.charts;
+      state.hasError = action.payload?.error;
     });
   },
 });

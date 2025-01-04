@@ -10,11 +10,12 @@ const CandleDetail = () => {
     data = [],
     error,
     isLoading,
-  } = useGetRelatedQuery(selectedStock.symbol);
+  } = selectedStock ? useGetRelatedQuery(selectedStock.symbol) : {};
 
   return (
     <ul className="flex grid-cols-5 bg-green-500 ml-5 m-1">
       {!error &&
+        !isLoading &&
         data &&
         Array.isArray(data) &&
         data.slice(0, 5).map((stock) => (

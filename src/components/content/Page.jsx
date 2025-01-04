@@ -4,6 +4,7 @@ import { selectMenu } from '../../features/navigationSlice';
 import { setDate } from '../../features/stocksSlice';
 import dayjs from 'dayjs';
 import StockSummary from '../ticker/StockSummary';
+import ErrorMessage from '../shared/ErrorMessage';
 import StockDatePicker from '../shared/StockDatePicker';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import './content.scss';
@@ -11,6 +12,7 @@ import './content.scss';
 const Page = () => {
   const dispatch = useAppDispatch();
   const date = useAppSelector((state) => state.stocks.date);
+  const hasError = useAppSelector((state) => state.historicalData.hasError);
   const [summaryStocks, setSummaryStocks] = React.useState([]);
   const selectedStock = useAppSelector(
     (state) => state.historicalData.selectedStock
@@ -54,6 +56,9 @@ const Page = () => {
           <StockSummary summaryStocks={summaryStocks} />
         )}
       </div>
+      {hasError && (
+        <ErrorMessage message="Error fetching data.  Try a different date." />
+      )}
 
       <div className="description">
         <h2>Historical Market Scanner</h2>

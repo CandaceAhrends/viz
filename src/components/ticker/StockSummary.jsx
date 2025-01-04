@@ -9,16 +9,15 @@ const StockSummary = ({ summaryStocks }) => {
   useEffect(() => {
     if (summaryStocks) {
       const updatedStocks = summaryStocks.map((stock, index) => {
-        const change = stock.close - stock.open;
-        const percentChange = (change / stock.open) * 100;
-        const isPositive = change > 0;
+        const change = stock.diff;
+
         return {
           name: stock.symbol,
           price: stock.vw.toFixed(2),
           change: `${change.toFixed(2)}`,
-          percent: percentChange.toFixed(2) + '%',
+          percent: stock.percent.toFixed(2) + '%',
           color: summaryColors[index],
-          isPositive,
+          isPositive: stock.isPositive,
         };
       });
       setStocks(updatedStocks);

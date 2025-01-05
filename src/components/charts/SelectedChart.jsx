@@ -3,7 +3,6 @@ import { useAppSelector } from '../../hooks';
 import { fetchStockCandles } from '../../services';
 import StockChart from './StockChart';
 import { LineWave } from 'react-loader-spinner';
-import dayjs from 'dayjs';
 
 const SelectedChart = () => {
   const [candles, setCandles] = useState([]);
@@ -26,6 +25,10 @@ const SelectedChart = () => {
     }
   }, [stock]);
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   return (
     <>
       {candles && candles.length ? (
@@ -38,7 +41,14 @@ const SelectedChart = () => {
           ></StockChart>
         </div>
       ) : hasError ? (
-        <p>err</p>
+        <div className="flex justify-center mt-10">
+          <button
+            className="rounded-md bg-slate-900 hover:bg-slate-800 text-white p-2 w-50 h-10"
+            onClick={goBack}
+          >
+            Error loading chart. Return to list
+          </button>
+        </div>
       ) : (
         <div className="flex flex-col justify-center items-center h-[calc(100vh-10rem)]">
           <p className="text-lg">Loading Charts...</p>

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { selectMenu } from '../../features/navigationSlice';
 import { setFilteredStocks } from '../../features/historicalDataSlice';
-import { isOnOrAfterLastMarketDate, buildTiingoStocklist } from '../../utils';
+import { filterScannerResults, buildTiingoStocklist } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 import ViewSvg from '../images/ViewSvg';
 import FeedList from './FeedList';
@@ -15,9 +16,7 @@ const Feed = () => {
 
   useEffect(() => {
     if (stocks) {
-      const filteredStocks = stocks.filter((stock) => {
-        return stock.vw >= scanConfig.min && stock.vw <= scanConfig.max;
-      });
+      const filteredStocks = stocks.filter(filterScannerResults(scanConfig));
       dispatch(setFilteredStocks(filteredStocks));
       setScanResults([...filteredStocks]);
     }
@@ -27,6 +26,7 @@ const Feed = () => {
     const symbols = buildTiingoStocklist(
       scanResults.map((stock) => stock.symbol)
     );
+    dispatch(selectMenu('news'));
     navigate('/tiingo', { state: symbols });
   };
 

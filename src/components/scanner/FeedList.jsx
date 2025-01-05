@@ -21,17 +21,16 @@ const FeedList = ({ stocks }) => {
   }, [stocks]);
 
   const computeStockGainPercentageFromOpen = (stock) => {
-    const percentChange = ((stock.close - stock.open) / stock.open) * 100;
-    if (stock.open > stock.close) {
+    if (!stock.isPositive) {
       return (
         <span className={` text-lg ${bearishClass}`}>
-          {percentChange.toFixed(2)}%
+          {stock.percent.toFixed(2)}%
         </span>
       );
     } else {
       return (
         <span className={`text-lg ${bulishClass}`}>
-          {percentChange.toFixed(2)}%
+          {stock.percent.toFixed(2)}%
         </span>
       );
     }
@@ -44,12 +43,9 @@ const FeedList = ({ stocks }) => {
   const sortByPercentChange = () => {
     setSortPercentChangeAscending(!sortPercentChagneAscending);
     const sortedByPercentChange = stocks.sort((a, b) => {
-      const percentChangeA = (a.close - a.open) / a.open;
-      const percentChangeB = (b.close - b.open) / b.open;
-
       return sortPercentChagneAscending
-        ? percentChangeA - percentChangeB
-        : percentChangeB - percentChangeA;
+        ? a.percent - b.percent
+        : b.percent - a.percent;
     });
     setSortedStocks([...sortedByPercentChange]);
   };

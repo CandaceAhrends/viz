@@ -22,6 +22,23 @@ export const fetchTiingoNews = async ({ symbols }) => {
     return { error: true, list: [], symbol: '' };
   }
 };
+export const fetchCurrentTiingoNews = async () => {
+  try {
+    const url = `${POLY_SERVICES_URI}/tiingonews`;
+    const response = await axios.get(url);
+    const news = response.data.reduce((acc, curr) => {
+      if (acc.has(curr.title)) {
+        return acc;
+      }
+      acc.set(curr.title, curr);
+      return acc;
+    }, new Map());
+    return Array.from(news.values());
+  } catch (error) {
+    console.error('Error fetching current tiingo news:', error);
+    return { error: true, list: [], symbol: '' };
+  }
+};
 
 export const fetchStockCandles = async ({ symbol, date }) => {
   try {

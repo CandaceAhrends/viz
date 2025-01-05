@@ -21,6 +21,7 @@
     "@babel/register": "^7.24.6",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@material-tailwind/react": "^2.1.10",
     "@reduxjs/toolkit": "^2.3.0",
     "apexcharts": "^4.0.0",
     "axios": "^1.7.7",

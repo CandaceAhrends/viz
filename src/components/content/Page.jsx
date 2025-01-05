@@ -2,16 +2,20 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { selectMenu } from '../../features/navigationSlice';
 import { setDate } from '../../features/stocksSlice';
+import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import StockSummary from '../ticker/StockSummary';
 import ErrorMessage from '../shared/ErrorMessage';
 import SuccessMessage from '../shared/SuccessMessage';
 import StockDatePicker from '../shared/StockDatePicker';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Button } from '@material-tailwind/react';
+
 import './content.scss';
 
 const Page = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const date = useAppSelector((state) => state.stocks.date);
   const hasError = useAppSelector((state) => state.historicalData.hasError);
   const [summaryStocks, setSummaryStocks] = React.useState([]);
@@ -44,6 +48,11 @@ const Page = () => {
     }
   }, [selectedStock]);
 
+  const loadLatestnews = () => {
+    navigate('allnews');
+    dispatch(selectMenu('news'));
+  };
+
   return (
     <div>
       <div className="header">
@@ -64,9 +73,14 @@ const Page = () => {
         <SuccessMessage>
           <Link to="/news" onClick={() => dispatch(selectMenu('news'))}>
             <span className="text-brand-blue">
-              Click to view news for {dayjs(date).format('MMMM DD, YYYY')}
+              {dayjs(date).format('MMMM DD, YYYY')} News or
             </span>
           </Link>
+          <div className="flex ml-4">
+            <Button size="sm" color="blue" onClick={loadLatestnews}>
+              Latest
+            </Button>
+          </div>
         </SuccessMessage>
       )}
 

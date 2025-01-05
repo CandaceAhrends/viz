@@ -1,6 +1,7 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 import { setDate } from './stocksSlice';
 import { fetchChartCandles, setSelectedStock } from './historicalDataSlice';
+import { setSelectedChart } from './stocksSlice';
 
 const listenerMiddleware = createListenerMiddleware();
 
@@ -15,6 +16,7 @@ listenerMiddleware.startListening({
     } else {
       const selectedStock = payload?.stocks[0];
       dispatch(setSelectedStock(selectedStock));
+      dispatch(setSelectedChart({ stock: selectedStock, date }));
     }
   },
 });

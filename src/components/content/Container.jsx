@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import ChartGrid from './ChartGrid.jsx';
 import Page from './Page.jsx';
 import ScannerPage from '../scanner/ScannerPage.jsx';
+import ConfigGrid from './ConfigGrid.jsx';
 import ChartWrapper from '../charts/ChartWrapper';
 
 const ContentContainer = () => {
@@ -16,11 +17,12 @@ const ContentContainer = () => {
         <Route path="/scan" element={<ScannerPage />} />
         <Route path="/news" element={<NewsGrid />} />
         <Route path="/charts" element={<ChartGrid />} />
+        <Route path="/config" element={<ConfigGrid />} />
         <Route path="/" element={<Page />} />
       </Routes>
-      <div id="chart-wrapper" className="hidden">
+      {/* <div id="chart-wrapper" className="hidden">
         <ChartWrapper />
-      </div>
+      </div> */}
     </div>
   );
 };

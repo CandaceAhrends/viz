@@ -4,9 +4,6 @@ import RangeSlider from '../shared/RangeSlider.jsx';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setConfig } from '../../features/scannerSlice';
 
-// const MIN = 0;
-// const MAX = 3000;
-
 const Scan = () => {
   const dispatch = useAppDispatch();
   const config = useAppSelector((state) => state.scanner.config);

@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { POLY_SERVICES_URI } from './consts';
+import { getDateForChart } from './utils';
+import dayjs from 'dayjs';
 
 const LocalTesting = 'http://localhost:7007';
 export const fetchStockCandles = async ({ symbol, date }) => {
@@ -7,10 +9,22 @@ export const fetchStockCandles = async ({ symbol, date }) => {
     const url = `${POLY_SERVICES_URI}/agg/${symbol}/${date}`;
     console.log(url);
     const response = await axios.get(url);
-    return response.data?.results;
+    const chartData = response.data?.results;
+
+    return {
+      data: chartData.map((d) => {
+        const time = dayjs(d.t).format('HH:mm');
+        const currentChartDate = getDateForChart(time);
+        const { o, h, l, c } = d;
+        return {
+          x: currentChartDate,
+          y: [o, h, l, c],
+        };
+      }),
+    };
   } catch (error) {
     console.error('Error fetching data:', error);
-    throw error;
+    return { error: true };
   }
 };
 
@@ -28,10 +42,10 @@ export const fetchNews = async ({ symbol, date }) => {
     const response = await axios.get(
       `${POLY_SERVICES_URI}/news/${symbol}/${date}`
     );
-    return response.data?.results;
+    return { list: response.data?.results, symbol };
   } catch (error) {
     console.error('Error fetching data:', error);
-    throw error;
+    return { error: true, list: [], symbol: '' };
   }
 };
 

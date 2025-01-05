@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +11,14 @@ const bearishClass = 'bg-[#490517] text-[#FF5361] rounded p-1 w-50';
 const FeedList = ({ stocks }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [sortedStocks, setSortedStocks] = useState(stocks);
+  const [sortPercentChagneAscending, setSortPercentChangeAscending] =
+    useState(false);
+  const [sortVolumeAscending, setSortVolumeAscending] = useState(false);
+
+  useEffect(() => {
+    setSortedStocks([...stocks]);
+  }, [stocks]);
 
   const computeStockGainPercentageFromOpen = (stock) => {
     const percentChange = ((stock.close - stock.open) / stock.open) * 100;
@@ -33,18 +41,47 @@ const FeedList = ({ stocks }) => {
     dispatch(setSelectedStock(stock));
     navigate('/news');
   };
+  const sortByPercentChange = () => {
+    setSortPercentChangeAscending(!sortPercentChagneAscending);
+    const sortedByPercentChange = stocks.sort((a, b) => {
+      const percentChangeA = (a.close - a.open) / a.open;
+      const percentChangeB = (b.close - b.open) / b.open;
+
+      return sortPercentChagneAscending
+        ? percentChangeA - percentChangeB
+        : percentChangeB - percentChangeA;
+    });
+    setSortedStocks([...sortedByPercentChange]);
+  };
+  const sortByVolume = () => {
+    setSortVolumeAscending(!sortVolumeAscending);
+    const sortedByVolume = stocks.sort((a, b) =>
+      sortVolumeAscending ? a.volume - b.volume : b.volume - a.volume
+    );
+    setSortedStocks([...sortedByVolume]);
+  };
 
   return (
     <div className="ml-1 md:m-3 mr-1">
       <div className="stock-list">
         <div className="stock-list__header">
           <div className="column">Symbol</div>
-          <div className="column">Volume</div>
+          <div
+            className="column hover:text-brand-blue hover:cursor-pointer"
+            onClick={sortByVolume}
+          >
+            Volume<span className="sort-icon">⇅</span>
+          </div>
           <div className="column">Price</div>
-          <div className="column">% Change</div>
+          <div
+            className="column hover:text-brand-blue hover:cursor-pointer"
+            onClick={sortByPercentChange}
+          >
+            % Change<span className="sort-icon">⇅</span>
+          </div>
         </div>
         <ul className="stock-list__body">
-          {stocks.map((stock, index) => (
+          {sortedStocks.map((stock, index) => (
             <li
               className="stock-list__item"
               key={stock.symbol}

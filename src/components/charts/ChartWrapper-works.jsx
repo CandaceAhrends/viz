@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import StockChart from './StockChart';
-import { setChartsLoaded } from '../../features/stocksSlice';
+
 import { LineWave } from 'react-loader-spinner';
 
 const ChartWrapper = () => {
@@ -22,7 +22,7 @@ const ChartWrapper = () => {
     if (historicalCharts.length) {
       const charts = JSON.parse(historicalCharts);
       const chartsMap = new Map(charts);
-      dispatch(setChartsLoaded());
+
       setLiveChart(chartsMap);
       setStocks([...chartsMap.keys()]);
     }

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import StockChart from './StockChart';
 import { fetchStockCandles } from '../../services';
-import { setChartsLoaded } from '../../features/stocksSlice';
 import { LineWave } from 'react-loader-spinner';
 import dayjs from 'dayjs';
 import { getDateForChart } from '../../utils';
@@ -10,7 +9,6 @@ import { getDateForChart } from '../../utils';
 const ChartWrapper = () => {
   const isScannerOpen = useAppSelector((state) => state.isScannerOpen);
   const date = useAppSelector((state) => state.stocks.date);
-  const reloadCharts = useAppSelector((state) => state.stocks.reloadCharts);
   const selectedStock = useAppSelector(
     (state) => state.historicalData.selectedStock
   );
@@ -26,7 +24,7 @@ const ChartWrapper = () => {
     if (historicalCharts.length) {
       const charts = JSON.parse(historicalCharts);
       const chartsMap = new Map(charts);
-      dispatch(setChartsLoaded());
+
       setLiveChart(chartsMap);
     }
   }, [historicalCharts, date]);

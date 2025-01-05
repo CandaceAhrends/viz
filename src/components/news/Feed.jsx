@@ -5,6 +5,7 @@ import NewsList from './NewsList';
 
 const Feed = ({ containerRef, size }) => {
   const [news, setNews] = useState([]);
+  const [symbol, setSymbol] = useState('');
   const selectedDate = useAppSelector((state) => state.stocks.date);
   const selectedStock = useAppSelector(
     (state) => state.historicalData.selectedStock
@@ -17,7 +18,9 @@ const Feed = ({ containerRef, size }) => {
           symbol: selectedStock.symbol,
           date: selectedDate,
         });
-        setNews(data);
+        const { list, symbol } = data;
+        setNews(list);
+        setSymbol(symbol);
       } catch (error) {
         console.error('Error fetching news:', error);
       }
@@ -35,7 +38,7 @@ const Feed = ({ containerRef, size }) => {
       ref={containerRef}
     >
       {selectedStock ? (
-        <NewsList news={news} />
+        <NewsList news={news} symbol={symbol} />
       ) : (
         <div className="text-center text-2xl text-white">
           Select a valid market date to view news.

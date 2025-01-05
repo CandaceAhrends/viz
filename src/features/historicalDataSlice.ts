@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { fetchHistoricalData, fetchStockCandles } from '../services';
-import { getDateForChart } from '../utils';
-import dayjs from 'dayjs';
 
 export const fetchChartCandles = createAsyncThunk(
   'chartSync/fetchChartCandles',
@@ -9,19 +7,10 @@ export const fetchChartCandles = createAsyncThunk(
     const { stocks, market, error } = await fetchHistoricalData(date);
 
     let charts = new Map();
-    for (const stock of stocks.slice(0, 20)) {
+    for (const stock of market.slice(0, 20)) {
       await new Promise((resolve) => setTimeout(resolve, 0));
       const { symbol } = stock;
-      const response = await fetchStockCandles({ symbol, date });
-      const chartCandles = response.map((d) => {
-        const time = dayjs(d.t).format('HH:mm');
-        const currentChartDate = getDateForChart(time);
-        const { o, h, l, c } = d;
-        return {
-          x: currentChartDate,
-          y: [o, h, l, c],
-        };
-      });
+      const chartCandles = await fetchStockCandles({ symbol, date });
       charts.set(symbol, chartCandles);
     }
     return { market, stocks, charts: JSON.stringify([...charts]), error };
@@ -31,7 +20,7 @@ export const fetchChartCandles = createAsyncThunk(
 type HistoricalDataState = {
   topVolume: any;
   filteredStocks: any;
-  historicalCharts: object[];
+  historicalCharts: string;
   selectedStock: string;
   marketSummary: object[];
   hasError: boolean;
@@ -40,7 +29,7 @@ type HistoricalDataState = {
 const initialState: HistoricalDataState = {
   topVolume: [],
   filteredStocks: [],
-  historicalCharts: [],
+  historicalCharts: '',
   selectedStock: '',
   marketSummary: [],
   hasError: false,

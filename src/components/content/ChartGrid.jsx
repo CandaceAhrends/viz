@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ChartWrapper from '../charts/ChartWrapper';
+import SelectedChart from '../charts/SelectedChart';
 import { LineWave } from 'react-loader-spinner';
 
 const ChartGrid = () => {
@@ -15,7 +15,7 @@ const ChartGrid = () => {
     }
 
     setTimeout(() => {
-      setShowChart(true);
+      setShowChart(false);
     }, 1);
 
     return () => {
@@ -26,23 +26,7 @@ const ChartGrid = () => {
   }, []);
   return (
     <>
-      {!showChart && (
-        <div className="flex flex-col justify-center items-center h-[calc(100vh-10rem)]">
-          <p className="text-lg">Loading Charts...</p>
-          <LineWave
-            visible={true}
-            height="100"
-            width="100"
-            color="#4fa94d"
-            ariaLabel="line-wave-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            firstLineColor=""
-            middleLineColor=""
-            lastLineColor=""
-          />
-        </div>
-      )}
+      <SelectedChart />
     </>
   );
 };

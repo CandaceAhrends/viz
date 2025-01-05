@@ -16,6 +16,7 @@ const routes = [
   { IconSvg: ArrowSvg, path: 'charts' },
   { IconSvg: GlobeSvg, path: 'news' },
   { IconSvg: PeopleSvg, path: '/' },
+  { IconSvg: ConfigSvg, path: 'config' },
 ];
 
 const Navigation = ({ loadPath }) => {

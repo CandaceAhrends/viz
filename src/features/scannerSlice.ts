@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-const MIN = 0;
+const MIN = 10;
 const MAX = 3000;
 
 interface ScannerState {

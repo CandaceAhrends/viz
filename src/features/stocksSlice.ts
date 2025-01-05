@@ -2,21 +2,25 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { STOCK_SCANNER_URI } from '../consts';
 
+interface SelectedChartStock {
+  stock: object;
+  date: string;
+}
 interface Stock {
   symbol: string;
-  volume: number;
+  volume: string;
 }
-
 interface StockState {
-  stocks: Stock[];
   date: string;
-  reloadCharts: boolean;
+  selectedChart: SelectedChartStock;
 }
 
 const initialState: StockState = {
-  stocks: [],
   date: '',
-  reloadCharts: true,
+  selectedChart: {
+    stock: {},
+    date: '',
+  },
 };
 
 export const stocksApiSlice = createApi({
@@ -35,19 +39,15 @@ const stocksSlice = createSlice({
   name: 'stocks',
   initialState,
   reducers: {
-    setChartStocks(state, action: PayloadAction<Stock[]>) {
-      state.stocks = [...action.payload];
+    setSelectedChart(state, action: PayloadAction<SelectedChartStock>) {
+      state.selectedChart = action.payload;
     },
     setDate(state, action: PayloadAction<string>) {
       state.date = action.payload;
-      state.reloadCharts = true;
-    },
-    setChartsLoaded(state) {
-      state.reloadCharts = false;
     },
   },
 });
 
 export const { useGetStocksQuery } = stocksApiSlice;
-export const { setChartStocks, setDate, setChartsLoaded } = stocksSlice.actions;
+export const { setSelectedChart, setDate } = stocksSlice.actions;
 export default stocksSlice.reducer;

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import StockChart from './StockChart';
-import { setChartsLoaded } from '../../features/stocksSlice';
+
+const LoadCharts = false;
 
 const ChartWrapper = () => {
   const isScannerOpen = useAppSelector((state) => state.isScannerOpen);
@@ -13,15 +14,15 @@ const ChartWrapper = () => {
   const [liveChart, setLiveChart] = useState(new Map());
   const [stocks, setStocks] = useState([]);
   const [delayedStocks, setDelayedStocks] = useState([]);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (historicalCharts.length) {
       const charts = JSON.parse(historicalCharts);
       const chartsMap = new Map(charts);
-      dispatch(setChartsLoaded());
-      setLiveChart(chartsMap);
-      setStocks([...chartsMap.keys()]);
+      if (LoadCharts) {
+        setLiveChart(chartsMap);
+        setStocks([...chartsMap.keys()]);
+      }
     }
   }, [historicalCharts, date]);
 

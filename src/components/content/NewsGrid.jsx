@@ -96,14 +96,14 @@ const NewsGrid = () => {
               )}
             </div>
           </div>
-          <div class="flex button-group hover:pointer">
-            <button class="button prev" onClick={selectPrevStock}>
-              <span class="icon">◀</span>
-              <span class="text">PREV</span>
+          <div className="flex button-group hover:pointer">
+            <button className="button prev" onClick={selectPrevStock}>
+              <span className="icon">◀</span>
+              <span className="text">PREV</span>
             </button>
-            <button class="button next" onClick={selectNextStock}>
-              <span class="text">NEXT</span>
-              <span class="icon">▶</span>
+            <button className="button next" onClick={selectNextStock}>
+              <span className="text">NEXT</span>
+              <span className="icon">▶</span>
             </button>
           </div>
         </div>

@@ -72,9 +72,24 @@ const Page = () => {
       {!hasError && (
         <SuccessMessage>
           <Link to="/news" onClick={() => dispatch(selectMenu('news'))}>
-            <span className="text-brand-blue">
-              {dayjs(date).format('MMMM DD, YYYY')} News or
-            </span>
+            <div className="flex items-center align-center text-brand-blue">
+              <span className="mr-1">
+                {dayjs(date).format('MMMM DD, YYYY')} News{' '}
+              </span>
+              <svg
+                class="h-4 w-4 text-sky-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />{' '}
+                <polyline points="15 3 21 3 21 9" />{' '}
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </div>
           </Link>
           <div className="flex ml-4">
             <Button size="sm" color="blue" onClick={loadLatestnews}>
@@ -86,7 +101,6 @@ const Page = () => {
 
       <div className="description">
         <h2>Historical Market Scanner</h2>
-        <p>Research the most active stocks based on the selected date. </p>
       </div>
       <div className="flex justify-center h-[30rem]">
         <StockDatePicker

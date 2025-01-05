@@ -90,3 +90,26 @@
     height: calc(100vh - 23rem);
   }
 }
+.view-all-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background-color: #345a4b; /* Blue background */
+  color: #fff; /* White text color */
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #2a4037; /* Darker blue on hover */
+  }
+
+  .text {
+    color: #fff; /* White text */
+  }
+}

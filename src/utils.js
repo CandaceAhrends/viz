@@ -53,3 +53,18 @@ export const getPrevSymbol = ({ selectedStock, filteredStocks }) => {
   }
   return filteredStocks[prevIndex];
 };
+
+export const isOnOrAfterLastMarketDate = (date) => {
+  const currentDate = dayjs();
+  if (currentDate.isSame(date, 'day')) {
+    return true;
+  }
+  const lastMarketDate = getPreviousMarketDate(currentDate);
+  return (
+    dayjs(date).isAfter(lastMarketDate) || dayjs(date).isSame(lastMarketDate)
+  );
+};
+
+export const buildTiingoStocklist = (stocks) => {
+  return stocks.map((s) => s.toLowerCase()).join(',');
+};

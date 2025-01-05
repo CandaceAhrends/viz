@@ -4,6 +4,25 @@ import { getDateForChart } from './utils';
 import dayjs from 'dayjs';
 
 const LocalTesting = 'http://localhost:7007';
+
+export const fetchTiingoNews = async ({ symbols }) => {
+  try {
+    const url = `${POLY_SERVICES_URI}/tiingonews/${symbols}`;
+    const response = await axios.get(url);
+    const news = response.data.reduce((acc, curr) => {
+      if (acc.has(curr.title)) {
+        return acc;
+      }
+      acc.set(curr.title, curr);
+      return acc;
+    }, new Map());
+    return Array.from(news.values());
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return { error: true, list: [], symbol: '' };
+  }
+};
+
 export const fetchStockCandles = async ({ symbol, date }) => {
   try {
     const url = `${POLY_SERVICES_URI}/agg/${symbol}/${date}`;

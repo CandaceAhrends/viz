@@ -3,11 +3,13 @@ import { postConfig } from '../../services';
 import RangeSlider from '../shared/RangeSlider.jsx';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setConfig } from '../../features/scannerSlice';
+import { SCAN_PRICE_MIN_MAX } from '../../consts';
+const [min, max] = SCAN_PRICE_MIN_MAX;
 
 const Scan = () => {
   const dispatch = useAppDispatch();
   const config = useAppSelector((state) => state.scanner.config);
-  const { min, max } = useRef(config);
+
   const onRangeChange = (range) => {
     dispatch(setConfig({ min: range[0], max: range[1] }));
   };

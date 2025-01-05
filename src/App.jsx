@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Navigation from './components/navigation/Navigation.jsx';
-import Container from './components/content/Container.jsx';
+import Router from './components/content/Router.jsx';
 import StockProvider from './StockContext.jsx';
 import { setDate } from './features/stocksSlice';
 import { getPreviousMarketDate } from './utils';
@@ -22,7 +22,7 @@ function App() {
       <BrowserRouter>
         <div className="flex w-screen h-screen">
           <Navigation loadPath={loadPath}></Navigation>
-          <Container></Container>
+          <Router></Router>
         </div>
       </BrowserRouter>
     </StockProvider>

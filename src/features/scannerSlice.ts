@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-const MIN = 10;
-const MAX = 3000;
-
+import { SCAN_PRICE_MIN_MAX } from '../consts';
+const [min, max] = SCAN_PRICE_MIN_MAX;
 interface ScannerState {
   isScannerOpen: boolean;
   config: object;
@@ -11,7 +10,7 @@ interface ScannerState {
 
 const initialState: ScannerState = {
   isScannerOpen: false,
-  config: { min: MIN, max: MAX },
+  config: { min, max },
   topVolume: [],
   topGainers: [],
 };

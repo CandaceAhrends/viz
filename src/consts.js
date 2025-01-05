@@ -73,5 +73,5 @@ export const CHART_OPTIONS = {
     },
   },
 };
-
+export const SCAN_PRICE_MIN_MAX = [0, 3000];
 export const LIVE_FEATURE = false;

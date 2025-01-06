@@ -5,6 +5,9 @@ import Section from '../shared/Section.jsx';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getNextSymbol, getPrevSymbol } from '../../utils';
 import { setSelectedStock } from '../../features/historicalDataSlice';
+import { setSelectedChart } from '../../features/stocksSlice';
+import { selectMenu } from '../../features/navigationSlice';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import ArrowSvg from '../images/ArrowSvg';
 import Feed from '../news/Feed.jsx';
@@ -12,12 +15,14 @@ import './content.scss';
 
 const NewsGrid = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const filteredStocks = useAppSelector(
     (state) => state.historicalData.filteredStocks
   );
   const selectedStock = useAppSelector(
     (state) => state.historicalData.selectedStock
   );
+  const date = useAppSelector((state) => state.stocks.date);
   const [size, setSize] = useState('lg');
   const scrollableRef = useRef(null);
   const prevTouchRef = useRef(null);
@@ -71,12 +76,20 @@ const NewsGrid = () => {
     const prevStock = getPrevSymbol({ selectedStock, filteredStocks });
     dispatch(setSelectedStock(prevStock));
   };
+  const loadSelectedChart = () => {
+    dispatch(setSelectedChart({ stock: selectedStock, date }));
+    navigate('/charts');
+    dispatch(selectMenu('charts'));
+  };
 
   return (
     <div className="grid md:h-auto md:grid-cols-2 md:grid-rows-3 md:gap-1 md:pt-1 z-10">
       <div className="md:col-span-2 ">
         <div className="flex">
-          <div className={`${size === 'sm' ? 'flex' : ''}`}>
+          <div
+            className={`${size === 'sm' ? 'flex' : ''}`}
+            onClick={loadSelectedChart}
+          >
             <StockData size={size} />
             {size === 'sm' && (
               <div className="p-1  z-[999999]">

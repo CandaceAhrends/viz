@@ -48,8 +48,6 @@ const historicalDataSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchChartCandles.fulfilled, (state, action) => {
-      console.log('update historicalData');
-
       state.topVolume = action.payload?.stocks;
       state.filteredStocks = action.payload?.stocks;
       state.marketSummary = action.payload?.market;

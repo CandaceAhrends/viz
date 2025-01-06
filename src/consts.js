@@ -74,4 +74,4 @@ export const CHART_OPTIONS = {
   },
 };
 
-export const LIVE_FEATURE = false;
+export const LIVE_FEATURE = true;

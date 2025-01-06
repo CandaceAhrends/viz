@@ -71,11 +71,6 @@ export const buildTiingoStocklist = (stocks) => {
 
 export const filterScannerResults = (config) => {
   return (stock) => {
-    console.log('stock --------', stock.symbol);
-    console.log(Number.parseFloat(stock.percent));
-    console.log('config.minChange', config.minChange);
-    console.log(Number.parseFloat(stock.percent) >= config.minChange);
-    console.log('------------------');
     return (
       stock.vw >= config.minPrice &&
       stock.vw <= config.maxPrice &&

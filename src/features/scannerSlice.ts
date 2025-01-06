@@ -16,7 +16,7 @@ interface ScannerState {
 
 const initialState: ScannerState = {
   isScannerOpen: false,
-  config: { minPrice: 0, maxPrice: 3000, minChange: -1000, maxChange: 1000 },
+  config: { minPrice: 0, maxPrice: 3000, minChange: -50, maxChange: 1000 },
   topVolume: [],
   topGainers: [],
 };

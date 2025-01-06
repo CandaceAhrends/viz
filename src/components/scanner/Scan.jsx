@@ -133,7 +133,7 @@ const Scan = () => {
         <RangeSlider
           title="% Change"
           onRangeChange={onRangeChange}
-          min={-1000}
+          min={-50}
           max={1000}
           initialMin={minChange}
           initialMax={maxChange}

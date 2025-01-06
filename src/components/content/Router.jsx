@@ -8,6 +8,7 @@ import ScannerPage from '../scanner/ScannerPage.jsx';
 import ConfigGrid from './ConfigGrid.jsx';
 import TiingoNews from '../news/TiingoNews.jsx';
 import AllNews from '../news/AllNews.jsx';
+import LiveFeed from '../scanner/LiveFeed.jsx';
 const Router = () => {
   console.log('content container redraw');
   return (
@@ -20,6 +21,7 @@ const Router = () => {
         <Route path="/config" element={<ConfigGrid />} />
         <Route path="/tiingo" element={<TiingoNews />} />
         <Route path="/allnews" element={<AllNews />} />
+        <Route path="/live" element={<LiveFeed />} />
         <Route path="/" element={<Page />} />
       </Routes>
       {/* <div id="chart-wrapper" className="hidden">

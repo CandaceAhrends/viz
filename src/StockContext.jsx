@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createContext } from 'react';
 import { SCANNER_WS_URI } from './consts';
+import { useDispatch } from 'react-redux';
 import { setTopVolume, setTopGainers } from './features/scannerSlice';
 import { LIVE_FEATURE } from './consts';
 
@@ -8,6 +9,7 @@ export const StockContext = createContext();
 
 const StockProvider = ({ children }) => {
   const ws = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (LIVE_FEATURE) {

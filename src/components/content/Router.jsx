@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from '../header/Header.jsx';
-import NewsGrid from './NewsGrid.jsx';
+import News from './News.jsx';
 import { Route, Routes } from 'react-router-dom';
-import ChartGrid from './ChartGrid.jsx';
-import Page from './Page.jsx';
-import ScannerPage from '../scanner/ScannerPage.jsx';
-import ConfigGrid from './ConfigGrid.jsx';
+import Chart from './Chart.jsx';
+import Market from './Market.jsx';
+import Scanner from './Scanner.jsx';
+import Config from './Config.jsx';
 import TiingoNews from '../news/TiingoNews.jsx';
 import AllNews from '../news/AllNews.jsx';
 
@@ -15,17 +15,14 @@ const Router = () => {
     <div className="flex flex-col text-white flex-grow w-full bg-black">
       <Header />
       <Routes>
-        <Route path="/scan" element={<ScannerPage />} />
-        <Route path="/news" element={<NewsGrid />} />
-        <Route path="/charts" element={<ChartGrid />} />
-        <Route path="/config" element={<ConfigGrid />} />
+        <Route path="/scan" element={<Scanner />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/charts" element={<Chart />} />
+        <Route path="/config" element={<Config />} />
         <Route path="/tiingo" element={<TiingoNews />} />
         <Route path="/allnews" element={<AllNews />} />
-        <Route path="/" element={<Page />} />
+        <Route path="/" element={<Market />} />
       </Routes>
-      {/* <div id="chart-wrapper" className="hidden">
-        <ChartWrapper />
-      </div> */}
     </div>
   );
 };

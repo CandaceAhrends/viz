@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import SideMenu from '../navigation/SideMenu';
-import HamIconToggle from '../content/HamIconToggle';
+import HamIconToggle from '../navigation/HamIconToggle';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import dayjs from 'dayjs';
 import './header.scss';

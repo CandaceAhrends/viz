@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { createContext } from 'react';
 import { SCANNER_WS_URI } from './consts';
 import { useDispatch } from 'react-redux';

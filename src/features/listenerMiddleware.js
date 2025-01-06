@@ -19,7 +19,7 @@ listenerMiddleware.startListening({
     if (payload?.error) {
       console.error('Error fetching chart candles:', payload.error);
     } else {
-      const selectedStock = payload?.stocks[0];
+      const selectedStock = payload?.selectedStock || payload?.stocks[0];
       const scannerConfig = getState().scanner.config;
       dispatch(setSelectedStock(selectedStock));
       dispatch(setSelectedChart({ stock: selectedStock, date }));

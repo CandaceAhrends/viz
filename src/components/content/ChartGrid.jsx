@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import SelectedChart from '../charts/SelectedChart';
-import { LineWave } from 'react-loader-spinner';
 
 const ChartGrid = () => {
   console.log('chart grid redraw');

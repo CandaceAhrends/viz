@@ -29,10 +29,6 @@ const Feed = () => {
     dispatch(selectMenu('news'));
     navigate('/tiingo', { state: symbols });
   };
-  const showLiveScanner = () => {
-    dispatch(selectMenu('live'));
-    navigate('/live');
-  };
 
   return (
     <div>
@@ -46,18 +42,6 @@ const Feed = () => {
 
             <span className="text ml-1">
               <span className="text-green">Current</span> News
-            </span>
-          </div>
-        </div>
-        <div
-          className="flex  hover:cursor-pointer pl-3 pt-3"
-          onClick={showLiveScanner}
-        >
-          <div className="view-all-button ml-5">
-            <ViewSvg />
-
-            <span className="text ml-1">
-              <span className="text-green">Live </span>Scanner
             </span>
           </div>
         </div>

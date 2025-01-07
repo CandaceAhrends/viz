@@ -20,7 +20,7 @@ const Header = () => {
         className="flex items-center  text-white text-xs  p-2 absolute top-[-.5rem] left-3 md:left-20"
       >
         <GitHubSvg />
-        <span className="m-2">React Code</span>
+        <span className="m-2 mt-5">Code</span>
       </a>
       <div className="flex justify-center text-green ">
         <div className="stock-display text-sm">

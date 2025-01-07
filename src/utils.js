@@ -34,6 +34,9 @@ export const getPreviousMarketDate = (date) => {
 };
 
 export const getNextSymbol = ({ selectedStock, filteredStocks }) => {
+  if(filteredStocks.length === 1){
+    return filteredStocks[0];
+  }
   const currentIndex = filteredStocks.findIndex(
     (stock) => stock.symbol === selectedStock.symbol
   );
@@ -44,6 +47,9 @@ export const getNextSymbol = ({ selectedStock, filteredStocks }) => {
   return filteredStocks[nextIndex];
 };
 export const getPrevSymbol = ({ selectedStock, filteredStocks }) => {
+   if(filteredStocks.length === 1){
+    return filteredStocks[0];
+  }
   const currentIndex = filteredStocks.findIndex(
     (stock) => stock.symbol === selectedStock.symbol
   );

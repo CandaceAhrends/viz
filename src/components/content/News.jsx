@@ -115,14 +115,14 @@ const News = () => {
           <div className="flex button-group hover:pointer">
             <button
               className={`button prev ${isDisabled.prev ? 'disabled' : ''}`}
-              onClick={selectPrevStock}
+              onClick={!isDisabled.prev && selectPrevStock}
             >
               <span className="icon">◀</span>
               <span className="text">PREV</span>
             </button>
             <button
               className={`button next ${isDisabled.next ? 'disabled' : ''}`}
-              onClick={selectNextStock}
+              onClick={!isDisabled.next && selectNextStock}
             >
               <span className="text">NEXT</span>
               <span className="icon">▶</span>

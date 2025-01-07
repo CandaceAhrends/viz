@@ -18,7 +18,7 @@ const RangeSlider = ({
   return (
     <>
       <div className="slider-container">
-        <label className="text-white">{title}</label>
+        <label className="text-white flex">{title}</label>
         <div className="range-labels">
           <span>{range[0]}</span>
           <span>{range[1]}</span>

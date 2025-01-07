@@ -30,7 +30,7 @@
     position: fixed;
     top: 2.5rem;
     right: 0;
-    height: calc(100vh - 6.5rem);
+    height: calc(100vh - 7rem);
     width: 5rem;
     background-color: #0a0a0a;
     border-left: 0.5px solid #343536;
@@ -63,7 +63,7 @@
     position: relative;
     .sidebar {
       width: 7rem;
-      height: calc(100vh - 2rem);
+      height: calc(100vh - 5rem);
     }
   }
 }

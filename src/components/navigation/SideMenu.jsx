@@ -9,7 +9,7 @@ const SideMenu = () => {
   return (
     <div className="sidebar-container z-[999999]">
       <div
-        className={`sidebar bg-gray-800 text-white h-full overflow-hidden ${
+        className={`sidebar bg-gray-800 text-white h-full overflow-scroll ${
           isScannerOpen ? 'open' : 'closed'
         } transition-all duration-500`}
       >

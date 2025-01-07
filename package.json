@@ -44,9 +44,11 @@
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.24.7",
     "@eslint/js": "^9.6.0",
+    "@playwright/test": "^1.49.1",
     "@testing-library/dom": "^10.3.1",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
+    "@types/node": "^22.10.5",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
@@ -73,24 +75,5 @@
   "overrides": {
     "react": "^19.0.0-beta-26f2496093-20240514",
     "react-dom": "^19.0.0-beta-26f2496093-20240514"
-  },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "moduleNameMapper": {
-      "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/mocks/fileMock.js"
-    },
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!**/node_modules/**"
-    ],
-    "coverageReporters": [
-      "text-summary",
-      "lcov",
-      "cobertura"
-    ],
-    "testMatch": [
-      "**/*.test.mjs"
-    ]
   }
 }

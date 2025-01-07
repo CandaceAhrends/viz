@@ -1,0 +1,8 @@
+{
+  "transform": {
+    "^.+\\.mjs$": "babel-jest",
+    "^.+\\.js$": "babel-jest"
+  },
+  "testMatch": ["**/__tests__/**/*.js", "**/__tests__/**/*.mjs"],
+  "moduleFileExtensions": ["mjs", "js"]
+}

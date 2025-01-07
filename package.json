@@ -90,7 +90,7 @@
       "cobertura"
     ],
     "testMatch": [
-      "**/*.test.js"
+      "**/*.test.mjs"
     ]
   }
 }

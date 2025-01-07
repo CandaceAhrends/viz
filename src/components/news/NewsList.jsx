@@ -19,7 +19,7 @@ const NewsList = ({ news, symbol }) => {
     e.preventDefault();
     const articleDate = dayjs(news.published_utc).format('YYYY-MM-DD');
     dispatch(setSelectedChart({ date: articleDate, stock: { symbol } }));
-    navigate('/charts');
+    navigate('/charts', { state: news });
     dispatch(selectMenu('charts'));
   };
 

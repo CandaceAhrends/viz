@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { fetchStockCandles } from '../../services';
 import StockChart from './StockChart';
+import { useLocation } from 'react-router-dom';
 import { LineWave } from 'react-loader-spinner';
+import ChartDescription from './ChartDescription';
 
 const SelectedChart = () => {
+  const location = useLocation();
   const [candles, setCandles] = useState([]);
   const { stock, date } = useAppSelector((state) => state.stocks.selectedChart);
   const [hasError, setHasError] = useState(false);
+  const news = location.state;
 
   useEffect(() => {
     const fetchChart = async () => {
@@ -39,6 +43,10 @@ const SelectedChart = () => {
             symbol={stock.symbol}
             date={date}
           ></StockChart>
+          <ChartDescription
+            news={news}
+            symbol={stock?.symbol}
+          ></ChartDescription>
         </div>
       ) : hasError ? (
         <div className="flex justify-center mt-10">

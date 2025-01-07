@@ -39,7 +39,16 @@ export const fetchCurrentTiingoNews = async () => {
     return { error: true, list: [], symbol: '' };
   }
 };
-
+export const fetchStockDescription = async (symbol) => {
+  try {
+    const url = `${POLY_SERVICES_URI}/desc/${symbol}`;
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return { error: true };
+  }
+};
 export const fetchStockCandles = async ({ symbol, date }) => {
   try {
     const url = `${POLY_SERVICES_URI}/agg/${symbol}/${date}`;

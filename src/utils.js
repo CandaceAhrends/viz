@@ -22,7 +22,7 @@ export const getPreviousMarketDate = (date) => {
   if (testing) {
     return dayjs(date).format('YYYY-MM-DD');
   }
-  let previousDate = dayjs(date).subtract(1, 'day');
+  let previousDate = dayjs(date); //.subtract(1, 'day');
   if (previousDate.day() === 0) {
     // If the previous date is a Sunday, subtract 2 more days to skip the weekend
     previousDate = previousDate.subtract(2, 'day');
@@ -34,7 +34,7 @@ export const getPreviousMarketDate = (date) => {
 };
 
 export const getNextSymbol = ({ selectedStock, filteredStocks }) => {
-  if(filteredStocks.length === 1){
+  if (filteredStocks.length === 1) {
     return filteredStocks[0];
   }
   const currentIndex = filteredStocks.findIndex(
@@ -47,7 +47,7 @@ export const getNextSymbol = ({ selectedStock, filteredStocks }) => {
   return filteredStocks[nextIndex];
 };
 export const getPrevSymbol = ({ selectedStock, filteredStocks }) => {
-   if(filteredStocks.length === 1){
+  if (filteredStocks.length === 1) {
     return filteredStocks[0];
   }
   const currentIndex = filteredStocks.findIndex(

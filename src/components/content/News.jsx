@@ -10,13 +10,14 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import ArrowSvg from '../images/ArrowSvg';
 import Feed from '../news/Feed.jsx';
+import ErrorState from '../shared/ErrorState';
 import './content.scss';
 
 const News = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState({ prev: true, next: false });
-
+  const hasError = useAppSelector((state) => state.historicalData.hasError);
   const filteredStocks = useAppSelector(
     (state) => state.historicalData.filteredStocks
   );
@@ -87,56 +88,61 @@ const News = () => {
   };
 
   return (
-    <div className="grid md:h-auto md:grid-cols-2 md:grid-rows-3 md:gap-1 md:pt-1 z-10">
-      <div className="md:col-span-2 ">
-        <div className="flex">
-          <div
-            className={`${size === 'sm' ? 'flex' : ''}`}
-            onClick={loadSelectedChart}
-          >
-            <StockData size={size} />
-            {size === 'sm' && (
-              <div className="p-1  z-[999999]">
-                <Link to={'/charts'}>
-                  <ArrowSvg />
-                </Link>
+    <>
+      {hasError ? (
+        <ErrorState />
+      ) : (
+        <div className="grid md:h-auto md:grid-cols-2 md:grid-rows-3 md:gap-1 md:pt-1 z-10">
+          <div className="md:col-span-2 ">
+            <div className="flex">
+              <div
+                className={`${size === 'sm' ? 'flex' : ''}`}
+                onClick={loadSelectedChart}
+              >
+                <StockData size={size} />
+                {size === 'sm' && (
+                  <div className="p-1  z-[999999]">
+                    <Link to={'/charts'}>
+                      <ArrowSvg />
+                    </Link>
+                  </div>
+                )}
+                <div className="flex mt-1">
+                  {size === 'lg' && (
+                    <span className="lg-icon pl-3">
+                      <Link to={'/charts'}>
+                        <ArrowSvg />
+                      </Link>
+                    </span>
+                  )}
+                </div>
               </div>
-            )}
-            <div className="flex mt-1">
-              {size === 'lg' && (
-                <span className="lg-icon pl-3">
-                  <Link to={'/charts'}>
-                    <ArrowSvg />
-                  </Link>
-                </span>
-              )}
+              <div className="flex button-group hover:pointer">
+                <button
+                  className={`button prev ${isDisabled.prev ? 'disabled' : ''}`}
+                  onClick={!isDisabled.prev && selectPrevStock}
+                >
+                  <span className="icon">◀</span>
+                  <span className="text">PREV</span>
+                </button>
+                <button
+                  className={`button next ${isDisabled.next ? 'disabled' : ''}`}
+                  onClick={!isDisabled.next && selectNextStock}
+                >
+                  <span className="text">NEXT</span>
+                  <span className="icon">▶</span>
+                </button>
+              </div>
             </div>
           </div>
-          <div className="flex button-group hover:pointer">
-            <button
-              className={`button prev ${isDisabled.prev ? 'disabled' : ''}`}
-              onClick={!isDisabled.prev && selectPrevStock}
-            >
-              <span className="icon">◀</span>
-              <span className="text">PREV</span>
-            </button>
-            <button
-              className={`button next ${isDisabled.next ? 'disabled' : ''}`}
-              onClick={!isDisabled.next && selectNextStock}
-            >
-              <span className="text">NEXT</span>
-              <span className="icon">▶</span>
-            </button>
+          <div className="md:col-span-2 row-span-2 pr-1">
+            <Section title="News">
+              <Feed containerRef={scrollableRef} size={size} />
+            </Section>
           </div>
         </div>
-      </div>
-
-      <div className="md:col-span-2 row-span-2 pr-1">
-        <Section title="News">
-          <Feed containerRef={scrollableRef} size={size} />
-        </Section>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

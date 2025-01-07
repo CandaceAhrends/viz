@@ -36,7 +36,7 @@ const initialState: HistoricalDataState = {
 };
 
 const historicalDataSlice = createSlice({
-  name: 'chartSync',
+  name: 'historicalData',
   initialState,
   reducers: {
     setSelectedStock(state, action: PayloadAction<string>) {

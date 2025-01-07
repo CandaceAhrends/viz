@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { selectMenu } from '../../features/navigationSlice';
-import { setDate } from '../../features/stocksSlice';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import StockSummary from '../ticker/StockSummary';
 import ErrorMessage from '../shared/ErrorMessage';
 import SuccessMessage from '../shared/SuccessMessage';
-import StockDatePicker from '../shared/StockDatePicker';
+import StockDatePicker from '../market/StockDatePicker';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Button } from '@material-tailwind/react';
-
 import './content.scss';
 
 const Market = () => {
@@ -25,22 +23,6 @@ const Market = () => {
   const marketSummary = useAppSelector(
     (state) => state.historicalData.marketSummary
   );
-  const [selectedDate, setSelectedDate] = React.useState(null);
-
-  const updateMarketDate = (date) => {
-    const dayjsDate = dayjs(date);
-    dispatch(setDate(dayjsDate.format('YYYY-MM-DD')));
-  };
-  const handleDate = (date) => {
-    setSelectedDate(date);
-    updateMarketDate(date);
-  };
-
-  useEffect(() => {
-    if (date) {
-      setSelectedDate(new Date(dayjs(date)));
-    }
-  }, [date]);
 
   useEffect(() => {
     if (marketSummary) {
@@ -103,10 +85,7 @@ const Market = () => {
         <h2>Historical Market Scanner</h2>
       </div>
       <div className="flex justify-center h-[30rem]">
-        <StockDatePicker
-          selectedDate={selectedDate}
-          setSelectedDate={handleDate}
-        />
+        <StockDatePicker />
       </div>
       <div className="flex justify-center">
         <Link to="/news" onClick={() => dispatch(selectMenu('news'))}>

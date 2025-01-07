@@ -4,10 +4,12 @@ export const STOCK_SCANNER_URI = 'http://www.stockmarketviz.com/scapi';
 export const POLY_SERVICES_URI = 'http://www.stockmarketviz.com/poly';
 //export const SCANNER_WS_URI = 'ws://www.stockmarketviz.com/scanner';
 export const SCANNER_WS_URI = 'ws://localhost:7775';
-
 export const CHARTS_WS_URI = 'ws://www.stockmarketviz.com/socket';
 export const CHARTS_MGR_URL = 'ws://www.stockmarketviz.com/chartsocket';
 export const YAHOO_FINANCE_NEWS_URL = 'https://finance.yahoo.com/quote/';
+
+export const STOCK_SELECT_ERROR_MSG =
+  'Data is not available for the selected date.';
 export const CHART_OPTIONS = {
   chart: {
     type: 'candlestick',

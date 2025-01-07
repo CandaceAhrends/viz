@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
+import { useAppSelector } from '../../hooks';
 import SelectedChart from '../charts/SelectedChart';
+import ErrorState from '../shared/ErrorState';
 
 const Chart = () => {
   console.log('chart grid redraw');
-  const [showChart, setShowChart] = React.useState(false);
+  const hasError = useAppSelector((state) => state.historicalData.hasError);
 
   useEffect(() => {
     console.log('chart grid mounted');
@@ -13,21 +15,13 @@ const Chart = () => {
       chartWrapper.style.display = 'block';
     }
 
-    setTimeout(() => {
-      setShowChart(false);
-    }, 1);
-
     return () => {
       if (chartWrapper) {
         chartWrapper.style.display = 'none';
       }
     };
   }, []);
-  return (
-    <>
-      <SelectedChart />
-    </>
-  );
+  return <>{hasError ? <ErrorState /> : <SelectedChart />}</>;
 };
 
 export default Chart;

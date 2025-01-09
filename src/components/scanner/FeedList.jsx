@@ -93,7 +93,7 @@ const FeedList = ({ stocks }) => {
                   stock.isPositive ? 'positive' : 'negative'
                 }`}
               >
-                {computeStockGainPercentageFromOpen(stock)}
+                {stock?.percent && computeStockGainPercentageFromOpen(stock)}
               </div>
             </li>
           ))}

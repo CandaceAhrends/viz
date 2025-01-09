@@ -25,7 +25,7 @@ const StockSummary = ({ summaryStocks }) => {
   }, [summaryStocks]);
 
   return (
-    <div className="stock-summary md:w-[70%] lg:w-[50%]">
+    <div className="stock-summary   md:w-[85%] lg:w-full">
       {stocks.map((stock, index) => (
         <div key={stock.name} className="stock">
           <div className={`indicator ${stock.color}`}></div>

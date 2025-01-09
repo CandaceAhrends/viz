@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import dayjs from 'dayjs';
+import { formatDateTime } from '../../utils';
 import { fetchStockDescription } from '../../services';
 
 const ChartDescription = ({ news, symbol }) => {
@@ -20,7 +20,7 @@ const ChartDescription = ({ news, symbol }) => {
       {news && (
         <div className="flex flex-col m-10">
           <div className="text-green">
-            {dayjs(news.published_utc).format('MMM DD YYYY HH:mm a')}
+            {formatDateTime(news.published_utc)}
             <div>{news.title}</div>
           </div>
           <ul>

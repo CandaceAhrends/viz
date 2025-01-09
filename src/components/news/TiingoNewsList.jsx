@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate } from '../../utils';
+import { formatDateTime } from '../../utils';
 
 const TiingoNewsList = ({ news, symbols }) => {
   return (
@@ -15,7 +15,7 @@ const TiingoNewsList = ({ news, symbols }) => {
               <h3 className="news-title">{news.title}</h3>
               <div className="news-meta">
                 <span className="news-date">
-                  {formatDate(news.publishedDate)}
+                  {formatDateTime(news.publishedDate)}
                 </span>
               </div>
               <div>

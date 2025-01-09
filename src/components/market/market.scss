@@ -1,0 +1,22 @@
+.header {
+  text-align: center;
+  margin: 0.5rem 0 1rem 0;
+  h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #6e6c6c;
+  }
+
+  h1 span {
+    background-color: #07f8b5;
+    border-radius: 4px;
+    padding: 0 4px;
+  }
+}
+.stock-display {
+  color: #00cccc;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: baseline;
+}

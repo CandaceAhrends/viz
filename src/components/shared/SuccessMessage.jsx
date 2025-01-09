@@ -3,8 +3,8 @@ import './shared.scss';
 
 const SuccessMessage = ({ children }) => {
   return (
-    <div className="flex justify-center ">
-      <div className="success-message md:w-[50%]">
+    <div className="flex justify-center w-full  ">
+      <div className="success-message md:w-[25rem]">
         <span className="icon">!</span>
         {children}
       </div>

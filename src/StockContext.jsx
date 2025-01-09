@@ -17,8 +17,16 @@ const StockProvider = ({ children }) => {
       ws.current.onmessage = (event) => {
         const data = JSON.parse(event.data);
         const { sortedGainers, stocks, topGainerList, topVolumeList } = data;
-        dispatch(setTopGainers(sortedGainers));
-        dispatch(setTopVolume(stocks));
+        dispatch(
+          setTopGainers(
+            sortedGainers.map((s) => ({
+              ...s,
+              percent: Number.parseFloat(s.gain),
+              isPositive: s.gain > 0,
+            }))
+          )
+        );
+        dispatch(setTopVolume(stocks.map((s) => ({ ...s, symbol: s.ticker }))));
       };
 
       ws.current.onerror = (error) => {

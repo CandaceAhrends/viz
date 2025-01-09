@@ -1,7 +1,7 @@
 import React, { useEffect, useState, memo } from 'react';
 import Chart from 'react-apexcharts';
 import { CHART_OPTIONS } from '../../consts';
-import dayjs from 'dayjs';
+import { formatDate } from '../../utils';
 import './charts.scss';
 
 const StockChart = ({ txns, symbol, date }) => {
@@ -12,9 +12,7 @@ const StockChart = ({ txns, symbol, date }) => {
   useEffect(() => {
     if (txns && txns.length > 0) {
       setSeries([{ data: txns }]);
-      const titleDate = dayjs(date).format('MMM DD, YYYY');
-      const title = `${symbol} - ${titleDate}`;
-
+      const title = `${symbol} - ${formatDate(date)}`;
       setOptions({
         ...CHART_OPTIONS,
         title: {

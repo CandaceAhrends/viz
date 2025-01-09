@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate } from '../../utils';
+import { formatDateTime } from '../../utils';
 import { useAppDispatch } from '../../hooks';
 import { setSelectedChart } from '../../features/stocksSlice';
 import { selectMenu } from '../../features/navigationSlice';
@@ -46,7 +46,7 @@ const NewsList = ({ news, symbol }) => {
               <h3 className="news-title">{news.title}</h3>
               <div className="news-meta">
                 <span className="news-date">
-                  {formatDate(news.published_utc)}
+                  {formatDateTime(news.published_utc)}
                 </span>
               </div>
             </div>

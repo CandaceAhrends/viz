@@ -4,7 +4,6 @@ import HamIconToggle from '../navigation/HamIconToggle';
 import { useAppSelector } from '../../hooks';
 import dayjs from 'dayjs';
 import GitHubSvg from '../images/GitHubSvg.jsx';
-import './header.scss';
 
 const Header = () => {
   const selectedStockDate = dayjs(useAppSelector((state) => state.stocks.date));

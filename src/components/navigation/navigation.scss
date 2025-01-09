@@ -58,7 +58,7 @@
   text-align: center;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 720px) {
   .sidebar-container {
     position: relative;
     .sidebar {
@@ -68,7 +68,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 720px) {
   .main-nav {
     width: 100vw;
     display: flex;

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import {
-  formatDate,
+  formatDateTime,
   getDateForChart,
   getPreviousMarketDate,
   getNextSymbol,
@@ -10,10 +10,10 @@ import {
   filterScannerResults,
 } from '../../src/utils';
 
-describe('formatDate', () => {
+describe('formatDateTime(date)', () => {
   it('should format the date correctly', () => {
     const date = dayjs('2022-01-01');
-    const formattedDate = formatDate(date);
+    const formattedDate = formatDateTime(date);
     expect(formattedDate).toBe('Sat, Jan 01 00:00 AM');
   });
 });

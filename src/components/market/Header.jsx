@@ -26,7 +26,6 @@ const Header = () => {
         <div className="flex justify-center text-orange-400">
           <span className="mr-1">!</span>
           <h5>Current market data is delayed by at least 15 minutes</h5>
-          <span className="ml-1">:(</span>
         </div>
       </div>
 

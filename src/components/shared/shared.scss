@@ -118,3 +118,8 @@
     white-space: nowrap; // Prevent text wrapping
   }
 }
+.scan {
+  div {
+    min-width: 0;
+  }
+}

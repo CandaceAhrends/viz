@@ -18,6 +18,7 @@ const News = () => {
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState({ prev: true, next: false });
   const hasError = useAppSelector((state) => state.historicalData.hasError);
+
   const filteredStocks = useAppSelector(
     (state) => state.historicalData.filteredStocks
   );
@@ -74,10 +75,12 @@ const News = () => {
   }, []);
 
   const selectNextStock = () => {
+    if (isDisabled.next) return;
     const nextStock = getNextSymbol({ selectedStock, filteredStocks });
     dispatch(setSelectedStock(nextStock));
   };
   const selectPrevStock = () => {
+    if (isDisabled.prev) return;
     const prevStock = getPrevSymbol({ selectedStock, filteredStocks });
     dispatch(setSelectedStock(prevStock));
   };
@@ -120,14 +123,14 @@ const News = () => {
               <div className="flex button-group hover:pointer">
                 <button
                   className={`button prev ${isDisabled.prev ? 'disabled' : ''}`}
-                  onClick={!isDisabled.prev && selectPrevStock}
+                  onClick={selectPrevStock}
                 >
                   <span className="icon">◀</span>
                   <span className="text">PREV</span>
                 </button>
                 <button
                   className={`button next ${isDisabled.next ? 'disabled' : ''}`}
-                  onClick={!isDisabled.next && selectNextStock}
+                  onClick={selectNextStock}
                 >
                   <span className="text">NEXT</span>
                   <span className="icon">▶</span>

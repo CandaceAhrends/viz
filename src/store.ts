@@ -7,23 +7,44 @@ import { relatedApiSlice } from './features/relatedCompaniesSlice';
 import historicalDataSlice from './features/historicalDataSlice';
 import listenerMiddleware from './features/listenerMiddleware';
 
-export const store = configureStore({
-  reducer: {
-    stocks: stocksSlice,
-    scanner: scannerSlice,
-    historicalData: historicalDataSlice,
-    navigation: navigationSlice,
-    [stocksApiSlice.reducerPath]: stocksApiSlice.reducer,
-    [relatedApiSlice.reducerPath]: relatedApiSlice.reducer,
-  },
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(
-      listenerMiddleware.middleware,
-      stocksApiSlice.middleware,
-      relatedApiSlice.middleware
-    );
-  },
-});
+export const setupStore = (preloadedState: any) => {
+  return configureStore({
+    reducer: {
+      stocks: stocksSlice,
+      scanner: scannerSlice,
+      historicalData: historicalDataSlice,
+      navigation: navigationSlice,
+      [stocksApiSlice.reducerPath]: stocksApiSlice.reducer,
+      [relatedApiSlice.reducerPath]: relatedApiSlice.reducer,
+    },
+    middleware: (getDefaultMiddleware) => {
+      return getDefaultMiddleware().concat(
+        listenerMiddleware.middleware,
+        stocksApiSlice.middleware,
+        relatedApiSlice.middleware
+      );
+    },
+    preloadedState,
+  });
+};
+export const store = setupStore({});
+// export const store = configureStore({
+//   reducer: {
+//     stocks: stocksSlice,
+//     scanner: scannerSlice,
+//     historicalData: historicalDataSlice,
+//     navigation: navigationSlice,
+//     [stocksApiSlice.reducerPath]: stocksApiSlice.reducer,
+//     [relatedApiSlice.reducerPath]: relatedApiSlice.reducer,
+//   },
+//   middleware: (getDefaultMiddleware) => {
+//     return getDefaultMiddleware().concat(
+//       listenerMiddleware.middleware,
+//       stocksApiSlice.middleware,
+//       relatedApiSlice.middleware
+//     );
+//   },
+// });
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

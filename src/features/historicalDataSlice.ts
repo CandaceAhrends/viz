@@ -17,14 +17,14 @@ export const fetchChartCandles = createAsyncThunk(
   }
 );
 
-type HistoricalDataState = {
+interface HistoricalDataState {
   topVolume: any;
   filteredStocks: any;
   historicalCharts: string;
   selectedStock: string;
   marketSummary: object[];
   hasError: boolean;
-};
+}
 
 const initialState: HistoricalDataState = {
   topVolume: [],

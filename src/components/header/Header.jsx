@@ -25,7 +25,7 @@ const Header = () => {
         <div className="stock-display text-sm">
           <span className="stock-symbol">{selectedStock?.symbol}</span>
 
-          <span className="stock-change">
+          <span className="stock-date">
             {selectedStockDate.format('dddd, MMMM D, YYYY')}
           </span>
         </div>

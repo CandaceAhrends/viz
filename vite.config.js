@@ -17,7 +17,14 @@ export default defineConfig({
       './__tests__/jest-tests/**/*',
       './e2e/**/*',
       '**/node_modules/**',
+      'server/**/*',
     ],
+
+    coverage: {
+      reporter: ['text', 'html'],
+      include: ['src/**/*.jsx'],
+      exclude: ['**/node_modules/**', '**/dist/**', '**/tests/**'],
+    },
   },
   build: {
     sourcemap: true, // Enable source maps for builds

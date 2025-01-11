@@ -10,6 +10,7 @@ export const StockContext = createContext();
 const StockProvider = ({ children }) => {
   const ws = useRef(null);
   const dispatch = useDispatch();
+  const [liveFeature, setLiveFeature] = React.useState(LIVE_FEATURE);
 
   useEffect(() => {
     if (LIVE_FEATURE) {
@@ -40,7 +41,11 @@ const StockProvider = ({ children }) => {
     }
   }, []);
 
-  return <StockContext.Provider value="">{children}</StockContext.Provider>;
+  return (
+    <StockContext.Provider value={{ liveFeature }}>
+      {children}
+    </StockContext.Provider>
+  );
 };
 
 export default StockProvider;

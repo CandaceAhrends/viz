@@ -1,6 +1,6 @@
 import { setupStore } from '../src/store';
 import { Provider } from 'react-redux';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 export const renderWithProviders = (
   ui,

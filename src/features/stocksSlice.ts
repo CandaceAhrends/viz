@@ -12,11 +12,13 @@ interface Stock {
 }
 interface StockState {
   date: string;
+  animate: boolean;
   selectedChart: SelectedChartStock;
 }
 
 const initialState: StockState = {
   date: '',
+  animate: false,
   selectedChart: {
     stock: {},
     date: '',
@@ -44,10 +46,14 @@ const stocksSlice = createSlice({
     },
     setDate(state, action: PayloadAction<string>) {
       state.date = action.payload;
+      state.animate = true;
+    },
+    resetAnimate(state) {
+      state.animate = false;
     },
   },
 });
 
 export const { useGetStocksQuery } = stocksApiSlice;
-export const { setSelectedChart, setDate } = stocksSlice.actions;
+export const { setSelectedChart, setDate, resetAnimate } = stocksSlice.actions;
 export default stocksSlice.reducer;

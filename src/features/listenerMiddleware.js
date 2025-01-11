@@ -1,5 +1,5 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit';
-import { setDate } from './stocksSlice';
+import { setDate, resetAnimate } from './stocksSlice';
 import {
   fetchChartCandles,
   setSelectedStock,
@@ -29,6 +29,7 @@ listenerMiddleware.startListening({
         )
       );
     }
+    dispatch(resetAnimate());
   },
 });
 

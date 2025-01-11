@@ -20,3 +20,115 @@
   display: flex;
   align-items: baseline;
 }
+.stock-summary {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  background-color: #000;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  .positive {
+    animation: summary-positive 0.5s linear;
+  }
+  .negative {
+    animation: summary-negative 0.5s linear;
+  }
+  .stock {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    width: 30%;
+
+    .indicator {
+      width: 2px;
+      height: 30px;
+      border-radius: 4px;
+
+      &.blue {
+        background-color: #4a90e2;
+      }
+
+      &.purple {
+        background-color: #bd10e0;
+      }
+
+      &.orange {
+        background-color: #f5a623;
+      }
+    }
+
+    .details {
+      flex-grow: 1;
+
+      .name {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      .price {
+        display: block;
+        font-size: 0.7rem;
+        color: #999;
+      }
+    }
+
+    .change {
+      text-align: right;
+
+      &.positive {
+        color: #00ff99;
+      }
+
+      &.negative {
+        color: #ff4d4d;
+      }
+
+      span {
+        display: block;
+      }
+    }
+  }
+}
+
+.scanner-date {
+  animation: colorChange 5s linear;
+}
+
+@keyframes colorChange {
+  0% {
+    color: #dcebef;
+  }
+  100% {
+    color: #30bddd;
+  }
+}
+
+@keyframes summary-positive {
+  0% {
+    transform: scale(0.25);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 5px #00ff95, 0 0 10px #00ff95, 0 0 20px #00ff95,
+      0 0 40px #00ff95, 0 0 80px #00ff95;
+  }
+}
+
+@keyframes summary-negative {
+  0% {
+    transform: scale(0.25);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 5px #ff005e, 0 0 10px #ff005e, 0 0 20px #ff005e,
+      0 0 40px #ff005e, 0 0 80px #ff005e;
+  }
+}

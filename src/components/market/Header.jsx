@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import StockSummary from '../ticker/StockSummary';
+import StockSummary from './StockSummary';
 import './market.scss';
 
 const Header = () => {

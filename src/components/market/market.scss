@@ -29,10 +29,10 @@
   padding: 1rem;
   border-radius: 8px;
   .positive {
-    animation: summary-positive 0.5s linear;
+    animation: summary-positive 1s linear;
   }
   .negative {
-    animation: summary-negative 0.5s linear;
+    animation: summary-negative 1s linear;
   }
   .stock {
     display: flex;

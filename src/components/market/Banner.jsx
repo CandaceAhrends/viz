@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 const Banner = ({ selectedDate }) => {
   return (
-    <div className="flex items-center align-center text-brand-blue">
+    <div className="banner flex items-center align-center text-brand-blue">
       <span className="mr-1">
         {dayjs(selectedDate).format('MMMM DD, YYYY')} News{' '}
       </span>

@@ -23,10 +23,6 @@ const Header = () => {
         <h1>
           Stockmarket<span>viz</span>
         </h1>
-        <div className="flex justify-center text-orange-400">
-          <span className="mr-1">!</span>
-          <h5>Current market data is delayed by at least 15 minutes</h5>
-        </div>
       </div>
 
       <div className="flex justify-center">

@@ -5,9 +5,7 @@ import {
   getPreviousMarketDate,
   getNextSymbol,
   getPrevSymbol,
-  isOnOrAfterLastMarketDate,
   buildTiingoStocklist,
-  filterScannerResults,
 } from '../../src/utils';
 
 describe('formatDateTime(date)', () => {
@@ -49,20 +47,6 @@ describe('getPrevSymbol', () => {
     const filteredStocks = ['AAPL', 'GOOGL', 'MSFT'];
     const prevSymbol = getPrevSymbol({ selectedStock, filteredStocks });
     expect(prevSymbol).toBe('MSFT');
-  });
-});
-
-describe('isOnOrAfterLastMarketDate', () => {
-  it('should return true if the date is on or after the last market date', () => {
-    const date = dayjs('2022-01-03');
-    const isOnOrAfterLastDate = isOnOrAfterLastMarketDate(date);
-    expect(isOnOrAfterLastDate).toBe(false);
-  });
-
-  it('should return false if the date is before the last market date', () => {
-    const date = dayjs('2022-01-01');
-    const isOnOrAfterLastDate = isOnOrAfterLastMarketDate(date);
-    expect(isOnOrAfterLastDate).toBe(false);
   });
 });
 

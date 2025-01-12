@@ -28,6 +28,7 @@
   color: #fff;
   padding: 1rem;
   border-radius: 8px;
+
   .positive {
     animation: summary-positive 1s linear;
   }
@@ -94,6 +95,29 @@
 
 .scanner-date {
   animation: colorChange 5s linear;
+}
+input#blind {
+  display: none;
+}
+#blind:checked + .blind {
+  .datepicker-container {
+    opacity: 0;
+  }
+  .datepicker-icon {
+    opacity: 1;
+    width: 10rem;
+    height: 10rem;
+    border: solid;
+    cursor: pointer;
+  }
+}
+.blind {
+  .datepicker-container {
+    opacity: 1;
+  }
+  .datepicker-icon {
+    opacity: 0;
+  }
 }
 
 @keyframes colorChange {

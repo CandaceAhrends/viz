@@ -2,8 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import StockData from '../ticker/StockData.jsx';
 import Section from '../shared/Section.jsx';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getNextSymbol, getPrevSymbol } from '../../utils';
-import { setSelectedStock } from '../../features/historicalDataSlice';
+import {
+  selectNextSymbol,
+  selectPrevSymbol,
+} from '../../features/historicalDataSlice';
 import { setSelectedChart } from '../../features/stocksSlice';
 import { selectMenu } from '../../features/navigationSlice';
 import { useNavigate } from 'react-router-dom';
@@ -76,13 +78,11 @@ const News = () => {
 
   const selectNextStock = () => {
     if (isDisabled.next) return;
-    const nextStock = getNextSymbol({ selectedStock, filteredStocks });
-    dispatch(setSelectedStock(nextStock));
+    dispatch(selectNextSymbol());
   };
   const selectPrevStock = () => {
     if (isDisabled.prev) return;
-    const prevStock = getPrevSymbol({ selectedStock, filteredStocks });
-    dispatch(setSelectedStock(prevStock));
+    dispatch(selectPrevSymbol());
   };
   const loadSelectedChart = () => {
     dispatch(setSelectedChart({ stock: selectedStock, date }));

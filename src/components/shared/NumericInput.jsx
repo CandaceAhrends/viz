@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Input, IconButton } from '@material-tailwind/react';
 import './shared.scss';
 
-const NumericInput = ({ value, setValue }) => {
+const NumericInput = ({ value, setValue, min, max }) => {
+  useEffect(() => {
+    if (value < min) {
+      setValue(min);
+    } else if (value > max) {
+      setValue(max);
+    }
+  }, [value]);
+
   return (
     <div className="scan relative w-[10rem] mr-5">
       <Input
@@ -21,7 +29,11 @@ const NumericInput = ({ value, setValue }) => {
         <IconButton
           size="sm"
           className="rounded"
-          onClick={() => setValue((cur) => (cur === 0 ? 0 : cur - 1))}
+          onClick={() =>
+            setValue((cur) =>
+              Number.parseInt(cur) < min ? 0 : Number.parseInt(cur) - 1
+            )
+          }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +47,11 @@ const NumericInput = ({ value, setValue }) => {
         <IconButton
           size="sm"
           className="rounded"
-          onClick={() => setValue((cur) => cur + 1)}
+          onClick={() =>
+            setValue((cur) =>
+              Number.parseInt(cur) > max ? 0 : Number.parseInt(cur) + 1
+            )
+          }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

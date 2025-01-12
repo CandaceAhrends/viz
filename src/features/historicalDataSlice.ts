@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { fetchHistoricalData, fetchStockCandles } from '../services';
+import { getNextSymbol, getPrevSymbol } from '../utils';
 
 export const fetchChartCandles = createAsyncThunk(
   'chartSync/fetchChartCandles',
@@ -45,6 +46,12 @@ const historicalDataSlice = createSlice({
     setFilteredStocks(state, action: PayloadAction<any>) {
       state.filteredStocks = action.payload;
     },
+    selectNextSymbol(state) {
+      state.selectedStock = getNextSymbol(state);
+    },
+    selectPrevSymbol(state) {
+      state.selectedStock = getPrevSymbol(state);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchChartCandles.fulfilled, (state, action) => {
@@ -57,6 +64,10 @@ const historicalDataSlice = createSlice({
   },
 });
 
-export const { setSelectedStock, setFilteredStocks } =
-  historicalDataSlice.actions;
+export const {
+  setSelectedStock,
+  setFilteredStocks,
+  selectNextSymbol,
+  selectPrevSymbol,
+} = historicalDataSlice.actions;
 export default historicalDataSlice.reducer;

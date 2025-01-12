@@ -36,8 +36,18 @@ const Scan = () => {
         <h5 className="ml-5 mt-1">Historical Scanner</h5>
         <div className="flex m-[1.5rem] ">
           <label className="mr-5  w-[2.5rem] text-xs">Price</label>
-          <NumericInput value={minPrice} setValue={setMinPrice} />
-          <NumericInput value={maxPrice} setValue={setMaxPrice} />
+          <NumericInput
+            value={minPrice}
+            setValue={setMinPrice}
+            min={0}
+            max={2999}
+          />
+          <NumericInput
+            value={maxPrice}
+            setValue={setMaxPrice}
+            min={1}
+            max={3000}
+          />
         </div>
         <div className="flex m-[1.5rem]">
           <label className="mr-5 w-[2.5rem] text-xs">Change</label>

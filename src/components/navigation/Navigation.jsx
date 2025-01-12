@@ -45,8 +45,8 @@ const Navigation = ({ loadPath }) => {
           {routes.map((route) => (
             <li
               key={route.path}
-              className={`p-2 flex justify-center  text-neutral-400 ${
-                route.path === selectedMenu ? 'selected' : ''
+              className={`p-2 flex justify-center   ${
+                route.path === selectedMenu ? 'selected text-brand-blue' : ''
               } hover:text-brand-blue relative  `}
             >
               <Link to={route.path} onClick={() => setMenuSelected(route)}>

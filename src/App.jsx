@@ -8,7 +8,7 @@ import { useAppDispatch } from './hooks';
 import { BrowserRouter } from 'react-router-dom';
 import './app.scss';
 
-const loadPath = window.location.href?.split('/').pop();
+const loadPath = window.location.href?.split('/').pop() || '/';
 
 function App() {
   const dispatch = useAppDispatch();

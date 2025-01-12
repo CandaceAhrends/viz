@@ -13,7 +13,7 @@ const navigationSlice = createSlice({
   initialState,
   reducers: {
     selectMenu: (state, action: PayloadAction<string>) => {
-      state.selectedMenu = action.payload;
+      state.selectedMenu = action.payload || '/';
     },
   },
 });

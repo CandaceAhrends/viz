@@ -132,13 +132,14 @@
   }
 }
 .carousel {
-  position: relative;
-
   &-nav {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 15px;
+    position: fixed;
+    top: 22rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .right {
@@ -166,5 +167,11 @@
       transform: translateY(-50%);
       font-size: 3rem;
     }
+  }
+}
+
+@media (min-width: 768px) {
+  .carousel-nav {
+    top: 50rem;
   }
 }

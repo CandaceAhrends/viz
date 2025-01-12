@@ -35,7 +35,7 @@ const StockChart = ({ symbol, date, timeFrame }) => {
       {error ? (
         <p>error</p>
       ) : isLoading ? (
-        <div className="spinner-container h-[30rem]">
+        <div className="spinner-container h-[20rem]">
           <div className="spinner"></div>
         </div>
       ) : (

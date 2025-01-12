@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppSelector } from '../../hooks';
-import SelectedChart from '../charts/SelectedChart';
+//import SelectedChart from '../charts/SelectedChart';
+import ChartWrapper from '../charts/ChartWrapper';
 import ErrorState from '../shared/ErrorState';
 
 const Chart = () => {
@@ -21,7 +22,7 @@ const Chart = () => {
       }
     };
   }, []);
-  return <>{hasError ? <ErrorState /> : <SelectedChart />}</>;
+  return <>{hasError ? <ErrorState /> : <ChartWrapper />}</>;
 };
 
 export default Chart;

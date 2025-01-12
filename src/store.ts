@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import stocksSlice from './features/stocksSlice';
 import { stocksApiSlice } from './features/stocksSlice';
+import { chartSlice } from './features/chartSlice';
 import scannerSlice from './features/scannerSlice';
 import navigationSlice from './features/navigationSlice';
 import { relatedApiSlice } from './features/relatedCompaniesSlice';
@@ -16,12 +17,14 @@ export const setupStore = (preloadedState: any) => {
       navigation: navigationSlice,
       [stocksApiSlice.reducerPath]: stocksApiSlice.reducer,
       [relatedApiSlice.reducerPath]: relatedApiSlice.reducer,
+      [chartSlice.reducerPath]: chartSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware().concat(
         listenerMiddleware.middleware,
         stocksApiSlice.middleware,
-        relatedApiSlice.middleware
+        relatedApiSlice.middleware,
+        chartSlice.middleware
       );
     },
     preloadedState,

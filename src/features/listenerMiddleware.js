@@ -2,7 +2,7 @@ import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
 import { setDate, resetAnimate, setSelectedChart } from './stocksSlice';
 import { selectNextSymbol, selectPrevSymbol } from './historicalDataSlice';
 import {
-  fetchChartCandles,
+  fetchData,
   setSelectedStock,
   setFilteredStocks,
 } from './historicalDataSlice';
@@ -19,9 +19,9 @@ listenerMiddleware.startListening({
     if (selectNextSymbol.match(action) || selectPrevSymbol.match(action)) {
       const selectedStock = getState().historicalData.selectedStock;
       const selectedDate = getState().stocks.date;
-      dispatch(setSelectedChart({ stock: selectedStock, datea: selectedDate }));
+      dispatch(setSelectedChart({ stock: selectedStock, date: selectedDate }));
     } else {
-      const { payload } = await dispatch(fetchChartCandles(date));
+      const { payload } = await dispatch(fetchData(date));
       if (payload?.error) {
         console.error('Error fetching chart candles:', payload.error);
       } else {

@@ -13,6 +13,36 @@
   height: 30px;
   animation: spin 1s linear infinite;
 }
+.time-frame-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #aaa;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+
+  span {
+    font-weight: normal;
+  }
+
+  .time-frame-option {
+    background: none;
+    border: none;
+    color: #aaa;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .time-frame-option.active {
+    color: #00aaff;
+  }
+}
 
 @keyframes spin {
   to {

@@ -82,3 +82,15 @@ export const filterScannerResults = (config) => {
     );
   };
 };
+
+export const generateChartCandles = (data) => {
+  return data.map((d) => {
+    const time = dayjs(d.t).format('HH:mm');
+    const currentChartDate = getDateForChart(time);
+    const { o, h, l, c } = d;
+    return {
+      x: currentChartDate,
+      y: [o, h, l, c],
+    };
+  });
+};

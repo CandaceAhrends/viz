@@ -99,7 +99,6 @@
   }
 }
 
-// ICONS
 .chart-icon {
   position: relative;
   width: 3rem;
@@ -138,6 +137,7 @@
       background-color: #4db6ac; // Teal bar color
     }
   }
+
   &::after {
     content: '';
     display: flex;

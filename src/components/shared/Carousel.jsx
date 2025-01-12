@@ -2,7 +2,7 @@ import React from 'react';
 import Swipeable from 'react-easy-swipe';
 import './shared.scss';
 
-const Carousel = ({ onPrev, onNext, children }) => {
+const Carousel = ({ onPrev, onNext, enabled, children }) => {
   return (
     <Swipeable onSwipeLeft={onPrev} onSwipeRight={onNext}>
       <div className="carousel">
@@ -17,7 +17,7 @@ const Carousel = ({ onPrev, onNext, children }) => {
           onClick={onNext}
         ></div> */}
 
-        <div className="carousel-nav">
+        <div className={`carousel-nav ${enabled ? '' : 'hidden'}`}>
           <button
             className={`hover:text-brand-blue`}
             onClick={onPrev}

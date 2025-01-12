@@ -1,27 +1,18 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { fetchHistoricalData, fetchStockCandles } from '../services';
+import { fetchHistoricalData } from '../services';
 import { getNextSymbol, getPrevSymbol } from '../utils';
 
-export const fetchChartCandles = createAsyncThunk(
-  'chartSync/fetchChartCandles',
+export const fetchData = createAsyncThunk(
+  'chartSync/fetchData',
   async (date: string) => {
     const { stocks, market, error } = await fetchHistoricalData(date);
-
-    let charts = new Map();
-    for (const stock of market.slice(0, 20)) {
-      await new Promise((resolve) => setTimeout(resolve, 0));
-      const { symbol } = stock;
-      const chartCandles = await fetchStockCandles({ symbol, date });
-      charts.set(symbol, chartCandles);
-    }
-    return { market, stocks, charts: JSON.stringify([...charts]), error };
+    return { market, stocks, charts: [], error };
   }
 );
 
 interface HistoricalDataState {
   topVolume: any;
   filteredStocks: any;
-  historicalCharts: string;
   selectedStock: string;
   marketSummary: object[];
   hasError: boolean;
@@ -30,7 +21,6 @@ interface HistoricalDataState {
 const initialState: HistoricalDataState = {
   topVolume: [],
   filteredStocks: [],
-  historicalCharts: '',
   selectedStock: '',
   marketSummary: [],
   hasError: false,
@@ -54,11 +44,10 @@ const historicalDataSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchChartCandles.fulfilled, (state, action) => {
+    builder.addCase(fetchData.fulfilled, (state, action) => {
       state.topVolume = action.payload?.stocks;
       state.filteredStocks = action.payload?.stocks;
       state.marketSummary = action.payload?.market;
-      state.historicalCharts = action.payload?.charts;
       state.hasError = action.payload?.error;
     });
   },

@@ -1,17 +1,24 @@
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
+import { useGetChartQuery } from '../../features/chartSlice';
 import { CHART_OPTIONS } from '../../consts';
-import { formatDate } from '../../utils';
+import { formatDate, generateChartCandles } from '../../utils';
 import './charts.scss';
 
-const StockChart = ({ txns, symbol, date }) => {
+const StockChart = ({ symbol, date, timeFrame }) => {
   const [series, setSeries] = useState([]);
-  const [loading, setLoading] = useState(true); // Track loading state
-  const [options, setOptions] = useState({});
+  const [options, setOptions] = useState(CHART_OPTIONS);
+  const { data, error, isLoading } = useGetChartQuery({
+    symbol,
+    date,
+    timeFrame,
+  });
 
   useEffect(() => {
-    if (txns && txns.length > 0) {
-      setSeries([{ data: txns }]);
+    if (data && data.length > 0) {
+      console.log('got chart data');
+      const candles = generateChartCandles(data);
+      setSeries([{ data: candles }]);
       const title = `${symbol} - ${formatDate(date)}`;
       setOptions({
         ...CHART_OPTIONS,
@@ -20,17 +27,16 @@ const StockChart = ({ txns, symbol, date }) => {
           text: title,
         },
       });
-      setLoading(false);
     }
-  }, [txns]);
+  }, [data]);
 
   return (
     <div>
-      {loading ? (
-        <div className="flex justify-center h-[10rem] m-10 ">
-          <div className="spinner-container">
-            <div className="spinner"></div>
-          </div>
+      {error ? (
+        <p>error</p>
+      ) : isLoading ? (
+        <div className="spinner-container h-[30rem]">
+          <div className="spinner"></div>
         </div>
       ) : (
         <Chart
@@ -44,6 +50,4 @@ const StockChart = ({ txns, symbol, date }) => {
   );
 };
 
-export default memo(StockChart, (prevProps, nextProps) => {
-  return prevProps.symbol === nextProps.symbol;
-});
+export default StockChart;

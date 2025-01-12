@@ -15,8 +15,8 @@ const routes = [
   { IconSvg: ViewSvg, path: 'scan' },
   { IconSvg: ArrowSvg, path: 'charts' },
   { IconSvg: GlobeSvg, path: 'news' },
-  { IconSvg: PeopleSvg, path: '/' },
-  { IconSvg: ConfigSvg, path: 'config' },
+  //{ IconSvg: PeopleSvg, path: '/' },
+  { IconSvg: ConfigSvg, path: '/' },
 ];
 
 const Navigation = ({ loadPath }) => {
@@ -42,11 +42,11 @@ const Navigation = ({ loadPath }) => {
       </ul>
       <div className="min-h-[536px] main-nav">
         <ul className="flex flex-row fixed bottom-0 md:flex-col md:relative md:mt-[25px] side-nav">
-          {routes.map((route, index) => (
+          {routes.map((route) => (
             <li
-              key={index}
+              key={route.path}
               className={`p-2 flex justify-center  text-neutral-400 ${
-                route.path === selectedMenu ? 'active' : ''
+                route.path === selectedMenu ? 'selected' : ''
               } hover:text-brand-blue relative  `}
             >
               <Link to={route.path} onClick={() => setMenuSelected(route)}>

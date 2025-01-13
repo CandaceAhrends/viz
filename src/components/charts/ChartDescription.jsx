@@ -17,7 +17,7 @@ const ChartDescription = ({ news, symbol }) => {
 
   return (
     <div>
-      {news && (
+      {description && (
         <div className="flex flex-col m-10">
           <div className="text-green">
             {formatDateTime(news.published_utc)}

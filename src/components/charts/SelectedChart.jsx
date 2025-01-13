@@ -1,57 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import StockChart from './StockChart';
-import { LineWave } from 'react-loader-spinner';
+import LoadingFallback from './LoadingFallback';
 import { useLocation } from 'react-router-dom';
-
 import ChartDescription from './ChartDescription';
+const StockChart = React.lazy(() => import('./StockChart'));
 
 const SelectedChart = ({ timeFrame }) => {
   const location = useLocation();
-
   const { stock, date } = useAppSelector((state) => state.stocks.selectedChart);
-  const [initializing, setInitializing] = useState(true);
   const news = location.state;
 
-  useEffect(() => {
-    setTimeout(() => {
-      setInitializing(false);
-    }, 1000);
-  }, []);
-
   return (
-    <>
-      {initializing ? (
-        <div className="flex flex-col justify-center items-center h-[30rem]">
-          <p className="text-lg">Loading Charts...</p>
-          <LineWave
-            visible={true}
-            height="100"
-            width="100"
-            color="#4fa94d"
-            ariaLabel="line-wave-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            firstLineColor=""
-            middleLineColor=""
-            lastLineColor=""
-          />
-        </div>
-      ) : (
-        <>
-          <StockChart
-            key={stock?.symbol}
-            symbol={stock.symbol}
-            date={date}
-            timeFrame={timeFrame}
-          ></StockChart>
-          <ChartDescription
-            news={news}
-            symbol={stock?.symbol}
-          ></ChartDescription>
-        </>
+    <Suspense fallback={<LoadingFallback />}>
+      <StockChart
+        key={stock?.symbol}
+        symbol={stock.symbol}
+        date={date}
+        timeFrame={timeFrame}
+      ></StockChart>
+      {news && (
+        <ChartDescription news={news} symbol={stock?.symbol}></ChartDescription>
       )}
-    </>
+    </Suspense>
   );
 };
 

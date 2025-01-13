@@ -1,3 +1,4 @@
+//* omit
 // 7771
 export const STOCK_SCANNER_URI = 'http://www.stockmarketviz.com/scapi';
 // 7007

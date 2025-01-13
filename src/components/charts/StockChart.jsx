@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import Chart from 'react-apexcharts';
+import React, { useEffect, useState, Suspense } from 'react';
+import LoadingFallback from './LoadingFallback';
+const Chart = React.lazy(() => import('react-apexcharts'));
 import { useGetChartQuery } from '../../features/chartSlice';
 import { CHART_OPTIONS } from '../../consts';
 import { formatDate, generateChartCandles } from '../../utils';
@@ -16,7 +17,6 @@ const StockChart = ({ symbol, date, timeFrame }) => {
 
   useEffect(() => {
     if (data && data.length > 0) {
-      console.log('got chart data');
       const candles = generateChartCandles(data);
       setSeries([{ data: candles }]);
       const title = `${symbol} - ${formatDate(date)}`;
@@ -31,9 +31,11 @@ const StockChart = ({ symbol, date, timeFrame }) => {
   }, [data]);
 
   return (
-    <div>
+    <Suspense fallback={<LoadingFallback />}>
       {error ? (
-        <p>error</p>
+        <div className="spinner-container h-[20rem]">
+          <div className="spinner"></div>
+        </div>
       ) : isLoading ? (
         <div className="spinner-container h-[20rem]">
           <div className="spinner"></div>
@@ -46,7 +48,7 @@ const StockChart = ({ symbol, date, timeFrame }) => {
           type="candlestick"
         />
       )}
-    </div>
+    </Suspense>
   );
 };
 

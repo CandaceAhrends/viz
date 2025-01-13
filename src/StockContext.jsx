@@ -4,7 +4,7 @@ import { SCANNER_WS_URI } from './consts';
 import { useDispatch } from 'react-redux';
 import { setTopVolume, setTopGainers } from './features/scannerSlice';
 import { LIVE_FEATURE } from './consts';
-
+//* omit
 export const StockContext = createContext();
 
 const StockProvider = ({ children }) => {

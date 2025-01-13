@@ -1,14 +1,17 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setOpen } from '../../features/scannerSlice';
-const HAM_CLASSES = 'w-8 h-[.2rem] rounded-full bg-white';
+const HAM_CLASSES = 'bgr w-8 h-[.2rem] rounded-full bg-[#eeefcb]';
 
 const HamIconToggle = ({ Menu }) => {
   const isScannerOpen = useAppSelector((state) => state.scanner.isScannerOpen);
   const dispatch = useAppDispatch();
   const setSideMenuOpen = () => dispatch(setOpen(!isScannerOpen));
   return (
-    <div className="mr-[1rem]">
+    <div
+      className="toggle-sel-symbol mr-[1rem]"
+      onClick={() => setSideMenuOpen(!isScannerOpen)}
+    >
       <ul
         className={`group ${
           isScannerOpen ? 'is-open' : ''

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { POLY_SERVICES_URI } from './consts';
-
+//* omit
 const LocalTesting = 'http://localhost:7007';
 
 export const fetchTiingoNews = async ({ symbols }) => {

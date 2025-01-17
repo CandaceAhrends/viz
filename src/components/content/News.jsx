@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import ArrowSvg from '../images/ArrowSvg';
 import Feed from '../news/Feed.jsx';
 import ErrorState from '../shared/ErrorState';
+import { debounce } from '../../utils';
 import './content.scss';
 
 const News = () => {
@@ -41,11 +42,11 @@ const News = () => {
   useEffect(() => {
     const container = scrollableRef.current;
 
-    const handleScroll = (e) => {
+    const handleScroll = debounce((e) => {
       if (prevTouchRef.current) return;
       const up = e.deltaY > 0;
       setSize(up ? 'sm' : 'lg');
-    };
+    });
 
     const handleTouchMove = (e) => {
       const currentTouchY = e.touches[0].clientY;

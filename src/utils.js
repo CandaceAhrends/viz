@@ -28,7 +28,7 @@ export const MARKET_CLOSED = [
 
 export const getPreviousMarketDate = (dateOverride) => {
   const date = dateOverride || dayjs();
-  let previousDate = dayjs(date).subtract(1, 'day');
+  let previousDate = dayjs(date); //.subtract(1, 'day');
   if (previousDate.day() === 0) {
     previousDate = previousDate.subtract(2, 'day');
   } else if (previousDate.day() === 6) {
@@ -93,4 +93,13 @@ export const generateChartCandles = (data) => {
       y: [o, h, l, c],
     };
   });
+};
+
+export const debounce = (fn) => {
+  let timeoutId = null;
+
+  return (...args) => {
+    window.clearTimeout(timeoutId);
+    timeoutId = setTimeout(fn(...args), 1000);
+  };
 };

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import StockSummary from './StockSummary';
+import { buildStockSummary } from '../../utils';
 import './market.scss';
 
 const Header = () => {
@@ -12,8 +13,8 @@ const Header = () => {
     (state) => state.historicalData.marketSummary
   );
   useEffect(() => {
-    if (marketSummary) {
-      setSummaryStocks([...marketSummary, selectedStock]);
+    if (marketSummary?.length > 0 && selectedStock) {
+      setSummaryStocks(buildStockSummary([...marketSummary, selectedStock]));
     }
   }, [selectedStock]);
 

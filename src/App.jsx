@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Navigation from './components/navigation/Navigation.jsx';
-import Router from './components/content/Router.jsx';
+import Router from './components/routes/Router.jsx';
 import StockProvider from './StockContext.jsx';
 import { setDate } from './features/stocksSlice';
 import { getPreviousMarketDate } from './utils';

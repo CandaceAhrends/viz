@@ -1,24 +1,26 @@
 import React, { useEffect, useState, useRef } from 'react';
 import StockData from '../ticker/StockData.jsx';
 import Section from '../shared/Section.jsx';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks.ts';
 import {
   selectNextSymbol,
   selectPrevSymbol,
-} from '../../features/historicalDataSlice';
-import { setSelectedChart } from '../../features/stocksSlice';
-import { selectMenu } from '../../features/navigationSlice';
+} from '../../features/historicalDataSlice.ts';
+import { setSelectedChart } from '../../features/stocksSlice.ts';
+import { selectMenu } from '../../features/navigationSlice.ts';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import ArrowSvg from '../images/ArrowSvg';
+import ArrowSvg from '../images/ArrowSvg.jsx';
 import Feed from '../news/Feed.jsx';
-import ErrorState from '../shared/ErrorState';
-import { debounce } from '../../utils';
+import ErrorState from '../shared/ErrorState.jsx';
+import useShrinkOnScroll from '../hooks/useShrinkOnScroll.jsx';
 import './content.scss';
 
 const News = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const scrollableRef = useRef(null);
+  const shrink = useShrinkOnScroll(scrollableRef);
   const [isDisabled, setIsDisabled] = useState({ prev: true, next: false });
   const hasError = useAppSelector((state) => state.historicalData.hasError);
 
@@ -29,53 +31,12 @@ const News = () => {
     (state) => state.historicalData.selectedStock
   );
   const date = useAppSelector((state) => state.stocks.date);
-  const [size, setSize] = useState('lg');
-  const scrollableRef = useRef(null);
-  const prevTouchRef = useRef(null);
 
   useEffect(() => {
     const nextBtnDisabled = filteredStocks.length <= 1;
     const prevBtnDisabled = filteredStocks.length <= 1;
     setIsDisabled({ prev: prevBtnDisabled, next: nextBtnDisabled });
   }, [filteredStocks]);
-
-  useEffect(() => {
-    const container = scrollableRef.current;
-
-    const handleScroll = debounce((e) => {
-      if (prevTouchRef.current) return;
-      const up = e.deltaY > 0;
-      setSize(up ? 'sm' : 'lg');
-    });
-
-    const handleTouchMove = (e) => {
-      const currentTouchY = e.touches[0].clientY;
-      const up = currentTouchY < prevTouchRef.current;
-      setSize(up ? 'sm' : `lg`);
-    };
-
-    const handleTouchStart = (e) => {
-      prevTouchRef.current = e.touches[0].clientY;
-    };
-
-    if (container) {
-      container.addEventListener('wheel', handleScroll, { passive: true });
-      container.addEventListener('touchstart', handleTouchStart, {
-        passive: true,
-      });
-      container.addEventListener('touchmove', handleTouchMove, {
-        passive: true,
-      });
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener('wheel', handleScroll);
-        container.removeEventListener('touchmove', handleScroll);
-        container.removeEventListener('touchstart', handleTouchStart);
-      }
-    };
-  }, []);
 
   const selectNextStock = () => {
     if (isDisabled.next) return;
@@ -100,11 +61,11 @@ const News = () => {
           <div className="md:col-span-2 ">
             <div className="flex">
               <div
-                className={`${size === 'sm' ? 'flex' : ''}`}
+                className={`${shrink === 'sm' ? 'flex' : ''}`}
                 onClick={loadSelectedChart}
               >
-                <StockData size={size} />
-                {size === 'sm' && (
+                <StockData shrink={shrink} />
+                {shrink === 'sm' && (
                   <div className="p-1  z-[999999]">
                     <Link to={'/charts'}>
                       <ArrowSvg />
@@ -112,7 +73,7 @@ const News = () => {
                   </div>
                 )}
                 <div className="flex mt-1">
-                  {size === 'lg' && (
+                  {shrink === 'lg' && (
                     <span className="lg-icon pl-3">
                       <Link to={'/charts'}>
                         <ArrowSvg />
@@ -141,7 +102,7 @@ const News = () => {
           </div>
           <div className="md:col-span-2 row-span-2 pr-1">
             <Section title="News">
-              <Feed containerRef={scrollableRef} size={size} />
+              <Feed containerRef={scrollableRef} shrink={shrink} />
             </Section>
           </div>
         </div>

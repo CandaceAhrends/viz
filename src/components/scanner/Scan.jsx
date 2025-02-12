@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { postConfig } from '../../services';
 import RangeSlider from '../shared/RangeSlider.jsx';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setConfig } from '../../features/scannerSlice';
@@ -23,12 +22,6 @@ const Scan = () => {
   useEffect(() => {
     dispatch(setConfig({ minPrice, maxPrice, minChange, maxChange }));
   }, [minPrice, maxPrice, minChange, maxChange]);
-
-  const handleSend = () => {
-    console.log('minPrice:', minPrice);
-    console.log('maxPrice:', maxPrice);
-    postConfig({ message: { min: minPrice, max: maxPrice } });
-  };
 
   return (
     <div className="flex">

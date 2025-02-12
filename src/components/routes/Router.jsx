@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import Header from '../header/Header.jsx';
+import Header from '../layout/Header.jsx';
 import News from './News.jsx';
 import { Route, Routes } from 'react-router-dom';
 import LoadingFallback from '../shared/LoadingFallback.jsx';
@@ -9,7 +9,7 @@ const Scanner = React.lazy(() => import('./Scanner.jsx'));
 const Config = React.lazy(() => import('./Config.jsx'));
 const TiingoNews = React.lazy(() => import('../news/TiingoNews.jsx'));
 const AllNews = React.lazy(() => import('../news/AllNews.jsx'));
-const LiveFeed = React.lazy(() => import('../scanner/LiveFeed.jsx'));
+// const LiveFeed = React.lazy(() => import('../scanner/LiveFeed.jsx'));
 
 // import Chart from './Chart.jsx';
 // import Market from './Market.jsx';
@@ -31,7 +31,7 @@ const Router = () => {
           <Route path="/config" element={<Config />} />
           <Route path="/tiingo" element={<TiingoNews />} />
           <Route path="/allnews" element={<AllNews />} />
-          <Route path="/livefeed" element={<LiveFeed />} />
+          {/* <Route path="/livefeed" element={<LiveFeed />} /> */}
           <Route path="/" element={<Market />} />
         </Routes>
       </Suspense>

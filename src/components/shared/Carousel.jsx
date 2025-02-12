@@ -1,38 +1,33 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Swipeable from 'react-easy-swipe';
+import LeftSvg from '../images/LeftSvg';
+import RightSvg from '../images/RightSvg';
 import './shared.scss';
 
 const Carousel = ({ onPrev, onNext, enabled, children }) => {
+  const handleOnPrev = useCallback(onPrev);
+  const handleOnNext = useCallback(onNext);
   return (
     <Swipeable onSwipeLeft={onPrev} onSwipeRight={onNext}>
       <div className="carousel">
-        {children}
+        <section>{children}</section>
 
-        {/* <div
-          className="left absolute top-0 w-40 h-full hover:cursor-pointer"
-          onClick={onPrev}
-        ></div>
-        <div
-          className="right absolute top-0 right-0 w-40 h-full hover:cursor-pointer"
-          onClick={onNext}
-        ></div> */}
-
-        <div className={`carousel-nav ${enabled ? '' : 'hidden'}`}>
-          <button
-            className={`hover:text-brand-blue`}
-            onClick={onPrev}
+        <aside key="carousel-button-nav" className="carousel-nav-lg">
+          <section
+            key="on-prev"
+            onClick={handleOnPrev}
             aria-label={`Go to the previous slice`}
           >
-            ◀
-          </button>
-          <button
-            className={`hover:text-brand-blue`}
-            onClick={onNext}
+            <LeftSvg />
+          </section>
+          <section
+            key="on-next"
+            onClick={handleOnNext}
             aria-label={`Go to the next slide`}
           >
-            ▶
-          </button>
-        </div>
+            <RightSvg />
+          </section>
+        </aside>
       </div>
     </Swipeable>
   );

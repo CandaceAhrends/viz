@@ -1,6 +1,6 @@
 import React from 'react';
-import SideMenu from '../navigation/SideMenu';
-import HamIconToggle from '../navigation/HamIconToggle';
+import SideMenu from '../navigation/SideMenu.jsx';
+import HamIconToggle from '../navigation/HamIconToggle.jsx';
 import { useAppSelector } from '../../hooks';
 import dayjs from 'dayjs';
 import GitHubSvg from '../images/GitHubSvg.jsx';

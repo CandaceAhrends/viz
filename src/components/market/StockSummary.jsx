@@ -1,34 +1,11 @@
-import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import React from 'react';
+
 import './market.scss';
 
-const summaryColors = ['blue', 'purple', 'orange'];
-
 const StockSummary = ({ summaryStocks }) => {
-  const [stocks, setStocks] = React.useState([]);
-  const animate = useAppSelector((state) => state.stocks.animate);
-
-  useEffect(() => {
-    if (summaryStocks) {
-      const updatedStocks = summaryStocks.map((stock, index) => {
-        const change = stock.diff;
-
-        return {
-          name: stock.symbol,
-          price: stock.vw.toFixed(2),
-          change: `${change.toFixed(2)}`,
-          percent: stock.percent.toFixed(2) + '%',
-          color: summaryColors[index],
-          isPositive: stock.isPositive,
-        };
-      });
-      setStocks(updatedStocks);
-    }
-  }, [summaryStocks]);
-
   return (
     <div className="stock-summary   md:w-[85%] lg:w-full">
-      {stocks.map((stock, index) => (
+      {summaryStocks.map((stock, index) => (
         <div
           key={stock.name}
           className={`stock ${stock.isPositive ? 'positive' : 'negative'}`}

@@ -120,6 +120,6 @@ export const debounce = (fn) => {
 
   return (...args) => {
     window.clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn(...args), 15000);
+    timeoutId = setTimeout(() => fn(...args), 500);
   };
 };

@@ -5,6 +5,7 @@ import { chartSlice } from './features/chartSlice';
 import scannerSlice from './features/scannerSlice';
 import navigationSlice from './features/navigationSlice';
 import { relatedApiSlice } from './features/relatedCompaniesSlice';
+import { scannerApiSlice } from './features/scannerApiSlice';
 import historicalDataSlice from './features/historicalDataSlice';
 import listenerMiddleware from './features/listenerMiddleware';
 
@@ -18,13 +19,15 @@ export const setupStore = (preloadedState: any) => {
       [stocksApiSlice.reducerPath]: stocksApiSlice.reducer,
       [relatedApiSlice.reducerPath]: relatedApiSlice.reducer,
       [chartSlice.reducerPath]: chartSlice.reducer,
+      [scannerApiSlice.reducerPath]: scannerApiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware().concat(
         listenerMiddleware.middleware,
         stocksApiSlice.middleware,
         relatedApiSlice.middleware,
-        chartSlice.middleware
+        chartSlice.middleware,
+        scannerApiSlice.middleware
       );
     },
     preloadedState,

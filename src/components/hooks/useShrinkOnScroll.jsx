@@ -2,20 +2,20 @@ import { useState, useEffect, useRef } from 'react';
 import { debounce } from '../../utils.js';
 
 const useShrinkOnScroll = (scrollableRef) => {
-  const [shrink, setSkrink] = useState(false);
+  const [shrink, setShrink] = useState(false);
   const prevTouchRef = useRef(null);
 
   useEffect(() => {
     const container = scrollableRef.current;
 
-    const handleScroll = debounce((e) => {
+    const handleScroll = (e) => {
       if (prevTouchRef.current) return;
-      setSkrink(e.deltaY > 0 ? 'sm' : 'lg');
-    });
+      setShrink(e.deltaY > 0 ? 'sm' : 'lg');
+    };
 
     const handleTouchMove = (e) => {
       const currentTouchY = e.touches[0].clientY;
-      setSkrink(currentTouchY < prevTouchRef.current ? 'sm' : `lg`);
+      setShrink(currentTouchY < prevTouchRef.current ? 'sm' : `lg`);
     };
 
     const handleTouchStart = (e) => {

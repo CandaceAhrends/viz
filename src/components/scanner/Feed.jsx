@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectMenu } from '../../features/navigationSlice';
 import { setFilteredStocks } from '../../features/historicalDataSlice';
+import { useListScanStocksQuery } from '../../features/scannerApiSlice';
 import { filterScannerResults, buildTiingoStocklist } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 import ViewSvg from '../images/ViewSvg';
@@ -13,6 +14,12 @@ const Feed = () => {
   const stocks = useAppSelector((state) => state.historicalData.topVolume);
   const scanConfig = useAppSelector((state) => state.scanner.config);
   const [scanResults, setScanResults] = React.useState([]);
+  const date = useAppSelector((state) => state.stocks.date);
+  const {
+    data = [],
+    error,
+    isLoading,
+  } = useListScanStocksQuery({ date, page: 2 });
 
   useEffect(() => {
     if (stocks) {

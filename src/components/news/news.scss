@@ -164,3 +164,50 @@
     font-size: 1.2rem;
   }
 }
+
+.button-group {
+  display: flex;
+  gap: 0.1rem;
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 1.7rem;
+    border: none;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    .icon {
+      margin: 0.3rem;
+      font-size: 1.2rem;
+    }
+    &.prev {
+      span.text {
+        padding-right: 0.5rem;
+      }
+    }
+    &.next {
+      span.text {
+        padding-left: 0.5rem;
+      }
+    }
+    &.disabled {
+      background-color: #f0f0f0;
+      color: #b3b3b3;
+      cursor: not-allowed;
+    }
+  }
+}

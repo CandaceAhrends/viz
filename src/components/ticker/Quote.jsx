@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppSelector } from '../../hooks';
 
-const Quote = ({ size }) => {
+const Quote = ({ shrink }) => {
   const selectedStock = useAppSelector(
     (state) => state.historicalData.selectedStock
   );
@@ -24,12 +24,12 @@ const Quote = ({ size }) => {
     <div className={`flex ${isPositive ? 'text-green' : 'text-[#ff4d4d]'}`}>
       <div
         className={`transition-all ${
-          size === 'lg' ? 'text-xxl' : 'text-lg'
+          shrink === 'lg' ? 'text-xxl' : 'text-lg'
         } font-semibold pl-2`}
       >
         {price.toFixed(2)}
       </div>
-      {size === 'lg' && (
+      {shrink === 'lg' && (
         <div className="flex flex-col pt-[.35rem] pl-3">
           <span className="text-xs font-thin">
             {Number(todaysChange).toFixed(2)}

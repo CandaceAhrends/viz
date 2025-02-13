@@ -1,59 +1,44 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { selectMenu } from '../../features/navigationSlice';
 import { setFilteredStocks } from '../../features/historicalDataSlice';
 import { useListScanStocksQuery } from '../../features/scannerApiSlice';
-import { filterScannerResults, buildTiingoStocklist } from '../../utils';
-import { useNavigate } from 'react-router-dom';
-import ViewSvg from '../images/ViewSvg';
+import { filterScannerResults } from '../../utils';
+import NewsHeader from './NewsHeader';
 import FeedList from './FeedList';
+import LoadingFallback from '../shared/LoadingFallback';
 
 const Feed = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const stocks = useAppSelector((state) => state.historicalData.topVolume);
   const scanConfig = useAppSelector((state) => state.scanner.config);
   const [scanResults, setScanResults] = React.useState([]);
   const date = useAppSelector((state) => state.stocks.date);
+  const [page, setPage] = React.useState(1);
   const {
     data = [],
     error,
     isLoading,
-  } = useListScanStocksQuery({ date, page: 2 });
+  } = useListScanStocksQuery({ date, page });
 
   useEffect(() => {
-    if (stocks) {
-      const filteredStocks = stocks.filter(filterScannerResults(scanConfig));
+    if (data && !isLoading) {
+      const filteredStocks = data?.stocks.filter(
+        filterScannerResults(scanConfig)
+      );
       dispatch(setFilteredStocks(filteredStocks));
       setScanResults([...filteredStocks]);
     }
-  }, [scanConfig, stocks]);
-
-  const showFilteredStockNews = async () => {
-    const symbols = buildTiingoStocklist(
-      scanResults.map((stock) => stock.symbol)
-    );
-    dispatch(selectMenu('news'));
-    navigate('/tiingo', { state: symbols });
-  };
+  }, [scanConfig, data]);
 
   return (
     <div>
-      <div className="flex">
-        <div
-          className="flex  hover:cursor-pointer pl-3 pt-3"
-          onClick={showFilteredStockNews}
-        >
-          <div className="view-all-button">
-            <ViewSvg />
-
-            <span className="text ml-1">
-              <span className="text-green">Current</span> News
-            </span>
-          </div>
+      <NewsHeader scanResults={scanResults} />
+      {isLoading ? (
+        <LoadingFallback />
+      ) : (
+        <div>
+          <FeedList stocks={scanResults}></FeedList>
         </div>
-      </div>
-      <FeedList stocks={scanResults}></FeedList>
+      )}
     </div>
   );
 };

@@ -11,6 +11,7 @@ const StockHeader = ({ stocks, setSortedStocks }) => {
 
   const sortByPercentChange = () => {
     setSortPercentChangeAscending(!sortPercentChangeAscending);
+
     setSortedStocks([
       ...[...stocks].sort((a, b) => {
         return sortPercentChangeAscending

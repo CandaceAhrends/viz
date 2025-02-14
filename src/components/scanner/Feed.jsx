@@ -18,7 +18,7 @@ const Feed = () => {
     data = [],
     error,
     isLoading,
-  } = useListScanStocksQuery({ date, page });
+  } = useListScanStocksQuery({ date, page, sortType: 'desc' });
 
   useEffect(() => {
     if (data && !isLoading) {

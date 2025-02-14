@@ -11,15 +11,12 @@ export const scannerApiSlice = createApi({
   endpoints: (builder) => ({
     listScanStocks: builder.query<
       ScanResponse[],
-      { date: string; page: string }
+      { date: string; page: string; sortType: string }
     >({
       query: (arg) => {
-        const { date, page } = arg;
+        const { date, page, sortType } = arg;
         console.log('fetching', page);
-        return `/topVolume/${date}/${page}`;
-      },
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName;
+        return `/topVolume/${date}/${page}/${sortType}`;
       },
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;

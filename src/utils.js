@@ -123,3 +123,13 @@ export const debounce = (fn) => {
     timeoutId = setTimeout(() => fn(...args), 500);
   };
 };
+
+const sortAsc = (key) => (a, b) => a[key] - b[key];
+const sortDesc = (key) => (a, b) => b[key] - a[key];
+
+export const sortStocksFn = ({ sortOrder, sortType }) => {
+  if (sortOrder === 'asc') {
+    return sortAsc(sortType);
+  }
+  return sortDesc(sortType);
+};

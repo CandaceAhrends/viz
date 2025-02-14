@@ -1,32 +1,34 @@
 import React, { useEffect, useState } from 'react';
+import { setConfig } from '../../features/scannerSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 const StockHeader = ({ stocks, setSortedStocks }) => {
+  const dispatch = useAppDispatch();
   const [sortPercentChangeAscending, setSortPercentChangeAscending] =
     useState(false);
   const [sortVolumeAscending, setSortVolumeAscending] = useState(false);
-
+  const scanConfig = useAppSelector((state) => state.scanner.config);
   useEffect(() => {
     setSortedStocks([...stocks]);
   }, [stocks]);
 
   const sortByPercentChange = () => {
     setSortPercentChangeAscending(!sortPercentChangeAscending);
-
-    setSortedStocks([
-      ...[...stocks].sort((a, b) => {
-        return sortPercentChangeAscending
-          ? a?.percent - b?.percent
-          : b?.percent - a?.percent;
-      }),
-    ]);
+    dispatch(
+      setConfig({
+        sortType: 'percent',
+        sortOrder: sortPercentChangeAscending ? 'asc' : 'desc',
+      })
+    );
   };
   const sortByVolume = () => {
     setSortVolumeAscending(!sortVolumeAscending);
-    setSortedStocks([
-      ...[...stocks].sort((a, b) =>
-        sortVolumeAscending ? a?.volume - b?.volume : b?.volume - a?.volume
-      ),
-    ]);
+    dispatch(
+      setConfig({
+        sortType: 'volume',
+        sortOrder: sortVolumeAscending ? 'asc' : 'desc',
+      })
+    );
   };
 
   return (

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setFilteredStocks } from '../../features/historicalDataSlice';
 import { useListScanStocksQuery } from '../../features/scannerApiSlice';
-import { filterScannerResults } from '../../utils';
+import { filterScannerResults, sortStocksFn } from '../../utils';
 import NewsHeader from './NewsHeader';
 import FeedList from './FeedList';
 import LoadingFallback from '../shared/LoadingFallback';
@@ -13,6 +13,7 @@ const Feed = () => {
   const [scanResults, setScanResults] = React.useState([]);
   const [filteredByScan, setFilteredByScan] = React.useState([]);
   const date = useAppSelector((state) => state.stocks.date);
+
   const [page, setPage] = React.useState(1);
   const {
     data = [],
@@ -31,9 +32,12 @@ const Feed = () => {
       const updatedStocks = scanResults.filter(
         filterScannerResults(scanConfig)
       );
-      setFilteredByScan(updatedStocks);
+      const sortFn = sortStocksFn(scanConfig);
+
+      setFilteredByScan(updatedStocks.sort(sortFn));
       dispatch(setFilteredStocks(updatedStocks));
     }
+    console.log(scanConfig);
   }, [scanConfig, scanResults]);
 
   return (

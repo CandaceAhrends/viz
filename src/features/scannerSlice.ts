@@ -5,6 +5,8 @@ interface Config {
   maxPrice: number;
   minChange: number;
   maxChange: number;
+  sortType: 'volume' | 'percent';
+  sortOrder: 'asc' | 'desc';
 }
 
 interface ScannerState {
@@ -16,7 +18,14 @@ interface ScannerState {
 
 const initialState: ScannerState = {
   isScannerOpen: false,
-  config: { minPrice: 0, maxPrice: 3000, minChange: -50, maxChange: 1000 },
+  config: {
+    minPrice: 0,
+    maxPrice: 3000,
+    minChange: -50,
+    maxChange: 1000,
+    sortType: 'volume',
+    sortOrder: 'desc',
+  },
   topVolume: [],
   topGainers: [],
 };
@@ -35,7 +44,7 @@ const scannerSlice = createSlice({
       state.topGainers = [...action.payload];
     },
     setConfig(state, action: PayloadAction<Config>) {
-      state.config = action.payload;
+      state.config = { ...state.config, ...action.payload };
     },
   },
 });

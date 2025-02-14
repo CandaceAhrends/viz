@@ -10,7 +10,7 @@ const FeedList = ({ stocks, setPage }) => {
 
   useEffect(() => {
     if (isIntersecting) {
-      setPage((prev) => (prev < 2 ? prev + 1 : prev));
+      //setPage((prev) => (prev < 2 ? prev + 1 : prev));
     }
   }, [isIntersecting]);
 

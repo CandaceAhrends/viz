@@ -7,7 +7,6 @@ const useIntersectionObserver = () => {
   useEffect(() => {
     let observer;
     if (observerRef.current) {
-      console.log('we haev REFF');
       observer = new IntersectionObserver(([entry]) => {
         setIsIntersecting(entry.isIntersecting);
       }, {});

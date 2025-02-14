@@ -41,7 +41,7 @@ const StockItem = ({ stock }) => {
         <div className="column text-slate-400">
           {stock.volume.toLocaleString()}
         </div>
-        <div className="column">{stock.vw}</div>
+        <div className="column">{stock.vw?.toFixed(2)}</div>
         <div className={`column ${stock.isPositive ? 'positive' : 'negative'}`}>
           {stock?.percent && computeStockGainPercentageFromOpen(stock)}
         </div>

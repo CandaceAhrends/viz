@@ -11,19 +11,21 @@ const StockHeader = ({ stocks, setSortedStocks }) => {
 
   const sortByPercentChange = () => {
     setSortPercentChangeAscending(!sortPercentChangeAscending);
-    const sortedByPercentChange = stocks.sort((a, b) => {
-      return sortPercentChangeAscending
-        ? a.percent - b.percent
-        : b.percent - a.percent;
-    });
-    setSortedStocks([...sortedByPercentChange]);
+    setSortedStocks([
+      ...[...stocks].sort((a, b) => {
+        return sortPercentChangeAscending
+          ? a?.percent - b?.percent
+          : b?.percent - a?.percent;
+      }),
+    ]);
   };
   const sortByVolume = () => {
     setSortVolumeAscending(!sortVolumeAscending);
-    const sortedByVolume = stocks.sort((a, b) =>
-      sortVolumeAscending ? a.volume - b.volume : b.volume - a.volume
-    );
-    setSortedStocks([...sortedByVolume]);
+    setSortedStocks([
+      ...[...stocks].sort((a, b) =>
+        sortVolumeAscending ? a?.volume - b?.volume : b?.volume - a?.volume
+      ),
+    ]);
   };
 
   return (

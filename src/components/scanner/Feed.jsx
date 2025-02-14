@@ -11,6 +11,7 @@ const Feed = () => {
   const dispatch = useAppDispatch();
   const scanConfig = useAppSelector((state) => state.scanner.config);
   const [scanResults, setScanResults] = React.useState([]);
+  const [filteredByScan, setFilteredByScan] = React.useState([]);
   const date = useAppSelector((state) => state.stocks.date);
   const [page, setPage] = React.useState(1);
   const {
@@ -21,22 +22,28 @@ const Feed = () => {
 
   useEffect(() => {
     if (data && !isLoading) {
-      const filteredStocks = data?.stocks.filter(
+      setScanResults([...scanResults, ...data?.stocks]);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (scanResults.length) {
+      const updatedStocks = scanResults.filter(
         filterScannerResults(scanConfig)
       );
-      dispatch(setFilteredStocks(filteredStocks));
-      setScanResults([...filteredStocks]);
+      setFilteredByScan(updatedStocks);
+      dispatch(setFilteredStocks(updatedStocks));
     }
-  }, [scanConfig, data]);
+  }, [scanConfig, scanResults]);
 
   return (
     <div>
-      <NewsHeader scanResults={scanResults} />
+      <NewsHeader stocks={filteredByScan} />
       {isLoading ? (
         <LoadingFallback />
       ) : (
         <div>
-          <FeedList stocks={scanResults}></FeedList>
+          <FeedList stocks={filteredByScan} setPage={setPage}></FeedList>
         </div>
       )}
     </div>

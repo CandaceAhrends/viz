@@ -15,7 +15,14 @@ export const scannerApiSlice = createApi({
     >({
       query: (arg) => {
         const { date, page } = arg;
+        console.log('fetching', page);
         return `/topVolume/${date}/${page}`;
+      },
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
       },
     }),
   }),

@@ -4,17 +4,19 @@ import StockItem from './StockItem';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 import './scanner.scss';
 
-const FeedList = ({ stocks }) => {
-  const containerRef = useRef(null);
+const FeedList = ({ stocks, setPage }) => {
   const [sortedStocks, setSortedStocks] = useState(stocks);
-  const [observerRef, rootRef, isIntersecting] = useIntersectionObserver();
+  const [observerRef, isIntersecting] = useIntersectionObserver();
 
   useEffect(() => {
     if (isIntersecting) {
-      console.log('isIntersecting');
+      setPage((prev) => (prev < 2 ? prev + 1 : prev));
     }
   }, [isIntersecting]);
 
+  useEffect(() => {
+    observerRef.current = document.querySelector('.stock-list__body');
+  }, []);
   return (
     <div className="ml-1 md:m-3 mr-1">
       <div className="stock-list">
@@ -22,12 +24,20 @@ const FeedList = ({ stocks }) => {
         <ul className="stock-list__body">
           {sortedStocks.map((stock, idx) => (
             <>
+              {sortedStocks.length - 1 === idx && (
+                <div
+                  style={{
+                    height: '1rem',
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                  ref={observerRef}
+                ></div>
+              )}
               <StockItem stock={stock} key={stock.symbol} />
-              {stocks.length - 10 === idx && <div ref={rootRef}></div>}
             </>
           ))}
         </ul>
-        <div ref={observerRef} className="intersection-observer"></div>
       </div>
     </div>
   );

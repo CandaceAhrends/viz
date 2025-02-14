@@ -5,14 +5,12 @@ import { selectMenu } from '../../features/navigationSlice';
 import { buildTiingoStocklist } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 
-const NewsHeader = ({ scanResults }) => {
+const NewsHeader = ({ stocks }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const showFilteredStockNews = async () => {
-    const symbols = buildTiingoStocklist(
-      scanResults.map((stock) => stock.symbol)
-    );
+    const symbols = buildTiingoStocklist(stocks.map((stock) => stock.symbol));
     dispatch(selectMenu('news'));
     navigate('/tiingo', { state: symbols });
   };

@@ -20,7 +20,8 @@ const FeedList = ({ stocks, setPage }) => {
     <div className="ml-1 md:m-3 mr-1">
       <div className="stock-list">
         <StockHeader stocks={stocks} setSortedStocks={setSortedStocks} />
-        {sortedStocks.length}--len
+        <p>Total: {sortedStocks.length}</p>
+
         <ul className="stock-list__body">
           {sortedStocks.map((stock, idx) => (
             <>

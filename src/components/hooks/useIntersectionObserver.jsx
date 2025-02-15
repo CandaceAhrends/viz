@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-const useIntersectionObserver = () => {
+const useIntersectionObserver = ({ trigger }) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const observerRef = useRef(null);
 
@@ -19,7 +19,7 @@ const useIntersectionObserver = () => {
         observer.unobserve(observerRef.current);
       }
     };
-  }, [observerRef.current]);
+  }, [trigger]);
 
   return [observerRef, isIntersecting];
 };

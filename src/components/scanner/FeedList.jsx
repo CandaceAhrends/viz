@@ -6,21 +6,21 @@ import './scanner.scss';
 
 const FeedList = ({ stocks, setPage }) => {
   const [sortedStocks, setSortedStocks] = useState(stocks);
-  const [observerRef, isIntersecting] = useIntersectionObserver();
+  const [observerRef, isIntersecting] = useIntersectionObserver({
+    trigger: sortedStocks,
+  });
 
   useEffect(() => {
     if (isIntersecting) {
-      //setPage((prev) => (prev < 2 ? prev + 1 : prev));
+      setPage((prev) => (prev < 8 ? prev + 1 : prev));
     }
   }, [isIntersecting]);
 
-  useEffect(() => {
-    observerRef.current = document.querySelector('.stock-list__body');
-  }, []);
   return (
     <div className="ml-1 md:m-3 mr-1">
       <div className="stock-list">
         <StockHeader stocks={stocks} setSortedStocks={setSortedStocks} />
+        {sortedStocks.length}--len
         <ul className="stock-list__body">
           {sortedStocks.map((stock, idx) => (
             <>

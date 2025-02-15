@@ -37,7 +37,6 @@ const Feed = () => {
       setFilteredByScan(updatedStocks.sort(sortFn));
       dispatch(setFilteredStocks(updatedStocks));
     }
-    console.log(scanConfig);
   }, [scanConfig, scanResults]);
 
   return (

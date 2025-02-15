@@ -7,7 +7,7 @@ const StockHeader = ({ stocks, setSortedStocks }) => {
   const [sortPercentChangeAscending, setSortPercentChangeAscending] =
     useState(false);
   const [sortVolumeAscending, setSortVolumeAscending] = useState(false);
-  const scanConfig = useAppSelector((state) => state.scanner.config);
+
   useEffect(() => {
     setSortedStocks([...stocks]);
   }, [stocks]);

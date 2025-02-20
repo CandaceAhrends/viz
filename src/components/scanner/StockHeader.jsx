@@ -45,7 +45,7 @@ const StockHeader = ({ stocks, setSortedStocks }) => {
         className="column hover:text-brand-blue hover:cursor-pointer"
         onClick={sortByPercentChange}
       >
-        % Change<span className="sort-icon">⇅</span>
+        Change<span className="sort-icon">⇅</span>
       </div>
     </div>
   );
